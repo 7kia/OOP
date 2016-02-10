@@ -91,11 +91,23 @@ bool checkParametrs(int argc , char *argv[])
 			std::cout << "Number input system notation is not number!!!" << argc << std::endl;
 			isError = true;
 		}
+		else if (atoi(argv[1]) < 0)
+		{
+			std::cout << "Number input system notation is negative!!!" << argc << std::endl;
+			isError = true;
+		}
+
 		if (!isdigit(*argv[2]))
 		{
 			std::cout << "Number output system notation is not number!!!" << argc << std::endl;
 			isError = true;
 		}
+		else if (atoi(argv[2]) < 0)
+		{
+			std::cout << "Number input system notation is negative!!!" << argc << std::endl;
+			isError = true;
+		}
+
 
 		if (!checkInputNumber(argv[3] , atoi(argv[1])))
 		{
