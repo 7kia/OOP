@@ -29,7 +29,7 @@ bool checkParametrs(int argc , char *argv[])
 	return false;
 }
 
-void FillMatrixFromFile(const char* nameFile , float (*matrix)[SIZE_MATRIX])
+void FillMatrixFromFile(const char* nameFile , double(*matrix)[SIZE_MATRIX])
 {
 	FILE* inputFile;
 
@@ -46,14 +46,13 @@ void FillMatrixFromFile(const char* nameFile , float (*matrix)[SIZE_MATRIX])
 	}
 
 	fclose(inputFile);
-
 }
 
 int main(int argc , char *argv[])
 {
 	if (checkParametrs(argc , argv))
 	{
-		float matrix[SIZE_MATRIX][SIZE_MATRIX];
+		double matrix[SIZE_MATRIX][SIZE_MATRIX];
 
 		char fullNameFile[SIZE_CHAR_BUFFER];
 		strcpy_s(fullNameFile, SIZE_CHAR_BUFFER, argv[1]);
@@ -64,9 +63,8 @@ int main(int argc , char *argv[])
 		std::cout << MyFunctions::GetDeterminate(matrix) << std::setprecision(1) << std::fixed << 3 << std::endl;
 	}
 
-
 	std::cout << "Press any key for exit..." << std::endl;
 	_getch();
 
-    return 0;
+   return 0;
 }

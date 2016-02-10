@@ -20,12 +20,12 @@ namespace MyFunctions
 	bool CheckLoadFile(FILE **file , char const *name , char const *mode);
 	bool IsSpaceSymbol(char symbol);
 	void resetString(char* array);
-	float ReadNumber(FILE *file);
+	double ReadNumber(FILE *file);
 	void ConstructFullFileName(char* name , const char* format);
 
-	float GetDeterminate(float(*matrix)[2]);
-	float GetDeterminate(float(*matrix)[3]);
-	float GetMinor(float(*matrix)[3] , uint x , uint y);
+	double GetDeterminate(double(*matrix)[2]);
+	double GetDeterminate(double(*matrix)[3]);
+	double GetMinor(double(*matrix)[3] , uint x , uint y);
 
 	bool IsInList(Vector2U value ,const std::vector<Vector2U> &list);
 
