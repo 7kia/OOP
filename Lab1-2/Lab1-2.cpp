@@ -104,7 +104,7 @@ bool checkParametrs(int argc , char *argv[])
 		}
 		else if (atoi(argv[2]) < 0)
 		{
-			std::cout << "Number input system notation is negative!!!" << argc << std::endl;
+			std::cout << "Number output system notation is negative!!!" << argc << std::endl;
 			isError = true;
 		}
 
@@ -135,6 +135,11 @@ int TranslateStringToNumber(std::string str , int numberNotation)
 		multiplier = CharToInt(str[i]);
 
 		result += multiplier * int(pow(numberNotation , degree));
+		if ((result > INTMAX_MAX) || (result < INTMAX_MIN))
+		{
+			throw "Number not include in diaposon type int.";
+		}
+			
 		degree++;
 	}
 
