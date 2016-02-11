@@ -86,7 +86,7 @@ bool checkParametrs(int argc , char *argv[])
 	{
 		bool isError = false;
 
-		if (!isdigit(*argv[1]))
+		if (!isalpha(*argv[1]))
 		{
 			std::cout << "Number input system notation is not number!!!" << argc << std::endl;
 			isError = true;
@@ -97,7 +97,7 @@ bool checkParametrs(int argc , char *argv[])
 			isError = true;
 		}
 
-		if (!isdigit(*argv[2]))
+		if (!isalpha(*argv[2]))
 		{
 			std::cout << "Number output system notation is not number!!!" << argc << std::endl;
 			isError = true;
@@ -122,23 +122,35 @@ bool checkParametrs(int argc , char *argv[])
 	return false;
 }
 
+int checked_add(int arg1, int arg2) {
+    double result = static_cast<double>(arg1) + static_cast<double>(arg2);
+    if (result > std::numeric_limits<int>::max() ||
+        result < std::numeric_limits<int>::min())
+        throw std::overflow_error("Integer overflow");
+    return static_cast<int>(result);
+}
+
 int TranslateStringToNumber(std::string str , int numberNotation)
 {
 	int multiplier = 0;
 	int degree = 0;
 	int result = 0;
+	int summand = 0;
 
 	bool isSigned = (str[0] == '-');
 	int endValue = DefineStartValue(0 , 1 , str[0] == '-');
 	for (int i = int(str.size()) - 1; i >= endValue; i--)
 	{
 		multiplier = CharToInt(str[i]);
+		summand = multiplier * int(pow(numberNotation , degree));
 
-		result += multiplier * int(pow(numberNotation , degree));
-		if ((result > INTMAX_MAX) || (result < INTMAX_MIN))
+		if (result > (result + summand))
 		{
-			throw "Number not include in diaposon type int.";
+			std::cout << "Number not include in diaposon type int." << std::endl;
+			break;
 		}
+
+		result += summand;
 			
 		degree++;
 	}
