@@ -9,10 +9,5 @@
 
 #include <stdio.h>
 #include <tchar.h>
-#include <assert.h>// for assert()
-#include <iostream>// for std::cin and std::cout
-#include <conio.h>// for _getch()
-#include <string>
-
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
