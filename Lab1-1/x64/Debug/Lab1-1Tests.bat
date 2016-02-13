@@ -1,16 +1,16 @@
-REM Проверка на маленьком файле
+п»їREM РџСЂРѕРІРµСЂРєР° РЅР° РјР°Р»РµРЅСЊРєРѕРј С„Р°Р№Р»Рµ
 Lab1-1.exe input1.txt output1.txt ma FIX
 IF ERRORLEVEL 1 GOTO err
 
-REM Проверка файле побольше
+REM РџСЂРѕРІРµСЂРєР° С„Р°Р№Р»Рµ РїРѕР±РѕР»СЊС€Рµ
 Lab1-1.exe input2.txt output2.txt char FIXCHAR
 IF ERRORLEVEL 1 GOTO err
 
-REM Проверка случая описанного в условии задачи(который был выделен красным цветом)
+REM РџСЂРѕРІРµСЂРєР° СЃР»СѓС‡Р°СЏ РѕРїРёСЃР°РЅРЅРѕРіРѕ РІ СѓСЃР»РѕРІРёРё Р·Р°РґР°С‡Рё(РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РІС‹РґРµР»РµРЅ РєСЂР°СЃРЅС‹Рј С†РІРµС‚РѕРј)
 Lab1-1.exe input3.txt output3.txt 1231234 FIX
 IF ERRORLEVEL 1 GOTO err
 
-REM Проверка на большом файле
+REM РџСЂРѕРІРµСЂРєР° РЅР° Р±РѕР»СЊС€РѕРј С„Р°Р№Р»Рµ
 Lab1-1.exe input4.txt output4.txt char FIXCHAR
 IF ERRORLEVEL 1 GOTO err
 
@@ -20,7 +20,7 @@ IF ERRORLEVEL 1 GOTO err
 Lab1-1.exe input6.txt output6.txt ma MA
 IF ERRORLEVEL 1 GOTO err
 
-REM Запуск с неправильными данными
+REM Р—Р°РїСѓСЃРє СЃ РЅРµРїСЂР°РІРёР»СЊРЅС‹РјРё РґР°РЅРЅС‹РјРё
 Lab1-1.exe input1.txt output1.txt FIX
 IF ERRORLEVEL 1 GOTO err
 
