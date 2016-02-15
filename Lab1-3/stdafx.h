@@ -15,6 +15,5 @@
 #include <iostream>// for std::cin and std::cout
 #include <assert.h>
 #include <vector>
-#include <iomanip>// for setw()
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
