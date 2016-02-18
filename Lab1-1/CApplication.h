@@ -6,8 +6,15 @@
 #include <string>
 #include <iostream>// for std::cin and std::cout
 #include <fstream>
+<<<<<<< master
 #include <time.h> // for clock()
 #include <sys/stat.h>// for search file size
+=======
+#include <iomanip>// for setprecision
+
+#include <boost\chrono.hpp>
+#include <boost/timer/timer.hpp>
+>>>>>>> local
 
 class CApplication
 {
@@ -25,12 +32,16 @@ private:
 	const std::string MESSAGE_VERY_BIG_FILE = " have length more two gigabytes!";
 
 	const int AMOUNT_ARGUMENTS = 5;
+<<<<<<< master
 	const int BYTE_IN_KILOBYTE = 1024;
 	const int BYTE_IN_MEGABYTE = BYTE_IN_KILOBYTE * 1024;
 	const int BYTE_IN_GIGABYTE = BYTE_IN_MEGABYTE * 1024;
 	const int MAX_FILE_SIZE = 2 * BYTE_IN_GIGABYTE;
 
 	bool isCorrectInputDate = false;
+=======
+	const int ROUNDING_NUMBER = 5;
+>>>>>>> local
 
 	std::string nameInputFile;
 	std::string nameOutputFile;
