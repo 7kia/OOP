@@ -6,8 +6,6 @@
 #include <string>
 #include <iostream>// for std::cin and std::cout
 #include <fstream>
-#include <time.h> // for clock()
-#include <cctype>
 
 #include <boost\timer\timer.hpp>
 

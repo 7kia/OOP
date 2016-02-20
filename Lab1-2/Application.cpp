@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "CApplication.h"
+#include "Application.h"
 
 using namespace std;
 

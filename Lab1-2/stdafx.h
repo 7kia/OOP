@@ -12,6 +12,6 @@
 #include <assert.h>// for assert()
 #include <iostream>// for std::cin and std::cout
 #include <string>
-#include "climits"
+#include <climits>
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

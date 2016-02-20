@@ -28,7 +28,7 @@ radix.exe 16 10 1F
 корректно).
 */
 #include "stdafx.h"
-#include "CApplication.h"
+#include "Application.h"
 
 using namespace std;
 
