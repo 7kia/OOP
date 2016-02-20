@@ -4,16 +4,13 @@
 #include "stdafx.h"
 #include "CApplication.h"
 
-static const int ROUNDING_NUMBER = 5;
-
 int main(int argc , char *argv[])
 {
-
 	boost::timer::cpu_timer timer;
 
 	timer.start();
 
-	if (!ReplaceSubstringInFile())
+	if (!ReplaceSubstringInFile(argc, argv))
 	{
 		return 1;
 	}

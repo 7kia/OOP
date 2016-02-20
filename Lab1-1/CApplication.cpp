@@ -3,56 +3,86 @@
 
 using namespace std;
 
-void InitializeProgram(int argc , char * argv[])
+
+bool CheckParametrs(int argc, char *argv[])
+{
+	if (argc == AMOUNT_ARGUMENTS)
+	{
+		return true;
+	}
+	cout << MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS) << endl;
+
+	return false;
+}
+
+bool OpenFiles(const string &nameInputFile, const string &nameOutputFile,
+	ifstream &inputFile, fstream &outputFile)
+{
+	inputFile.open(nameInputFile);
+	if (!inputFile.is_open())
+	{
+		cout << MESSAGE_FAILED_OPEN + nameInputFile + MESSAGE_FAILED_OPEN_FOR_READING << endl;
+		return false;
+	}
+
+	outputFile.open(nameOutputFile);
+	if (!outputFile.is_open())
+	{
+		cout << MESSAGE_FAILED_OPEN + nameOutputFile + MESSAGE_FAILED_OPEN_FOR_WRITING << endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool ReplaceSubstringInFile(int argc , char * argv[])
 {
 	if (CheckParametrs(argc , argv))
 	{
-		if (OpenFiles(argv[1] , argv[2]))
+		ifstream inputFile;
+		fstream outputFile;
+		if (OpenFiles(argv[1] , argv[2], inputFile, outputFile))
 		{
-			m_searchString = argv[3];
-			m_replaceString = argv[4];
+			string searchString = argv[3];
+			string replaceString = argv[4];
+
+			SearchString(inputFile, outputFile, searchString, replaceString);
 		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
 	}
 }
 
-CApplication::~CApplication()
-{
-	std::cout << boost::timer::format(timer.elapsed(), ROUNDING_NUMBER, "%u") << std::endl;
-}
-
-void CApplication::SearchString()
+void SearchString(ifstream &inputFile, fstream &outputFile, const string &searchString, const string &replaceString)
 {
 	string stringFromFile;
 
-	timer.start();
-
-	while (getline(m_inputFile , stringFromFile, m_inputFile.widen('\n')))
+	while (getline(inputFile, stringFromFile, inputFile.widen('\n')))
 	{
-		//stringFromFile += '\n';
-
-		//ProcessStringFromFile(stringFromFile);
-
-		/*
-				if (stringFromFile.size() != 0)
+		if (stringFromFile.size() != 0)
 		{
-			boost::replace_all(stringFromFile, m_searchString, m_replaceString);
+			boost::replace_all(stringFromFile, searchString, replaceString);
 		}
 
-		if (m_inputFile.peek() != EOF)
+		if (inputFile.peek() != EOF)
 		{
 			stringFromFile += "\n";
 		}
-		m_outputFile << stringFromFile;
+		outputFile << stringFromFile;
 
-		*/
 	}
 
-	timer.stop();
 }
-///*
-void CApplication::ProcessStringFromFile(const string &stringFromFile)
+/*
+void ProcessStringFromFile(const string &stringFromFile, const string &searchString, const string &replaceString)
 {
-	size_t searchStringLength = m_searchString.size();
+	size_t searchStringLength = searchString.size();
 	size_t lengthStringFromFile = stringFromFile.size();
 	size_t index = 0;
 	size_t foundIndex = 0;
@@ -60,15 +90,15 @@ void CApplication::ProcessStringFromFile(const string &stringFromFile)
 	string outputString;
 	while ((index < lengthStringFromFile) && (foundIndex != string::npos))
 	{
-		foundIndex = stringFromFile.find(m_searchString[0], index);
+		foundIndex = stringFromFile.find(searchString[0], index);
 
 		if (foundIndex != string::npos)
 		{
 			outputString.append(stringFromFile.begin() + index, stringFromFile.begin() + foundIndex - index);
 
-			if (stringFromFile.substr(foundIndex, searchStringLength) == m_searchString)
+			if (stringFromFile.substr(foundIndex, searchStringLength) == searchString)
 			{
-				outputString.append(m_replaceString);
+				outputString.append(replaceString);
 				index = foundIndex + searchStringLength;
 			}
 			else
@@ -86,29 +116,3 @@ void CApplication::ProcessStringFromFile(const string &stringFromFile)
 }
 
 //*/
-
-bool CApplication::CheckParametrs(int argc , char *argv[])
-{
-	if (argc == AMOUNT_ARGUMENTS)
-	{
-		return true;
-	}	
-	throw MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS);	
-}
-
-bool CApplication::OpenFiles(const string &nameInputFile, const string &nameOutputFile)
-{
-	m_inputFile.open(nameInputFile);
-	if (!m_inputFile.is_open())
-	{
-		throw MESSAGE_FAILED_OPEN + nameInputFile + MESSAGE_FAILED_OPEN_FOR_READING;		
-	}
-
-	m_outputFile.open(nameOutputFile);
-	if (!m_outputFile.is_open())
-	{
-		throw MESSAGE_FAILED_OPEN + nameOutputFile + MESSAGE_FAILED_OPEN_FOR_WRITING;	
-	}
-
-	return true;
-}
