@@ -14,21 +14,38 @@ void CheckParametrs(int argc, char *argv[])
 {
 	if (argc != AMOUNT_ARGUMENTS)
 	{
-		if()
 		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS));
+	}
+
+	std::string inputNotation = argv[1];
+	for (auto digit : inputNotation)
+	{
+		if (!isdigit(digit))
+		{
+			throw invalid_argument(MESSAGE_INCORRECT_INPUT_NOTATION);
+		}
+	}
+
+	std::string outputNotation = argv[2];
+	for (auto digit : outputNotation)
+	{
+		if (!isdigit(digit))
+		{
+			throw invalid_argument(MESSAGE_INCORRECT_OUTPUT_NOTATION);
+		}
 	}
 }
 
-void CheckNotations(char* inputNotaion, char* outputNotation)
+void CheckNotations(int inputNotaion, int outputNotation)
 {
-	if (!isalnum(*inputNotaion))
+	if (!IsBetween(inputNotaion, MIN_NOTATION, MAX_NOTATION))
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_INPUT_NOTATION);
+		throw invalid_argument(MESSAGE_INCORRECT_RANGE_INPUT_NOTATION);
 	}
 
-	if (!isalnum(*outputNotation))
+	if (!IsBetween(outputNotation, MIN_NOTATION, MAX_NOTATION))
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_OUTPUT_NOTATION);
+		throw invalid_argument(MESSAGE_INCORRECT_RANGE_OUTPUT_NOTATION);
 	}
 }
 
@@ -64,7 +81,7 @@ void CheckValue(const string &number, const int numberInputNotation)
 
 bool IsFirstSymbolMathematic(const string &input)
 {
-	if ((input[0] == '-') && (input[0] == '+'))
+	if ((input[0] == '-') || (input[0] == '+'))
 	{
 		if (input.size() < 2)
 		{
@@ -75,7 +92,7 @@ bool IsFirstSymbolMathematic(const string &input)
 
 	return false;
 }
-
+/*
 bool CApplication::Run()
 {
 	if (isCorrectInputDate)
@@ -102,6 +119,7 @@ bool CApplication::Run()
 
 	return false;
 }
+
 
 bool CApplication::CheckParametrs(int argc , char *argv[])
 {
@@ -138,6 +156,8 @@ int CApplication::DefineStartValue(int defaultValue , int alternateValue , bool 
 	return defaultValue;
 }
 
+*/
+
 int CharToInt(char character)
 {
 	if (IsBetween(character , 'A' , 'Z'))
@@ -156,89 +176,94 @@ int CharToInt(char character)
 	return ERROR_CODE;
 }
 
-bool CApplication::CheckAbsoluteValue(const std::string &input)
+void CheckNumericLimitForAddition(int source , int summand)
 {
-	for (auto symbol : input)
-	{
-		if (!isalnum(symbol))
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool CApplication::CheckInputNumber()
-{
-	size_t lengthNumber = inputNumber.size();
-
-	if (lengthNumber == 0)
-	{
-		return false;
-	}
-
-	if (IsFirstSymbolMathematic(inputNumber))
-	{
-		inputNumber = inputNumber.substr(1 , lengthNumber - 1);
-		lengthNumber--;
-	}
-
-	if (!CheckAbsoluteValue(inputNumber))
-	{
-		return false;
-	}
-
-	unsigned int valueSymbol;
-	for (auto symbol : inputNumber)
-	{
-		valueSymbol = CharToInt(symbol);
-		if ((valueSymbol > numberInputNotation) || (valueSymbol == ERROR_CODE))
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool CApplication::CheckNumericLimitForAddition(int source , int summand)
-{
-
-
 	if ((source > (source + summand)))
 	{
 		throw overflow_error(MESSAGE_OVERFLOW);
-		return false;
 	}
 	else if ((source < (source + summand)))
 	{
 		throw underflow_error(MESSAGE_UNDERFLOW);
-		return false;
 	}
-
-	return true;
 }
 
-bool CApplication::CheckNumericLimitForMultiplication(int source , int multiplier)
+void CheckNumericLimitForMultiplication(int source , int multiplier)
 {
 	if ((std::numeric_limits<int>::max() / multiplier) < source)
 	{
 		throw overflow_error(MESSAGE_OVERFLOW);
-		return false;
 	}
 	else if ((std::numeric_limits<int>::min() / multiplier) > source)
 	{
 		throw underflow_error(MESSAGE_UNDERFLOW);
-		return false;
 	}
-
-	return true;
 }
 
-// TODO : delete const if not need
-int TranslateStringToNumber(const std::string &input, const int &numberNotation)
+/////////////
+int AddAndOverflowCheck(int source, int summand, bool isNegative)
 {
+	if (isNegative)
+	{
+		summand *= -1;
+	}
+
+	if ((summand > 0) && (source > (std::numeric_limits<int>::max() - summand)))
+	{
+		throw overflow_error(MESSAGE_OVERFLOW);
+	}
+	if ((summand < 0) && (source < (std::numeric_limits<int>::min() - summand)))
+	{
+		throw underflow_error(MESSAGE_UNDERFLOW);
+	}
+
+	if (isNegative)
+	{
+		summand *= -1;
+	}
+
+	return source + summand;
+}
+
+int MultiplicationAndOverflowCheck(int source, int summand, bool isNegative)
+{
+	if (source != 0)
+	{
+		if (isNegative)
+		{
+			summand *= -1;
+		}
+
+
+		if ((summand > 0) && (summand > (std::numeric_limits<int>::max() / source)))// TODo
+		{
+			throw overflow_error(MESSAGE_OVERFLOW);
+		}
+		if ((summand < 0) && (summand < (std::numeric_limits<int>::min() / source)))
+		{
+			throw underflow_error(MESSAGE_UNDERFLOW);
+		}
+
+		if (isNegative)
+		{
+			summand *= -1;
+		}
+	}
+
+
+
+	return source * summand;
+
+}
+/////////////////
+
+// TODO : delete const if not need
+int TranslateStringToNumber(std::string input, const int &numberNotation)
+{
+	bool isSigned = isNegative(input);
+	RemoveMathematicSymbol(input);
+	CheckValue(input, numberNotation);
+
 	int multiplier = 0;
 	int degree = 0;
 	int result = 0;
@@ -253,17 +278,11 @@ int TranslateStringToNumber(const std::string &input, const int &numberNotation)
 	{
 		multiplier = CharToInt(digit);
 
-		if (!CheckNumericLimitForMultiplication(static_cast<int>(pow(numberNotation , degree - 1)) , numberNotation))
-		{
-			break;
-		}
-		summand = multiplier * static_cast<int>(pow(numberNotation , degree));
+		summand = MultiplicationAndOverflowCheck(static_cast<int>(pow(numberNotation, degree)), numberNotation, isSigned);
+		// multiplier * static_cast<int>(pow(numberNotation , degree));
 
-		if (!CheckNumericLimitForAddition(result , summand))
-		{
-			break;
-		}
-		result += summand;
+		result = AddAndOverflowCheck(result, summand, isSigned);
+		//+= summand;
 
 		degree++;
 	}
@@ -284,7 +303,7 @@ std::string TranslateIntToString(int result , int numberOutputNotation)
 	int remain = 1;
 	if (result != 0)
 	{
-		isSigned = result < 0;
+		bool isSigned = result < 0;
 
 		unsigned int absoluteValue = abs(result);
 		while (absoluteValue > 0)
