@@ -6,7 +6,6 @@
 #include <string>
 #include <iostream>// for std::cin and std::cout
 #include <fstream>
-#include <iomanip>// for setprecision
 
 static const int AMOUNT_ARGUMENTS = 5;
 static const int ROUNDING_NUMBER = 5;
