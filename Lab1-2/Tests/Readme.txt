@@ -1,0 +1,1 @@
+For testing transfer there exe-file from Debug or Release version.
