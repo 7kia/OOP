@@ -6,15 +6,11 @@
 #include <string>
 #include <iostream>// for std::cin and std::cout
 #include <fstream>
-<<<<<<< master
-#include <time.h> // for clock()
-#include <sys/stat.h>// for search file size
-=======
 #include <iomanip>// for setprecision
 
-#include <boost\chrono.hpp>
+#include <boost/chrono.hpp>
 #include <boost/timer/timer.hpp>
->>>>>>> local
+#include <boost/algorithm/string.hpp>
 
 class CApplication
 {
@@ -22,7 +18,7 @@ public:
 	CApplication(int argc , char *argv[]);
 	~CApplication();
 
-	bool Run();
+	void SearchString();
 
 private:
 	const std::string MESSAGE_FAILED_OPEN = "Failed to open ";
@@ -32,40 +28,27 @@ private:
 	const std::string MESSAGE_VERY_BIG_FILE = " have length more two gigabytes!";
 
 	const int AMOUNT_ARGUMENTS = 5;
-<<<<<<< master
-	const int BYTE_IN_KILOBYTE = 1024;
-	const int BYTE_IN_MEGABYTE = BYTE_IN_KILOBYTE * 1024;
-	const int BYTE_IN_GIGABYTE = BYTE_IN_MEGABYTE * 1024;
-	const int MAX_FILE_SIZE = 2 * BYTE_IN_GIGABYTE;
-
-	bool isCorrectInputDate = false;
-=======
 	const int ROUNDING_NUMBER = 5;
->>>>>>> local
 
-	std::string nameInputFile;
-	std::string nameOutputFile;
+	std::string m_searchString;
+	std::string m_replaceString;
 
-	std::string searchString;
-	std::string replaceString;
+	std::ifstream m_inputFile;
+	std::ofstream m_outputFile;
 
-	std::ifstream inputFile;
-	std::ofstream outputFile;
-
-	size_t startTime;
-	size_t endTime;
-
+	boost::timer::cpu_timer timer;
 private:
 	bool CheckParametrs(int argc , char *argv[]);
 
-	bool OpenFiles();
-	bool CheckFileSize(std::ifstream & inputFile);
-	bool CheckFileForReading(std::ifstream &file);
-	bool CheckFileForWriting(std::ofstream &file);
+	bool OpenFiles(const std::string & nameInputFile , const std::string & nameOutputFile);
 
-	void SearchString();
 	void ProcessStringFromFile(const std::string &stringFromFile);
-	bool SearchEqualSymbols(size_t position, const std::string & currentString, const std::string & searchString);
 };
+
+bool CheckParametrs(int argc, char *argv[]);
+
+bool OpenFiles(const std::string & nameInputFile, const std::string & nameOutputFile);
+
+void ProcessStringFromFile(const std::string &stringFromFile);
 
 #endif

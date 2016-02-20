@@ -97,8 +97,3 @@ int main(int argc , FIXCHAR *argv[])
 	_getch();
    return 0;
 }
-
-<<<<<<< master
-
-=======
->>>>>>> local
