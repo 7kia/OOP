@@ -10,25 +10,70 @@ bool IsBetween(const T& value , const T& lowerBound , const T& upperBound)
 	return (value >= lowerBound) && (value <= upperBound);
 }
 
-CApplication::CApplication(int argc , char * argv[])
+void CheckParametrs(int argc, char *argv[])
 {
-	startTime = clock();
-
-	if (CheckParametrs(argc , argv))
+	if (argc != AMOUNT_ARGUMENTS)
 	{
-		isCorrectInputDate = true;
-	}
-	else
-	{
-		isCorrectInputDate = false;
+		if()
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS));
 	}
 }
 
-CApplication::~CApplication()
+void CheckNotations(char* inputNotaion, char* outputNotation)
 {
-	endTime = clock();
+	if (!isalnum(*inputNotaion))
+	{
+		throw invalid_argument(MESSAGE_INCORRECT_INPUT_NOTATION);
+	}
 
-	std::cout << "Time " << static_cast<float>(endTime - startTime) / 1000.f << " second" << std::endl;
+	if (!isalnum(*outputNotation))
+	{
+		throw invalid_argument(MESSAGE_INCORRECT_OUTPUT_NOTATION);
+	}
+}
+
+void RemoveMathematicSymbol(std::string & number)
+{
+	if (IsFirstSymbolMathematic(number))
+	{
+		number = number.substr(1, number.size());
+	}
+}
+
+bool isNegative(const string &number)
+{
+	if (number[0] == '-')
+	{
+		return true;
+	}
+	return false;
+}
+
+void CheckValue(const string &number, const int numberInputNotation)
+{
+	int valueSymbol;
+	for (auto symbol : number)
+	{
+		valueSymbol = CharToInt(symbol);
+		if ((valueSymbol > numberInputNotation) || (valueSymbol == ERROR_CODE))
+		{
+			throw invalid_argument(MESSAGE_INCORRECT_INPUT_NUMBER);
+		}
+	}
+}
+
+bool IsFirstSymbolMathematic(const string &input)
+{
+	if ((input[0] == '-') && (input[0] == '+'))
+	{
+		if (input.size() < 2)
+		{
+			throw invalid_argument(MESSAGE_INCORRECT_INPUT_NUMBER);
+		}
+		return true;
+	}
+
+	return false;
 }
 
 bool CApplication::Run()
@@ -83,23 +128,6 @@ bool CApplication::CheckParametrs(int argc , char *argv[])
 	return false;
 }
 
-bool CApplication::CheckNotation(char* inputNotaion , char* outputNotation)
-{
-	if (!isalnum(*inputNotaion))
-	{
-		std::cout << MESSAGE_INCORRECT_INPUT_NOTATION << std::endl;
-		return false;
-	}
-
-	if (!isalnum(*outputNotation))
-	{
-		std::cout << MESSAGE_INCORRECT_OUTPUT_NOTATION << std::endl;
-		return false;
-	}
-
-	return true;
-}
-
 // TODO : delete
 int CApplication::DefineStartValue(int defaultValue , int alternateValue , bool condition)
 {
@@ -110,7 +138,7 @@ int CApplication::DefineStartValue(int defaultValue , int alternateValue , bool 
 	return defaultValue;
 }
 
-int CApplication::CharToInt(char character)
+int CharToInt(char character)
 {
 	if (IsBetween(character , 'A' , 'Z'))
 	{
@@ -128,21 +156,6 @@ int CApplication::CharToInt(char character)
 	return ERROR_CODE;
 }
 
-bool CApplication::IsFirstSymbolMathematic(const std::string &input)
-{
-	if (input[0] == '-')
-	{
-		isSigned = true;
-		return true;
-	}
-	else if (input[0] == '+')
-	{
-		return true;
-	}
-
-	return false;
-}
-
 bool CApplication::CheckAbsoluteValue(const std::string &input)
 {
 	for (auto symbol : input)
@@ -156,7 +169,7 @@ bool CApplication::CheckAbsoluteValue(const std::string &input)
 	return true;
 }
 
-bool CApplication::checkInputNumber()
+bool CApplication::CheckInputNumber()
 {
 	size_t lengthNumber = inputNumber.size();
 
@@ -224,7 +237,7 @@ bool CApplication::CheckNumericLimitForMultiplication(int source , int multiplie
 }
 
 // TODO : delete const if not need
-int CApplication::TranslateStringToNumber(const std::string &input, const int &numberNotation)
+int TranslateStringToNumber(const std::string &input, const int &numberNotation)
 {
 	int multiplier = 0;
 	int degree = 0;
@@ -235,9 +248,10 @@ int CApplication::TranslateStringToNumber(const std::string &input, const int &n
 	// There use int instead size_t because, condition break loop is index > 0
 	int endValue = 0;
 	int startValue = static_cast<int>(input.size()) - 1;
-	for (int index = startValue; index >= endValue; index--)
+
+	for (auto digit : input)
 	{
-		multiplier = CharToInt(input[index]);
+		multiplier = CharToInt(digit);
 
 		if (!CheckNumericLimitForMultiplication(static_cast<int>(pow(numberNotation , degree - 1)) , numberNotation))
 		{
@@ -262,7 +276,7 @@ int CApplication::TranslateStringToNumber(const std::string &input, const int &n
 	return result;
 }
 
-std::string CApplication::TranslateIntToString(int result , int numberOutputNotation)
+std::string TranslateIntToString(int result , int numberOutputNotation)
 {
 	std::string outputNumber;
 
