@@ -1,0 +1,100 @@
+// Task1.cpp: îïðåäåëÿåò òî÷êó âõîäà äëÿ êîíñîëüíîãî ïðèëîæåíèÿ.
+//
+
+#include "stdafx.h"
+
+static const unsigned int SIZE_CHAR_BUFFER = 255;
+
+bool FileIsOpen(FILE **file , const char *nameFile , const char *mode)
+{
+	errno_t eInputFile = fopen_s(file , nameFile , mode);
+
+	//assert(eInputFile == 0);// TODO : wiil do correct check
+	if (eInputFile > 0)
+	{
+		std::cout << "File " << nameFile << " is not open!!!" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+void resetArray(char* array, int size, char value)
+{
+	for (size_t id = 0; id < size; id++)
+	{
+		array[id] = value;
+	}
+}
+
+int main(int argc , char *argv[])
+{
+	const char* nameInputFile = "input.txt";
+	const char* nameOutputFile = "output.txt";
+	const char* searchString = "123";
+	const char* replaceString = "sdfxg";
+
+	FILE* inputFile;
+	FILE* outputFile;
+
+	errno_t eInputFile = fopen_s(&inputFile , nameInputFile , "r");
+	errno_t eOutputFile = fopen_s(&outputFile , nameOutputFile , "w");
+
+	if ((eInputFile == 0)
+			&& (eOutputFile == 0))
+	{
+		char currentChar;
+		unsigned int idCheckSymbol = 0;
+		unsigned int countÑoincidence = 0;
+
+		char charBuffer[SIZE_CHAR_BUFFER];
+		resetArray(charBuffer , SIZE_CHAR_BUFFER, '\0');
+
+		while (!feof(inputFile))
+		{
+			currentChar = getc(inputFile);
+
+			//std::cout << currentChar << std::endl;
+			if (currentChar == searchString[idCheckSymbol])
+			{
+				charBuffer[idCheckSymbol] = currentChar;
+				idCheckSymbol++;
+				if (idCheckSymbol == strlen(searchString))
+				{
+					countÑoincidence++;
+					idCheckSymbol = 0;
+
+					resetArray(charBuffer , SIZE_CHAR_BUFFER , '\0');
+					fputs(replaceString , outputFile);
+				}
+			}
+			else
+			{
+				if (strlen(charBuffer) > 0)
+				{
+					fputs(charBuffer , outputFile);
+
+				}
+				fputc(currentChar , outputFile);
+				
+
+
+				resetArray(charBuffer , SIZE_CHAR_BUFFER , '\0');
+				idCheckSymbol = 0;
+			}
+		}
+		std::cout << "Number coincidence = " << countÑoincidence << std::endl;
+
+	}
+	else 
+	{
+		return
+	}
+
+	fclose(inputFile);
+	fclose(outputFile);
+
+	std::cout << "Press any key for exit..." << std::endl;
+	_getch();
+   return 0;
+}
+

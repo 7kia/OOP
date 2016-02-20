@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "CApplication.h"
+#include "Application.h"
 
 int main(int argc , char *argv[])
 {
@@ -10,7 +10,7 @@ int main(int argc , char *argv[])
 
 	timer.start();
 
-	if (!ReplaceSubstringInFile(argc, argv))
+	if (!RunProgram(argc, argv))
 	{
 		return 1;
 	}
