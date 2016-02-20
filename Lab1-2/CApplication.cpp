@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 template <typename T>
 bool IsBetween(const T& value , const T& lowerBound , const T& upperBound)
 {
@@ -92,71 +91,6 @@ bool IsFirstSymbolMathematic(const string &input)
 
 	return false;
 }
-/*
-bool CApplication::Run()
-{
-	if (isCorrectInputDate)
-	{	
-		try
-		{
-			int valueInputNumber = TranslateStringToNumber(inputNumber , numberInputNotation);
-			std::string outputNumber = TranslateIntToString(valueInputNumber , numberOutputNotation);
-
-			std::cout << MESSAGE_RESULT << outputNumber << std::endl;
-			std::cout << MESSAGE_DECIMAL_NOTATION << valueInputNumber << std::endl;
-		}
-		catch (underflow_error const& err)
-		{
-			cout << err.what() << endl;
-		}
-		catch (overflow_error const& err)
-		{
-			cout << err.what() << endl;
-		}
-
-		return true;
-	}
-
-	return false;
-}
-
-
-bool CApplication::CheckParametrs(int argc , char *argv[])
-{
-	if (argc == AMOUNT_ARGUMENTS)
-	{
-		if (!CheckNotation(argv[1], argv[2]))
-		{
-			return false;
-		}
-		
-		numberInputNotation = atoi(argv[1]);
-		numberOutputNotation = atoi(argv[2]);
-		inputNumber = argv[3];
-		if (!checkInputNumber())
-		{
-			std::cout << MESSAGE_INCORRECT_INTPUT_NUMBER << std::endl;
-			return false;
-		}
-
-		return true;
-	}
-	cout << MESSAGE_INCORRECT_AMOUNT_ARGUMENTS << AMOUNT_ARGUMENTS << endl;
-
-	return false;
-}
-
-// TODO : delete
-int CApplication::DefineStartValue(int defaultValue , int alternateValue , bool condition)
-{
-	if (condition)
-	{
-		return alternateValue;
-	}
-	return defaultValue;
-}
-
-*/
 
 int CharToInt(char character)
 {
@@ -200,7 +134,6 @@ void CheckNumericLimitForMultiplication(int source , int multiplier)
 	}
 }
 
-/////////////
 int AddAndOverflowCheck(int source, int summand, bool isNegative)
 {
 	if (isNegative)
@@ -234,7 +167,6 @@ int MultiplicationAndOverflowCheck(int source, int summand, bool isNegative)
 			summand *= -1;
 		}
 
-
 		if ((summand > 0) && (summand > (std::numeric_limits<int>::max() / source)))// TODo
 		{
 			throw overflow_error(MESSAGE_OVERFLOW);
@@ -250,14 +182,9 @@ int MultiplicationAndOverflowCheck(int source, int summand, bool isNegative)
 		}
 	}
 
-
-
 	return source * summand;
-
 }
-/////////////////
 
-// TODO : delete const if not need
 int TranslateStringToNumber(std::string input, const int &numberNotation)
 {
 	bool isSigned = isNegative(input);
@@ -269,20 +196,13 @@ int TranslateStringToNumber(std::string input, const int &numberNotation)
 	int result = 0;
 	int summand = 0;
 
-	///////////////////////////////////////////////////////////////////////////
-	// There use int instead size_t because, condition break loop is index > 0
-	int endValue = 0;
-	int startValue = static_cast<int>(input.size()) - 1;
-
 	for (auto digit : input)
 	{
 		multiplier = CharToInt(digit);
 
-		summand = MultiplicationAndOverflowCheck(static_cast<int>(pow(numberNotation, degree)), numberNotation, isSigned);
-		// multiplier * static_cast<int>(pow(numberNotation , degree));
+		summand = MultiplicationAndOverflowCheck(static_cast<int>(pow(numberNotation, degree)), multiplier, isSigned);
 
 		result = AddAndOverflowCheck(result, summand, isSigned);
-		//+= summand;
 
 		degree++;
 	}
@@ -300,7 +220,7 @@ std::string TranslateIntToString(int result , int numberOutputNotation)
 	std::string outputNumber;
 
 	int divider = numberOutputNotation;
-	int remain = 1;
+	int remain = 0;
 	if (result != 0)
 	{
 		bool isSigned = result < 0;

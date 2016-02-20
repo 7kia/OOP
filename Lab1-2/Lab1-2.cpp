@@ -37,17 +37,12 @@ int main(int argc , char *argv[])
 	try
 	{
 		CheckParametrs(argc, argv);
-		//CheckNotations(argv[1], argv[2]);
 
-		int numberInputNotation = stoi(argv[1]);//"16");//
-		int numberOutputNotation = stoi(argv[2]);//"10");//
+		int numberInputNotation = stoi(argv[1]);
+		int numberOutputNotation = stoi(argv[2]);
 		CheckNotations(numberInputNotation, numberOutputNotation);
-		cout << numberInputNotation << endl;
-		cout << numberOutputNotation << endl;
 
-
-		string inputNumber = argv[3];//"-FFFFFFFFF";//
-
+		string inputNumber = argv[3];
 		int valueInputNumber = TranslateStringToNumber(inputNumber, numberInputNotation);
 		std::string outputNumber = TranslateIntToString(valueInputNumber, numberOutputNotation);
 
@@ -59,7 +54,7 @@ int main(int argc , char *argv[])
 		cout << err.what() << endl;
 		return 1;
 	}
-	catch (underflow_error const& err)// TODO remove
+	catch (underflow_error const& err)
 	{
 		cout << err.what() << endl;
 		return 1;
