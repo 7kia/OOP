@@ -1,0 +1,2 @@
+Result = -16777215
+In decimal notation = -16777215

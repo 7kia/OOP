@@ -1,0 +1,2 @@
+Result = -255
+In decimal notation = -255
