@@ -28,7 +28,7 @@ static const int ERROR_CODE = -1;
 static const int MIN_NOTATION = 1;
 static const int MAX_NOTATION = static_cast<int>('z' - 'a' + 10);
 
-void CheckParametrs(int argc, char *argv[]);
+void CheckArguments(int argc, char *argv[]);
 void CheckNotations(int inputNotaion, int outputNotation);
 void CheckValue(const std::string &number, const int numberInputNotation);
 

@@ -36,7 +36,7 @@ int main(int argc , char *argv[])
 {
 	try
 	{
-		CheckParametrs(argc, argv);
+		CheckArguments(argc, argv);
 
 		int numberInputNotation = stoi(argv[1]);
 		int numberOutputNotation = stoi(argv[2]);
@@ -48,6 +48,11 @@ int main(int argc , char *argv[])
 
 		std::cout << MESSAGE_RESULT << outputNumber << std::endl;
 		std::cout << MESSAGE_DECIMAL_NOTATION << valueInputNumber << std::endl;
+	}
+	catch (out_of_range const& err)// for stoi
+	{
+		cout << err.what() << endl;
+		return 1;
 	}
 	catch (invalid_argument const& err)
 	{

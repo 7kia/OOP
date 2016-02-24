@@ -89,6 +89,11 @@ IF ERRORLEVEL 1 GOTO err
 FC /b test18.txt CheckData/test18.txt
 IF ERRORLEVEL 1 GOTO err
 
+Lab1-2.exe 16000000000 34 -A >> test19.txt
+IF NOT ERRORLEVEL 1 GOTO err
+FC /b test19.txt CheckData/test19.txt
+IF ERRORLEVEL 1 GOTO err
+
 ECHO Program testing succeeded :-) 
 PAUSE
 EXIT

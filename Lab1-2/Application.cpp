@@ -9,7 +9,7 @@ bool IsBetween(const T& value , const T& lowerBound , const T& upperBound)
 	return (value >= lowerBound) && (value <= upperBound);
 }
 
-void CheckParametrs(int argc, char *argv[])
+void CheckArguments(int argc, char *argv[])
 {
 	if (argc != AMOUNT_ARGUMENTS)
 	{
