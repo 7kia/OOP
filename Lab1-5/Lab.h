@@ -18,6 +18,18 @@ struct point
 	size_t y;
 };
 
+enum class side
+{
+	Left,
+	Right
+};
+
+enum class vertical
+{
+	Up,
+	Down
+};
+
 typedef std::vector<std::string> bitmap;
 
 struct CLabAaSD
@@ -27,4 +39,12 @@ struct CLabAaSD
 	const char pointChar = '+';
 
 };
+
+void LoadBitmapFromFile(bitmap &bitmap, std::string nameFile, char fill, size_t x, size_t y);
+void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y);
+int AdditionWithCheckBorder(int source, int summand);
+bool SearchInString(bitmap &bitmap, char fill, point &returnPosition, side side);
+void SearchOnVertical(bitmap &bitmap, char fill, point leftReturnPosition, point rightReturnPosition, vertical direction);
+
+
 #endif

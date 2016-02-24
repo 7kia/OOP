@@ -20,8 +20,106 @@ void LoadBitmapFromFile(bitmap &bitmap, string nameFile, char fill, size_t x, si
 	}
 }
 
-void FillAreaInBitmap(bitmap &bitmap, char fill, size_t x, size_t y)
+void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y)
 {
+	char replaceColor = bitmap[y][x];// TODO : add throw
+
+	if (replaceColor == fill)
+	{
+		return;
+	}
+	else 
+	{
+		point leftReturnPosition(x, y);
+		point rightReturnPosition(x, y);
+
+		SearchInString(bitmap, fill, leftReturnPosition, side::Left);
+		SearchInString(bitmap, fill, rightReturnPosition, side::Right);
+
+		SearchOnVertical(bitmap, fill, leftReturnPosition, rightReturnPosition, vertical::Up);
+		SearchOnVertical(bitmap, fill, leftReturnPosition, rightReturnPosition, vertical::Down);
+
+	}
+}
+
+
+int AdditionWithCheckBorder(int source, int summand)
+{
+	int result = source + summand;
+	if (result < 0)
+	{
+		assert(result > 0);// TODO : add throw
+		return 0;
+	}
+	return result;
+}
+
+bool SearchInString(bitmap &bitmap, char fill, point &returnPosition, side side)
+{
+	bool found = false;
+	int shift = 0;
+	switch (side)
+	{
+	case side::Left:
+		shift = -1;
+		break;
+	case side::Right:
+		shift = 1;
+		break;
+	default:
+		break;
+	}
+
+	do 
+	{
+		returnPosition.x += AdditionWithCheckBorder(returnPosition.x, shift);
+		bitmap[returnPosition.y][returnPosition.x] = fill;
+		found = true;
+	} while (bitmap[returnPosition.y][returnPosition.x] != fill);
+
+	return found;
+}
+
+void SearchOnVertical(bitmap &bitmap, char fill, point leftReturnPosition, point rightReturnPosition, vertical direction)
+{
+	int shift = 0;
+	switch (direction)
+	{
+	case vertical::Up:
+		shift = -1;
+		break;
+	case vertical::Down:
+		shift = 1;
+		break;
+	default:
+		break;
+	}
+
+	point searchPosition;
+
+	do
+	{
+		////
+		// Поиск позиции
+		leftReturnPosition.y = AdditionWithCheckBorder(leftReturnPosition.y, shift);
+		do
+		{
+
+			if (bitmap[leftReturnPosition.y][leftReturnPosition.x] != fill)
+			{
+				searchPosition = leftReturnPosition;
+				break;
+			}
+			leftReturnPosition.x++;
+
+		} while (leftReturnPosition.x != rightReturnPosition.x);
+
+		// Если залито сверху то выходим
+		if (leftReturnPosition.x != rightReturnPosition.x)
+			return;
+
+	} while (!SearchInString(bitmap, fill, leftReturnPosition, side::Left));
+	
 
 }
 
