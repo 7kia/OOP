@@ -14,6 +14,8 @@ static const std::string MESSAGE_FAILED_OPEN_FOR_READING = "Failed open input fi
 static const std::string MESSAGE_FAILED_OPEN_FOR_WRITING = "Failed open output file for writing!";
 static const std::string MESSAGE_INCORRECT_AMOUNT_ARGUMENTS = "Incorrect amount arguments! Must will be ";
 static const std::string MESSAGE_VERY_BIG_FILE = " have length more two gigabytes!";
+static const std::string MESSAGE_ERROR_FOR_WRITING = "Failed writing to output file!";
+
 
 bool CheckParametrs(int argc, char *argv[]);
 bool CheckFiles(std::ifstream &inputFile, std::ofstream &outputFile);

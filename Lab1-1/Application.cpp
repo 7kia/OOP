@@ -44,6 +44,12 @@ bool RunProgram(int argc , char * argv[])
 			string replaceString = argv[4];
 
 			ReplaceSubstringInFile(inputFile, outputFile, searchString, replaceString);
+
+			if (!outputFile.flush())
+			{
+				cout << MESSAGE_ERROR_FOR_WRITING << endl;
+				return 1;
+			}
 			return true;
 		}
 	}
