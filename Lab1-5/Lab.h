@@ -40,11 +40,11 @@ struct CLabAaSD
 
 };
 
-void LoadBitmapFromFile(bitmap &bitmap, std::string nameFile, char fill, size_t x, size_t y);
+void LoadBitmapFromFile(bitmap &bitmap, std::string nameFile);
 void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y);
 int AdditionWithCheckBorder(int source, int summand);
-bool SearchInString(bitmap &bitmap, char fill, point &returnPosition, side side);
-void SearchOnVertical(bitmap &bitmap, char fill, point leftReturnPosition, point rightReturnPosition, vertical direction);
+bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point &returnPosition, side side);
+void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftReturnPosition, point rightReturnPosition, vertical direction);
 
 
 #endif

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void LoadBitmapFromFile(bitmap &bitmap, string nameFile, char fill, size_t x, size_t y)
+void LoadBitmapFromFile(bitmap &bitmap, string nameFile)
 {
 	ifstream file(nameFile);
 
@@ -30,14 +30,16 @@ void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y)
 	}
 	else 
 	{
+		//bitmap[y][x] = fill;
+
 		point leftReturnPosition(x, y);
 		point rightReturnPosition(x, y);
 
-		SearchInString(bitmap, fill, leftReturnPosition, side::Left);
-		SearchInString(bitmap, fill, rightReturnPosition, side::Right);
+		SearchInString(bitmap, fill, replaceColor, leftReturnPosition, side::Left);
+		SearchInString(bitmap, fill, replaceColor, rightReturnPosition, side::Right);
 
-		SearchOnVertical(bitmap, fill, leftReturnPosition, rightReturnPosition, vertical::Up);
-		SearchOnVertical(bitmap, fill, leftReturnPosition, rightReturnPosition, vertical::Down);
+		SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Up);
+		SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Down);
 
 	}
 }
@@ -48,13 +50,13 @@ int AdditionWithCheckBorder(int source, int summand)
 	int result = source + summand;
 	if (result < 0)
 	{
-		assert(result > 0);// TODO : add throw
+		//assert(result > 0);// TODO : add throw
 		return 0;
 	}
 	return result;
 }
 
-bool SearchInString(bitmap &bitmap, char fill, point &returnPosition, side side)
+bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point &returnPosition, side side)
 {
 	bool found = false;
 	int shift = 0;
@@ -70,18 +72,39 @@ bool SearchInString(bitmap &bitmap, char fill, point &returnPosition, side side)
 		break;
 	}
 
-	do 
-	{
-		returnPosition.x += AdditionWithCheckBorder(returnPosition.x, shift);
-		bitmap[returnPosition.y][returnPosition.x] = fill;
-		found = true;
-	} while (bitmap[returnPosition.y][returnPosition.x] != fill);
+	int summand = 0;
+	
+	do
+	{	
+		if (bitmap[returnPosition.y][returnPosition.x] == replaceColor)
+		{
+			bitmap[returnPosition.y][returnPosition.x] = fill;
+			found = true;
+		}
+		else
+		{
+			return found;
+		}
+
+		summand = AdditionWithCheckBorder(returnPosition.x, shift);
+		if ((summand < 0) || (summand >= bitmap[returnPosition.y].size()))
+		{
+			return found;
+		}
+
+		returnPosition.x = summand;
+
+	} while (bitmap[returnPosition.y][returnPosition.x] == replaceColor);
+
 
 	return found;
 }
 
-void SearchOnVertical(bitmap &bitmap, char fill, point leftReturnPosition, point rightReturnPosition, vertical direction)
+void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftReturnPosition, point rightReturnPosition, vertical direction)
 {
+	point leftPosition = leftReturnPosition;
+	point rightPosition = rightReturnPosition;
+
 	int shift = 0;
 	switch (direction)
 	{
@@ -96,29 +119,36 @@ void SearchOnVertical(bitmap &bitmap, char fill, point leftReturnPosition, point
 	}
 
 	point searchPosition;
+	int summand;
 
 	do
 	{
 		////
 		// Поиск позиции
-		leftReturnPosition.y = AdditionWithCheckBorder(leftReturnPosition.y, shift);
+		summand = AdditionWithCheckBorder(leftPosition.x, shift);
+		if ((summand < 0) || (summand > bitmap[leftPosition.y].size()))
+		{
+			return;
+		}
+
+		leftPosition.y = summand;
 		do
 		{
 
-			if (bitmap[leftReturnPosition.y][leftReturnPosition.x] != fill)
+			if (bitmap[leftPosition.y][leftPosition.x] != fill)
 			{
-				searchPosition = leftReturnPosition;
+				searchPosition = leftPosition;
 				break;
 			}
-			leftReturnPosition.x++;
+			leftPosition.x++;
 
-		} while (leftReturnPosition.x != rightReturnPosition.x);
+		} while (leftPosition.x != rightPosition.x);
 
 		// Если залито сверху то выходим
-		if (leftReturnPosition.x != rightReturnPosition.x)
+		if (leftPosition.x == rightPosition.x)
 			return;
 
-	} while (!SearchInString(bitmap, fill, leftReturnPosition, side::Left));
+	} while (!SearchInString(bitmap, fill, replaceColor, searchPosition, side::Left));
 	
 
 }

@@ -7,8 +7,18 @@
 int main()
 {
 	bitmap map;
-	LoadBitmapFromFile(map, "map.txt", ' ', 5, 7);
+	LoadBitmapFromFile(map, "map2.txt");
 
+	FillAreaInBitmap(map, ' ', 1, 1);//7, 5
+
+	for (auto y : map)
+	{
+		for (auto x : y)
+		{
+			std::cout << x;
+		}
+		std::cout << std::endl;
+	}
 
     return 0;
 }
