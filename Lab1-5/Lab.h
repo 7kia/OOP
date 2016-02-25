@@ -34,9 +34,8 @@ typedef std::vector<std::string> bitmap;
 
 struct CLabAaSD
 {
-	const char searchColor = '1';
-	const char fillColor = '0';
-	const char pointChar = '+';
+	point returnPosition;
+
 
 };
 
@@ -44,8 +43,8 @@ void LoadBitmapFromFile(bitmap &bitmap, std::string nameFile);
 void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y);
 int AdditionWithCheckBorder(int source, int summand);
 int AdditionWithCheckBorder(int source, int summand, size_t size);
-bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point returnPosition, side side);
-void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftReturnPosition, point rightReturnPosition, vertical direction);
+bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point &returnPosition, side side);
+bool SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point &leftReturnPosition, point &rightReturnPosition, vertical direction);
 
 
 #endif

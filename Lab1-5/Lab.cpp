@@ -38,8 +38,38 @@ void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y)
 		SearchInString(bitmap, fill, replaceColor, leftReturnPosition, side::Left);
 		SearchInString(bitmap, fill, replaceColor, rightReturnPosition, side::Right);
 
-		SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Up);
-		SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Down);
+		bool replaceTowardUp = false;
+		bool replaceTowardDown = false;
+
+		do
+		{
+			replaceTowardUp = SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Up);
+			if (replaceTowardUp)
+			{
+				replaceTowardDown = SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Down);
+			}	
+			else
+			{
+				replaceTowardDown = false;
+			}
+		} while (replaceTowardUp || replaceTowardDown);
+		
+
+		leftReturnPosition = point(x, y);
+		rightReturnPosition = point(AdditionWithCheckBorder(x, 1, bitmap[y].size()), y);
+
+		do			
+		{
+			replaceTowardDown = SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Down);
+			if (replaceTowardDown)
+			{
+				replaceTowardUp = SearchOnVertical(bitmap, fill, replaceColor, leftReturnPosition, rightReturnPosition, vertical::Up);
+			}
+			else
+			{
+				replaceTowardUp = false;
+			}
+		} while (replaceTowardUp || replaceTowardDown);
 
 	}
 }
@@ -67,7 +97,7 @@ int AdditionWithCheckBorder(int source, int summand, size_t size)
 	return result;
 }
 
-bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point returnPosition, side side)
+bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point &returnPosition, side side)
 {
 	bool found = false;
 	int shift = 0;
@@ -93,25 +123,36 @@ bool SearchInString(bitmap &bitmap, char fill, char replaceColor, point returnPo
 			found = true;
 		}
 		else
-		{
+		{	
+			//
+			returnPosition = retPosition;
+			returnPosition.x = AdditionWithCheckBorder(returnPosition.x, -shift, bitmap[returnPosition.y].size());
 			return found;
+			//
 		}
 
 		summand = AdditionWithCheckBorder(retPosition.x, shift);
 		if ((summand < 0) || (summand >= bitmap[retPosition.y].size()))
 		{
+			//
+			returnPosition = retPosition;
+			returnPosition.x = AdditionWithCheckBorder(returnPosition.x, -shift, bitmap[returnPosition.y].size());
 			return found;
+			//
 		}
 
 		retPosition.x = summand;
 
 	} while (bitmap[retPosition.y][retPosition.x] == replaceColor);
 
-
+	//
+	returnPosition = retPosition;
+	returnPosition.x = AdditionWithCheckBorder(returnPosition.x, -shift, bitmap[returnPosition.y].size());
 	return found;
+	//
 }
 
-void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftReturnPosition, point rightReturnPosition, vertical direction)
+bool SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point &leftReturnPosition, point &rightReturnPosition, vertical direction)
 {
 	point leftPosition = leftReturnPosition;
 	point rightPosition = rightReturnPosition;
@@ -146,7 +187,12 @@ void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftRe
 		summand = AdditionWithCheckBorder(leftPosition.y, shift, bitmap.size());
 		if ((summand < 0) || (summand > bitmap[leftPosition.y].size()))
 		{
-			return;
+			//////////////
+			// Запоминание точки
+			leftReturnPosition = searchPosition;
+			rightReturnPosition = searchPositionForRight;
+			//////////////
+			return found;
 		}
 
 		leftPosition.y = summand;
@@ -162,20 +208,37 @@ void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftRe
 			}
 			leftPosition.x = AdditionWithCheckBorder(leftPosition.x, 1, bitmap[leftPosition.y].size());
 
-		} while (leftPosition.x != rightPosition.x);
+		} while ((leftPosition.x != rightPosition.x) && (AdditionWithCheckBorder(leftPosition.x, 1, bitmap[leftPosition.y].size()) > 0));
 
 		// Если залито сверху то выходим
 		if (leftPosition.x > rightPosition.x)
-			return;
+		{
+			//////////////
+			// Запоминание точки
+			leftReturnPosition = searchPosition;
+			rightReturnPosition = searchPositionForRight;
+			//////////////
+			return found;
+		}
 
 		foundLeft = SearchInString(bitmap, fill, replaceColor, searchPosition, side::Left);
 		foundRight = SearchInString(bitmap, fill, replaceColor, searchPositionForRight, side::Right);
 		isBetween = ((leftPosition.y >= 0) && (leftPosition.y <= bitmap.size()));
 
+		if ((foundLeft || foundRight) && !found)
+		{
+			found = true;
+		}
 
 	} while ((foundLeft || foundRight) && isBetween);
 	
 
+	//////////////
+	// Запоминание точки
+	leftReturnPosition = searchPosition;
+	rightReturnPosition = searchPositionForRight;
+	//////////////
+	return found;
 }
 
 
