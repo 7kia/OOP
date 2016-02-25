@@ -33,7 +33,7 @@ void FillAreaInBitmap(bitmap &bitmap, char fill, int x, int y)
 		//bitmap[y][x] = fill;
 
 		point leftReturnPosition(x, y);
-		point rightReturnPosition(x, y);
+		point rightReturnPosition(AdditionWithCheckBorder(x, 1, bitmap[y].size()), y);
 
 		SearchInString(bitmap, fill, replaceColor, leftReturnPosition, side::Left);
 		SearchInString(bitmap, fill, replaceColor, rightReturnPosition, side::Right);
@@ -130,8 +130,14 @@ void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftRe
 	}
 
 	point searchPosition = leftPosition;
+	point searchPositionForRight = rightPosition;
 	bool found = false;
 	int summand;
+
+	bool foundLeft = false;
+	bool foundRight = false;
+	bool isBetween = false;
+
 
 	do
 	{
@@ -150,6 +156,8 @@ void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftRe
 			if (bitmap[leftPosition.y][leftPosition.x] == replaceColor)
 			{
 				searchPosition = leftPosition;
+				searchPositionForRight = searchPosition;
+				searchPositionForRight.x = AdditionWithCheckBorder(searchPosition.x, 1, bitmap[leftPosition.y].size());
 				break;
 			}
 			leftPosition.x = AdditionWithCheckBorder(leftPosition.x, 1, bitmap[leftPosition.y].size());
@@ -160,9 +168,12 @@ void SearchOnVertical(bitmap &bitmap, char fill, char replaceColor, point leftRe
 		if (leftPosition.x > rightPosition.x)
 			return;
 
+		foundLeft = SearchInString(bitmap, fill, replaceColor, searchPosition, side::Left);
+		foundRight = SearchInString(bitmap, fill, replaceColor, searchPositionForRight, side::Right);
+		isBetween = ((leftPosition.y >= 0) && (leftPosition.y <= bitmap.size()));
 
-	} while (!SearchInString(bitmap, fill, replaceColor, searchPosition, side::Left)
-		&& ((leftPosition.y <= 0) || (leftPosition.y >= bitmap.size())));
+
+	} while ((foundLeft || foundRight) && isBetween);
 	
 
 }

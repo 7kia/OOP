@@ -7,9 +7,9 @@
 int main()
 {
 	bitmap map;
-	LoadBitmapFromFile(map, "map2.txt");
+	LoadBitmapFromFile(map, "map.txt");
 
-	FillAreaInBitmap(map, ' ', 1, 1);//7, 5
+	FillAreaInBitmap(map, '+', 7, 5);// 1, 1);
 
 	for (auto y : map)
 	{
