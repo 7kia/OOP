@@ -3,11 +3,19 @@
 
 #pragma once
 
-typedef std::vector<size_t> position;
+struct Vector2UL
+{
+	Vector2UL();
+	Vector2UL(size_t firstNumber, size_t secondNumber);
+	bool operator==(const Vector2UL &right) const;
+
+	size_t x;
+	size_t y;
+};
 
 namespace MyFunctions
 {
-	bool IsInList(position value , const std::vector<position> &list);
+	bool IsIn(Vector2UL value , const std::vector<Vector2UL> &list);
 };
 
 
