@@ -1,6 +1,3 @@
-#ifndef MYFUNCTIONS_H
-#define MYFUNCTIONS_H
-
 #pragma once
 
 struct Vector2UL
@@ -12,11 +9,3 @@ struct Vector2UL
 	size_t x;
 	size_t y;
 };
-
-namespace MyFunctions
-{
-	bool IsIn(Vector2UL value , const std::vector<Vector2UL> &list);
-};
-
-
-#endif // MYFUNCTIONS_H

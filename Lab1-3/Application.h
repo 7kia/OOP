@@ -1,6 +1,3 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
-
 #pragma once
 
 #include <string>
@@ -21,6 +18,3 @@ static const int SIZE_MATRIX = 3;
 
 void RunProgram(int argc, char * argv[]);
 void CheckParametrs(int argc, char *argv[]);
-
-
-#endif

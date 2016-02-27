@@ -19,16 +19,3 @@ bool Vector2UL::operator==(const Vector2UL & right) const
 	}
 	return false;
 }
-
-
-bool MyFunctions::IsIn(Vector2UL value, const std::vector<Vector2UL> &list)
-{
-	for (auto element : list)
-	{
-		if (value == element)
-		{
-			return true;
-		}
-	}
-	return false;
-}
