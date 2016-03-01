@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ProcessVector.h"
 
-// CProcessVector::
 void ProcessVector(std::vector<double> &vector)
 {
 	if (vector.size())

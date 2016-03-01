@@ -8,8 +8,4 @@
 #include <boost/phoenix.hpp>
 #include <boost/range/algorithm/transform.hpp>
 
-//class CProcessVector
-//{
-//public:
-	void ProcessVector(std::vector<double> &vector);
-//};
+void ProcessVector(std::vector<double> &vector);
