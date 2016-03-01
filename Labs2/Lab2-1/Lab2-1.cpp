@@ -27,13 +27,14 @@ int main()
 	std::vector<double> vector;
 
 	vector = ReadFromConsole();
-	auto minValue = std::min_element(vector.begin(), vector.end());
+	double minValue = *std::min_element(vector.begin(), vector.end());
 
 	auto Multiply = [minValue](double source) {
-		return source * *minValue;
+		return source * minValue;
 	};
 
 	boost::transform(vector, vector.begin(), Multiply);
+	std::sort(vector.begin(), vector.end());
 
     return 0;
 }
