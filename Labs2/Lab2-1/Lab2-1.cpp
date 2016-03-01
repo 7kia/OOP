@@ -2,13 +2,7 @@
 //
 
 #include "stdafx.h"
-
-#include <iostream>
-#include <sstream>
-#include <iterator>
-#include <vector>
-#include <algorithm>
-#include <boost/range/algorithm/transform.hpp>
+#include "ProcessVector.h"
 
 /*
 2 лабораторная 1 задание
@@ -27,14 +21,8 @@ int main()
 	std::vector<double> vector;
 
 	vector = ReadFromConsole();
-	double minValue = *std::min_element(vector.begin(), vector.end());
 
-	auto Multiply = [minValue](double source) {
-		return source * minValue;
-	};
-
-	boost::transform(vector, vector.begin(), Multiply);
-	std::sort(vector.begin(), vector.end());
+	ProcessVector(vector);
 
     return 0;
 }
