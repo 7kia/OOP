@@ -5,8 +5,8 @@
 
 #include "MyFunctions.h"
 
-typedef std::vector<double> RowMatrix;
-typedef std::vector<RowMatrix> Matrix;
+typedef std::vector<double> MatrixRow;
+typedef std::vector<MatrixRow> Matrix;
 
 namespace MatrixOperations
 {

@@ -5,7 +5,7 @@ using namespace std;
 
 void RunProgram(int argc, char * argv[])
 {
-	CheckParametrs(argc, argv);
+	CheckParametrs(argc);
 	
 	Matrix inputMatrix;
 	MatrixOperations::FillMatrixFromFile(argv[1], inputMatrix);
@@ -15,7 +15,7 @@ void RunProgram(int argc, char * argv[])
 	MatrixOperations::PrintMatrix(invertMatrix);	
 }
 
-void CheckParametrs(int argc , char *argv[])
+void CheckParametrs(int argc)
 {
 	if (argc != AMOUNT_ARGUMENTS)
 	{
@@ -33,14 +33,14 @@ void MatrixOperations::FillMatrixFromFile(string nameFile, Matrix &matrix)
 		throw MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_READING;
 	}
 
-	RowMatrix row;
-	double addNumber;
+	MatrixRow row;
 	for (size_t y = 0; y < SIZE_MATRIX; y++)
 	{
 		for (size_t x = 0; x < SIZE_MATRIX; x++)
 		{
-			 inputFile >> addNumber;
-			 row.push_back(addNumber);
+			double addNumber = 0;
+			inputFile >> addNumber;
+			row.push_back(addNumber);
 		}
 		matrix.push_back(row);
 		row.clear();
@@ -48,9 +48,9 @@ void MatrixOperations::FillMatrixFromFile(string nameFile, Matrix &matrix)
 
 	if (!inputFile.eof())
 	{
-		string passString = "";
+		string passString;
 		inputFile >> passString;
-		if (passString != "")
+		if (!passString.empty())
 		{
 			throw MESSAGE_INCORRECT_DATA;
 		}

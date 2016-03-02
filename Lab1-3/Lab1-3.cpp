@@ -23,21 +23,6 @@ int main(int argc , char *argv[])
 	{
 		RunProgram(argc, argv);
 	}
-	catch (invalid_argument const& err)
-	{
-		cout << err.what() << endl;
-		return 1;
-	}
-	catch (underflow_error const& err)
-	{
-		cout << err.what() << endl;
-		return 1;
-	}
-	catch (overflow_error const& err)
-	{
-		cout << err.what() << endl;
-		return 1;
-	}
 	catch (std::ifstream::failure const& err) {
 		cout << err.what() << endl;
 		return 1;

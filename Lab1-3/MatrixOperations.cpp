@@ -8,7 +8,7 @@ double MatrixOperations::GetDeterminate(const Matrix &matrix)
 	if (sizeMatrix > 2)
 	{
 		int countForDegree = 2;
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 0; i < sizeMatrix; i++)
 		{
 			determinate += matrix[0][i] * pow(-1 , countForDegree) * GetMinor(matrix , i , 0);
 			countForDegree++;
@@ -34,32 +34,32 @@ double MatrixOperations::GetMinor(const Matrix &matrix , size_t x , size_t y)
 	subMatrix[0].resize(2);
 	subMatrix[1].resize(2);
 
-	std::vector<Vector2UL> passPositions;
+	std::vector<Vector2UL> skipPositions;
 
 	for (size_t i = 0; i < 3; i++)
 	{
-		passPositions.push_back(Vector2UL(x , i));
-		passPositions.push_back(Vector2UL(i , y));
+		skipPositions.push_back(Vector2UL(x , i));
+		skipPositions.push_back(Vector2UL(i , y));
 	}
 
-	size_t posX = 0;
-	size_t posY = 0;
-	for (size_t i = 0; i < 3; i++)
+	size_t sx = 0;
+	size_t sy = 0;
+	for (size_t mx = 0; mx < 3; mx++)
 	{
-		for (size_t j = 0; j < 3; j++)
+		for (size_t my = 0; my < 3; my++)
 		{
-			if (std::count(passPositions.begin(), passPositions.end(), Vector2UL(j, i)) == 0)
+			if (std::count(skipPositions.begin(), skipPositions.end(), Vector2UL(my, mx)) == 0)
 			{
-				subMatrix[posY][posX] = matrix[i][j];
+				subMatrix[sy][sx] = matrix[mx][my];
 
-				posX++;
-				if (posX > 1)
+				sx++;
+				if (sx > 1)
 				{
-					posX = 0;
-					posY++;
-					if (posY > 1)
+					sx = 0;
+					sy++;
+					if (sy > 1)
 					{
-						posY = 0;
+						sy = 0;
 					}
 				}
 			}
@@ -73,7 +73,7 @@ double MatrixOperations::GetMinor(const Matrix &matrix , size_t x , size_t y)
 Matrix MatrixOperations::GetMinorMatrix(const Matrix & matrix)
 {
 	Matrix minorMatrix;
-	size_t sizeMinorMatrix = matrix.size();
+	const size_t sizeMinorMatrix = matrix.size();
 	minorMatrix.resize(sizeMinorMatrix);
 
 	for (size_t index = 0; index < sizeMinorMatrix; index++)
@@ -97,15 +97,12 @@ Matrix MatrixOperations::GetMinorMatrix(const Matrix & matrix)
 Matrix MatrixOperations::GetTransposeMatrix(const Matrix & matrix)
 {
 	Matrix transposeMatrix = matrix;
-	size_t sizeTransposeMatrix = matrix.size();
+	const size_t sizeTransposeMatrix = matrix.size();
 	for (size_t y = 0; y < sizeTransposeMatrix; y++)
 	{
 		for (size_t x = y; x < sizeTransposeMatrix; x++)
-		{
-			if (x != y)
-			{
-				std::swap(transposeMatrix[y][x] , transposeMatrix[x][y]);
-			}
+		{		
+			std::swap(transposeMatrix[y][x] , transposeMatrix[x][y]);
 		}
 	};
 
@@ -114,14 +111,12 @@ Matrix MatrixOperations::GetTransposeMatrix(const Matrix & matrix)
 
 Matrix MatrixOperations::GetInvertMatrix(const Matrix & matrix)
 {
-	double determinate = MatrixOperations::GetDeterminate(matrix);
+	const double determinate = MatrixOperations::GetDeterminate(matrix);
 
 	if (determinate != 0)
 	{
-
 		Matrix transposeMatrix = MatrixOperations::GetTransposeMatrix(matrix);
 		Matrix minorMatrix = MatrixOperations::GetMinorMatrix(transposeMatrix);
-
 
 		for (auto &row : minorMatrix)
 		{
@@ -132,13 +127,8 @@ Matrix MatrixOperations::GetInvertMatrix(const Matrix & matrix)
 		}
 
 		return minorMatrix;
-
-	}
-	else
-	{
-		throw MESSAGE_ZERO_DETERMINATE;
-	}
-
+	}	
+	throw std::invalid_argument(MESSAGE_ZERO_DETERMINATE);
 }
 
 void MatrixOperations::PrintMatrix(const Matrix &matrix)

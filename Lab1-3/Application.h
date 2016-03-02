@@ -17,4 +17,4 @@ static const int AMOUNT_ARGUMENTS = 2;
 static const int SIZE_MATRIX = 3;
 
 void RunProgram(int argc, char * argv[]);
-void CheckParametrs(int argc, char *argv[]);
+void CheckParametrs(int argc);
