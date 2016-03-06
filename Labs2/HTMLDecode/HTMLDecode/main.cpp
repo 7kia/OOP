@@ -6,12 +6,19 @@
 
 using namespace std;
 
+void PrintStringToConsole(std::string &result)
+{
+	std::copy(result.begin(), result.end(), std::ostreambuf_iterator<char>(std::cout));
+}
+
 int main()
 {
 	string inputString;
 	getline(cin, inputString);
 
 	string decodeString = DoHtmlDecode(inputString);
-    return 0;
+	PrintStringToConsole(decodeString);
+
+	return 0;
 }
 
