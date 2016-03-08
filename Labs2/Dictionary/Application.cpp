@@ -7,23 +7,25 @@ void RunProgram(int argc, char * argv[])
 {
 	CheckParametrs(argc);
 	
-	dictionary dictionary = CreateDictionary(argv[1]);
+	/*
+		dictionary dictionary = CreateDictionary(argv[1]);
 
 	PrintInstruction();
 
 	WorkWithDictionary(dictionary, argv[1]);
 
-	system("PAUSE");
-}
+	*/
 
+	CDictionaryEditor editor(CreateDictionary(argv[1]));
 
-bool needSetExitState(std::string input)
-{
-	if (input == STRING_FOR_EXIT)
+	string inputString;
+	while (editor.m_numberState != CDictionaryEditor::numberState::Exit)
 	{
-		return true;
+		getline(cin, inputString);
+		editor.ProcessString(inputString);
 	}
-	return false;
+
+	system("PAUSE");
 }
 
 
@@ -71,7 +73,8 @@ pair<string, string> ExtractElement(const string& inputString)
 // TODO : redesing
 void WorkWithDictionary(dictionary & dictionary, string fileName)
 {
-	string inputString;
+	/*
+		string inputString;
 	string unknowWord;
 	stateApplication state = stateApplication::Wait_translate_word;
 	bool inputDictionaryIsEmpty = dictionary.empty();
@@ -82,7 +85,7 @@ void WorkWithDictionary(dictionary & dictionary, string fileName)
 		{
 		case stateApplication::Wait_translate_word:
 			std::getline(cin, inputString);
-
+			boost::algorithm::to_lower(inputString);
 
 			if (!inputString.empty())
 			{
@@ -108,6 +111,7 @@ void WorkWithDictionary(dictionary & dictionary, string fileName)
 			break;
 		case stateApplication::Wait_translation:
 			std::getline(cin, inputString);
+			boost::algorithm::to_lower(inputString);
 
 			if (!inputString.empty())
 			{
@@ -133,6 +137,7 @@ void WorkWithDictionary(dictionary & dictionary, string fileName)
 			PrintMessageBeforeExit();
 
 			std::getline(cin, inputString);
+			boost::algorithm::to_lower(inputString);
 
 			if (!inputString.empty())
 			{
@@ -167,6 +172,9 @@ void WorkWithDictionary(dictionary & dictionary, string fileName)
 			break;
 		}
 	}
+
+	//*/
+
 
 }
 

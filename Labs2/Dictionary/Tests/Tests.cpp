@@ -2,9 +2,9 @@
 //
 
 #include "stdafx.h"
+#include "../Dictionary.h"
 
-
-BOOST_AUTO_TEST_SUITE(HTMLDecodeTestModule)
+BOOST_AUTO_TEST_SUITE(DictionatyTestModule)
 
 BOOST_AUTO_TEST_CASE(Check_on_empty_string)
 {
