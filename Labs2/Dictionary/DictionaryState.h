@@ -20,10 +20,8 @@ static const std::string MESSAGE_BEFORE_EXIT_FIRST_PART = "В словарь были внесен
 static const std::string MESSAGE_BEFORE_EXIT_SECOND_PART = " для сохранения перед выходом.";
 static const std::string MESSAGE_INCORRECT_INPUT = "Вы ввели неправильное значение. Повторите попытку.";
 
-
 static const std::string DEFAULT_NAME_FILE = "newDict.txt";
 static const std::string DICTIONARY_SAVE_AS = "Словарь будет сохранён в файл ";
-
 
 class CDictionaryEditor;
 
@@ -76,7 +74,7 @@ class CExit : public CDictionaryState
 public:
 	CExit(CDictionaryEditor *pEditor);
 
-	void ProcessString(std::string inputString) override;
+	//void ProcessString(std::string inputString) override = delete;
 };
 
 void PrintMessageSuccessfullInsert(std::string word, std::string translation);

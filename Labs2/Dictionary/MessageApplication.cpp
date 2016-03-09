@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ApplicationState.h"
+#include "DictionaryState.h"
 
 using namespace std;
 

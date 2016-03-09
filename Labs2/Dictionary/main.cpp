@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
 {
 	try
 	{
-		//setlocale(LC_ALL, "Rus");
 		SetConsoleOutputCP(1251);
 		SetConsoleCP(1251);
 		RunProgram(argc, argv);

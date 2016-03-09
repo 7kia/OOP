@@ -1,8 +1,10 @@
 #include "stdafx.h"
-#include "ApplicationState.h"
+#include "DictionaryState.h"
 #include "DictionaryEditor.h"
 
-bool needSetExitState(std::string input)
+using namespace std;
+
+bool needSetExitState(string input)
 {
 	if (input == STRING_FOR_EXIT)
 	{
@@ -17,7 +19,7 @@ CWaitTranslateWord::CWaitTranslateWord(CDictionaryEditor * pEditor)
 	m_pEditor->m_numberState = CDictionaryEditor::numberState::Wait_translate_word;
 }
 
-void CWaitTranslateWord::ProcessString(std::string inputString)
+void CWaitTranslateWord::ProcessString(string inputString)
 {
 	boost::algorithm::to_lower(inputString);
 
@@ -52,7 +54,7 @@ CWaitTranslation::CWaitTranslation(CDictionaryEditor * pEditor)
 	m_pEditor->m_numberState = CDictionaryEditor::numberState::Wait_translation;
 }
 
-void CWaitTranslation::ProcessString(std::string inputString)
+void CWaitTranslation::ProcessString(string inputString)
 {
 	boost::algorithm::to_lower(inputString);
 
@@ -85,7 +87,7 @@ CBeforeExit::CBeforeExit(CDictionaryEditor * pEditor)
 	m_pEditor->m_numberState = CDictionaryEditor::numberState::Before_exit;
 }
 
-void CBeforeExit::ProcessString(std::string inputString)
+void CBeforeExit::ProcessString(string inputString)
 {
 
 	boost::algorithm::to_lower(inputString);
@@ -116,7 +118,7 @@ CSaveDictionary::CSaveDictionary(CDictionaryEditor *pEditor)
 	m_pEditor->SetState(new CExit(m_pEditor));
 }
 
-void CSaveDictionary::ProcessString(std::string inputString)
+void CSaveDictionary::ProcessString(string inputString)
 {
 }
 
@@ -125,6 +127,3 @@ CExit::CExit(CDictionaryEditor * pEditor)
 	pEditor->m_numberState = CDictionaryEditor::numberState::Exit;
 }
 
-void CExit::ProcessString(std::string inputString)
-{
-}

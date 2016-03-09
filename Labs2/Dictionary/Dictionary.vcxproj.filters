@@ -30,10 +30,10 @@
     <ClInclude Include="Application.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="ApplicationState.h">
+    <ClInclude Include="DictionaryEditor.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="DictionaryEditor.h">
+    <ClInclude Include="DictionaryState.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,19 +44,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Dictionary.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="MessageApplication.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationState.cpp">
+    <ClCompile Include="DictionaryEditor.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="DictionaryEditor.cpp">
+    <ClCompile Include="DictionaryState.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

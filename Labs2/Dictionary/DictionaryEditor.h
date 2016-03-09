@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Dictionary.h"
-#include "ApplicationState.h"
+#include "DictionaryState.h"
 
 static const std::string MESSAGE_FAILED_OPEN = "Не открыт файл ";
 static const std::string MESSAGE_FAILED_OPEN_FOR_READING = " для чтения!";

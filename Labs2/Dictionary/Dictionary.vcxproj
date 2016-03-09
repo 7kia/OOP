@@ -146,7 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="ApplicationState.h" />
+    <ClInclude Include="DictionaryState.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="DictionaryEditor.h" />
     <ClInclude Include="stdafx.h" />
@@ -154,8 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ApplicationState.cpp" />
-    <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="DictionaryState.cpp" />
     <ClCompile Include="DictionaryEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageApplication.cpp" />
