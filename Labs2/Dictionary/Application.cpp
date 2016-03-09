@@ -16,7 +16,7 @@ void RunProgram(int argc, char * argv[])
 
 	*/
 
-	CDictionaryEditor editor(CreateDictionary(argv[1]));
+	CDictionaryEditor editor(argv[1]);
 
 	string inputString;
 	while (editor.m_numberState != CDictionaryEditor::numberState::Exit)
@@ -25,7 +25,6 @@ void RunProgram(int argc, char * argv[])
 		editor.ProcessString(inputString);
 	}
 
-	system("PAUSE");
 }
 
 
@@ -37,37 +36,6 @@ void CheckParametrs(int argc)
 	}
 }
 
-dictionary CreateDictionary(const string & nameFile)
-{
-	ifstream inputFile;
-	inputFile.exceptions(ifstream::badbit);
-	inputFile.open(nameFile);
-	if (!inputFile.is_open())
-	{
-		
-		cout << MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_READING << endl;
-		cout << MESSAGE_EMPTY_DICTIONARY << endl;
-	}
-
-	dictionary result;
-	string inputString;
-	while (std::getline(inputFile, inputString))
-	{
-		result.insert(ExtractElement(inputString));
-	}
-
-	return result;
-}
-
-pair<string, string> ExtractElement(const string& inputString)
-{
-	size_t indexFound = inputString.find(STRING_DIVIDER);
-
-	string first = inputString.substr(0, indexFound);
-	string second = inputString.substr(indexFound + 2);
-
-	return pair<string, string>(first, second);
-}
 
 
 // TODO : redesing
@@ -183,19 +151,4 @@ void PrintStringToConsole(string &result)
 {
 	copy(result.begin(), result.end(), ostreambuf_iterator<char>(std::cout));
 	cout << endl;
-}
-
-void SaveDictionaryInFile(const dictionary & dictionary, const std::string & nameFile)
-{
-	fstream outputFile(nameFile);
-	if (!outputFile.is_open())
-	{
-		throw ifstream::failure(MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_WRITING);
-	}
-
-	for (const auto &element : dictionary)
-	{
-		outputFile << element.first + STRING_DIVIDER + element.second + '\n';
-	}
-
 }

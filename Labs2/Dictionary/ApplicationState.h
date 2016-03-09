@@ -2,10 +2,8 @@
 
 #include <string>
 
-static const std::string STRING_DIVIDER = ">>";
 static const std::string STRING_FOR_EXIT = ".";
 static const std::string STRING_FOR_SAVE = "s";
-
 
 static const std::string MESSAGE_WAIT_WORD = "Введите слово(а) и программа напечатет перевод.";
 static const std::string MESSAGE_INSTRUCTION = MESSAGE_WAIT_WORD +
@@ -13,12 +11,10 @@ static const std::string MESSAGE_INSTRUCTION = MESSAGE_WAIT_WORD +
 static const std::string MESSAGE_IGNORE_WORD_FIRST_PART = "Слово ";
 static const std::string MESSAGE_IGNORE_WORD_SECOND_PART = " пропущено.";
 
-
 static const std::string MESSAGE_EMPTY_DICTIONARY = "Файл не открыт. Словарь пуст.";
 static const std::string MESSAGE_UNKNOW_WORD = "Неизвестное слово \"";
 static const std::string MESSAGE_WRITE_UNKNOW_WORD = "\". Введите перевод или пустую строку для отказа.";
 static const std::string MESSAGE_SAVE_AS = " сохранено как ";
-
 
 static const std::string MESSAGE_BEFORE_EXIT_FIRST_PART = "В словарь были внесены изменения.Введите ";
 static const std::string MESSAGE_BEFORE_EXIT_SECOND_PART = " для сохранения перед выходом.";
@@ -31,13 +27,13 @@ static const std::string DICTIONARY_SAVE_AS = "Словарь будет сохранён в файл ";
 
 class CDictionaryEditor;
 
-class CApplicationState
+class CDictionaryState
 {
 public:
 	virtual void ProcessString(std::string inputString) = 0;
 };
 
-class CWaitTranslateWord : public CApplicationState
+class CWaitTranslateWord : public CDictionaryState
 {
 public:
 	CWaitTranslateWord(CDictionaryEditor *pEditor);
@@ -47,7 +43,7 @@ private:
 
 };
 
-class CWaitTranslation : public CApplicationState
+class CWaitTranslation : public CDictionaryState
 {
 public:
 	CWaitTranslation(CDictionaryEditor *pEditor);
@@ -56,7 +52,7 @@ private:
 	CDictionaryEditor *m_pEditor;
 };
 
-class CBeforeExit : public CApplicationState
+class CBeforeExit : public CDictionaryState
 {
 public:
 	CBeforeExit(CDictionaryEditor *pEditor);
@@ -65,7 +61,7 @@ private:
 	CDictionaryEditor *m_pEditor;
 };
 
-class CSaveDictionary : public CApplicationState
+class CSaveDictionary : public CDictionaryState
 {
 public:
 	CSaveDictionary(CDictionaryEditor *pEditor);
@@ -75,12 +71,12 @@ private:
 	CDictionaryEditor *m_pEditor;
 };
 
-class CExit : public CApplicationState
+class CExit : public CDictionaryState
 {
 public:
 	CExit(CDictionaryEditor *pEditor);
 
-	void ProcessString(std::string inputString) override;;
+	void ProcessString(std::string inputString) override;
 };
 
 void PrintMessageSuccessfullInsert(std::string word, std::string translation);

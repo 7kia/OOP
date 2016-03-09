@@ -19,14 +19,17 @@ public:
 		Exit
 	};
 
-	CDictionaryEditor(dictionary editDictionary);
-	void SetState(CApplicationState* state);
+	CDictionaryEditor(const std::string &fileName);
+	~CDictionaryEditor();
+
+	void SetState(CDictionaryState* state);
 	void ProcessString(std::string inputString);
 	void SaveDictionaryInFile();
 public:
 	dictionary m_dictionary;
 
-	std::unique_ptr<CApplicationState> m_state;
+	//std::unique_ptr<CApplicationState> m_state;
+	CDictionaryState* m_state;
 	numberState m_numberState;
 
 	std::string m_unknowWord;

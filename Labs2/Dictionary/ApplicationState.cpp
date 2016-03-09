@@ -43,6 +43,7 @@ void CWaitTranslateWord::ProcessString(std::string inputString)
 			PrintMessageAboutUnknowWord(m_pEditor->m_unknowWord);
 		}
 	}
+
 }
 
 CWaitTranslation::CWaitTranslation(CDictionaryEditor * pEditor)
@@ -67,7 +68,7 @@ void CWaitTranslation::ProcessString(std::string inputString)
 		m_pEditor->m_dictionary.insert({ m_pEditor->m_unknowWord, inputString });
 
 		m_pEditor->SetState(new CWaitTranslateWord(m_pEditor));
-
+		
 		PrintMessageSuccessfullInsert(m_pEditor->m_unknowWord, inputString);
 
 	}
