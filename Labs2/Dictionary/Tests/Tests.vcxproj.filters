@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="TestClasses">
+      <UniqueIdentifier>{dd3c2eaf-6805-46a4-8ff3-f0ea7852bb7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,6 +27,15 @@
     <ClInclude Include="targetver.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="..\Dictionary.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DictionaryEditor.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DictionaryState.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -31,6 +43,15 @@
     </ClCompile>
     <ClCompile Include="Tests.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DictionaryEditor.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DictionaryState.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MessageApplication.cpp">
+      <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

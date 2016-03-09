@@ -36,7 +36,7 @@ void CWaitTranslateWord::ProcessString(string inputString)
 
 		if (foundElement != m_pEditor->m_dictionary.end())
 		{
-			PrintStringToConsole(foundElement->second);
+			cout << foundElement->second << endl;
 		}
 		else
 		{
@@ -92,7 +92,7 @@ void CBeforeExit::ProcessString(string inputString)
 
 	boost::algorithm::to_lower(inputString);
 
-	if (!inputString.empty())
+	if (!inputString.empty() && !m_pEditor->m_dictionary.empty())
 	{
 		if (inputString == STRING_FOR_SAVE)
 		{
@@ -125,5 +125,9 @@ void CSaveDictionary::ProcessString(string inputString)
 CExit::CExit(CDictionaryEditor * pEditor)
 {
 	pEditor->m_numberState = CDictionaryEditor::numberState::Exit;
+}
+
+void CExit::ProcessString(std::string inputString)
+{
 }
 

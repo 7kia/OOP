@@ -10,7 +10,7 @@ void RunProgram(int argc, char * argv[])
 	CDictionaryEditor editor(argv[1]);
 
 	string inputString;
-	while (editor.m_numberState != CDictionaryEditor::numberState::Exit)
+	while (editor.GetState() != CDictionaryEditor::numberState::Exit)
 	{
 		getline(cin, inputString);
 		editor.ProcessString(inputString);

@@ -6,11 +6,20 @@ using namespace std;
 CDictionaryEditor::CDictionaryEditor(const string &fileName)
 {
 	m_dictionary = CreateDictionary(fileName);
-	m_fileName = fileName;
+
 	//m_state.reset(new CWaitTranslateWord(this));
 	m_state = new CWaitTranslateWord(this);
 	PrintInstruction();
 	m_inputDictionaryIsEmpty = m_dictionary.empty();
+
+	if (m_inputDictionaryIsEmpty)
+	{
+		m_fileName = DEFAULT_NAME_FILE;
+	}
+	else
+	{
+		m_fileName = fileName;
+	}
 }
 
 CDictionaryEditor::~CDictionaryEditor()
@@ -32,28 +41,24 @@ void CDictionaryEditor::ProcessString(string inputString)
 
 void CDictionaryEditor::SaveDictionaryInFile()
 {
-	fstream outputFile;
-	string nameOutputFile;
+	ofstream outputFile;
 
-	if (m_inputDictionaryIsEmpty)
-	{
-		nameOutputFile = DEFAULT_NAME_FILE;
-	}
-	else
-	{
-		nameOutputFile = m_fileName;
-	}
-	outputFile.open(nameOutputFile);
+	outputFile.open(m_fileName);
 
 	if (!outputFile.is_open())
 	{
-		throw ifstream::failure(MESSAGE_FAILED_OPEN + nameOutputFile + MESSAGE_FAILED_OPEN_FOR_WRITING);
+		throw ifstream::failure(MESSAGE_FAILED_OPEN + m_fileName + MESSAGE_FAILED_OPEN_FOR_WRITING);
 	}
 
 	for (const auto &element : m_dictionary)
 	{
 		outputFile << element.first + STRING_DIVIDER + element.second + '\n';
 	}
+}
+
+CDictionaryEditor::numberState CDictionaryEditor::GetState()
+{
+	return m_numberState;
 }
 
 pair<string, string> ExtractElement(const string& inputString)
@@ -90,7 +95,7 @@ dictionary CreateDictionary(const string & nameFile)
 
 void SaveDictionaryInFile(const dictionary & dictionary, const string & nameFile)
 {
-	fstream outputFile(nameFile);
+	ofstream outputFile(nameFile);
 	if (!outputFile.is_open())
 	{
 		throw ifstream::failure(MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_WRITING);

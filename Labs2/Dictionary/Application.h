@@ -13,4 +13,3 @@ void RunProgram(int argc, char * argv[]);
 void CheckParametrs(int argc);
 
 bool needSetExitState(std::string input);
-void WorkWithDictionary(dictionary &dictionary, std::string fileName);

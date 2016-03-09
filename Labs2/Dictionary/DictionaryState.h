@@ -74,7 +74,7 @@ class CExit : public CDictionaryState
 public:
 	CExit(CDictionaryEditor *pEditor);
 
-	//void ProcessString(std::string inputString) override = delete;
+	void ProcessString(std::string inputString) override;
 };
 
 void PrintMessageSuccessfullInsert(std::string word, std::string translation);

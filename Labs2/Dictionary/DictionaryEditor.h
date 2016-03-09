@@ -25,6 +25,8 @@ public:
 	void SetState(CDictionaryState* state);
 	void ProcessString(std::string inputString);
 	void SaveDictionaryInFile();
+
+	numberState GetState();
 public:
 	dictionary m_dictionary;
 
@@ -34,7 +36,7 @@ public:
 
 	std::string m_unknowWord;
 	std::string m_fileName;
-	bool m_inputDictionaryIsEmpty;
+	bool m_inputDictionaryIsEmpty;// need for message
 };
 
 void PrintInstruction();
