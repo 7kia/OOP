@@ -29,5 +29,11 @@ std::wstring FilterBadWords(std::wstring inputString, const dictionary &dictiona
 		indexEndWord++;
 	}
 
+	if (std::find(dictionary.begin(), dictionary.end(), word) != dictionary.end())
+	{
+		inputString.erase(indexEndWord - word.size(), word.size());
+		indexEndWord -= word.size();
+	}
+
 	return inputString;
 }

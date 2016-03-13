@@ -1,4 +1,4 @@
-// FilterBadWords.cpp: определяет точку входа для консольного приложения.
+п»ї// FilterBadWords.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
 //
 
 #include "stdafx.h"
@@ -13,15 +13,18 @@ void PrintInstruction()
 
 int main()
 {
-	SetConsoleOutputCP(CP_UTF8);
-	SetConsoleCP(CP_UTF8);
-	//setlocale(LC_ALL, "ru_RU.UTF-8");
-	wstring inputString;
-	getline(wcin, inputString);
+	system("chcp 1251");
+
+	SetConsoleOutputCP(65001);
+	SetConsoleCP(65001);
+	
+	setlocale(LC_ALL, "ru_RU.UTF-8");
+	//wstring inputString;
+	//getline(wcin, inputString);
 
 	dictionary badWords = CreateDictionary(L"bad.txt");
 
-	wstring filterString = FilterBadWords(L"дщд дурак lol", badWords);
+	wstring filterString = FilterBadWords(L"РґС‰Рґ РґСѓСЂР°Рє lol", badWords);
 
 	wcout << filterString;
 
