@@ -25,6 +25,7 @@ CDictionaryEditor::CDictionaryEditor(const string &fileName)
 CDictionaryEditor::~CDictionaryEditor()
 {
 	delete m_state;
+	m_state = nullptr;
 }
 
 void CDictionaryEditor::SetState(CDictionaryState* state)
@@ -78,7 +79,6 @@ dictionary CreateDictionary(const string & nameFile)
 	inputFile.open(nameFile);
 	if (!inputFile.is_open())
 	{
-
 		cout << MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_READING << endl;
 		cout << MESSAGE_EMPTY_DICTIONARY << endl;
 	}
@@ -87,7 +87,7 @@ dictionary CreateDictionary(const string & nameFile)
 	string inputString;
 	while (getline(inputFile, inputString))
 	{
-		result.insert(ExtractElement(inputString));
+		result.emplace(ExtractElement(inputString));
 	}
 
 	return result;

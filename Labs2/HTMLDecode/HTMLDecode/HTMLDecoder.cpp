@@ -6,11 +6,11 @@ using namespace std;
 string DoHtmlDecode(string inputString)
 {
 	map<string, string> translatableStrings;
-	translatableStrings.insert({ "&quot", "\"" });
-	translatableStrings.insert({ "&apos", "‘" });
-	translatableStrings.insert({ "&lt", "<" });
-	translatableStrings.insert({ "&gt", ">" });
-	translatableStrings.insert({ "&amp", "&" });
+	translatableStrings.insert({ "&quot;", "\"" });
+	translatableStrings.insert({ "&apos;", "‘" });
+	translatableStrings.insert({ "&lt;", "<" });
+	translatableStrings.insert({ "&gt;", ">" });
+	translatableStrings.insert({ "&amp;", "&" });
 
 	for (auto element : translatableStrings)
 	{
