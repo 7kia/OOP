@@ -5,8 +5,8 @@
 static const std::string STRING_FOR_EXIT = ".";
 static const std::string STRING_FOR_SAVE = "s";
 
-static const std::string MESSAGE_WAIT_WORD = "¬ведите слово(а) и программа напечатет перевод.";
-static const std::string MESSAGE_INSTRUCTION = MESSAGE_WAIT_WORD +
+static const std::string MESSAGE_WAIT_WORDS = "¬ведите слово(а) и программа напечатет перевод.";
+static const std::string MESSAGE_INSTRUCTION = MESSAGE_WAIT_WORDS +
 												"ƒл€ выхода \"" + STRING_FOR_EXIT + "\".";
 static const std::string MESSAGE_IGNORE_WORD_FIRST_PART = "—лово ";
 static const std::string MESSAGE_IGNORE_WORD_SECOND_PART = " пропущено.";
