@@ -3,21 +3,21 @@
 
 using namespace std;
 
-dictionary CreateDictionary(const wstring & nameFile)
+dictionary CreateDictionary(const string & nameFile)
 {
-	wifstream inputFile;
-	inputFile.exceptions(wifstream::badbit);
+	ifstream inputFile;
+	inputFile.exceptions(ifstream::badbit);
 	inputFile.open(nameFile);
 	if (!inputFile.is_open())
 	{
-		wcout << MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_READING << endl;
-		wcout << MESSAGE_EMPTY_DICTIONARY << endl;
+		cout << MESSAGE_FAILED_OPEN + nameFile + MESSAGE_FAILED_OPEN_FOR_READING << endl;
+		cout << MESSAGE_EMPTY_DICTIONARY << endl;
 	}
 
 	dictionary result;
-	wstring inputString;
+	string inputString;
 	while (getline(inputFile, inputString))
-	{
+	{		
 		result.insert(inputString);
 	}
 

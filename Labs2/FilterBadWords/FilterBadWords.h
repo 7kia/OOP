@@ -2,4 +2,7 @@
 
 #include "Dictionary.h"
 
-std::wstring FilterBadWords(std::wstring inputString, const dictionary & dictionary);
+std::string FilterBadWords(std::string inputString, const dictionary & dictionary);
+
+template <typename T>
+bool IsBetween(const T& value, const T& lowerBound, const T& upperBound);

@@ -8,25 +8,23 @@ using namespace std;
 
 void PrintInstruction()
 {
-	wcout << MESSAGE_WAIT_WORDS << endl;
+	cout << MESSAGE_WAIT_WORDS << endl;
 }
 
 int main()
 {
-	system("chcp 1251");
-
-	SetConsoleOutputCP(65001);
-	SetConsoleCP(65001);
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
 	
-	setlocale(LC_ALL, "ru_RU.UTF-8");
-	//wstring inputString;
-	//getline(wcin, inputString);
+	PrintInstruction();
+	string inputString;
+	getline(cin, inputString);
 
-	dictionary badWords = CreateDictionary(L"bad.txt");
+	dictionary badWords = CreateDictionary("bad.txt");
 
-	wstring filterString = FilterBadWords(L"дщд дурак lol", badWords);
+	string filterString = FilterBadWords(inputString, badWords);
 
-	wcout << filterString;
+	cout << filterString;
 
 	return 0;
 }
