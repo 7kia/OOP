@@ -18,7 +18,7 @@ dictionary CreateDictionary(const string & nameFile)
 	string inputString;
 	while (getline(inputFile, inputString))
 	{		
-		result.insert(inputString);
+		result.emplace(inputString);
 	}
 
 	return result;
