@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(Check_on_empty_string)
 
 BOOST_AUTO_TEST_CASE(Search_element_in_middle)
 {
-	std::string checkString = "asdasd asda 123 \\ \" apos &apos&lt &gt&amp&amp&amp sfasdfasdf  sa";
+	std::string checkString = "asdasd asda 123 \\ \" apos &apos;&lt; &gt;&amp;&amp;&amp; sfasdfasdf  sa";
 
 	std::string rightString = "asdasd asda 123 \\ \" apos ‘< >&&& sfasdfasdf  sa";
 
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(Search_element_in_middle)
 
 BOOST_AUTO_TEST_CASE(Search_element_in_start)
 {
-	std::string checkString = "&quota&apossda&ltsd&gt a&ampsda 123 \\ \" apos ‘< >&&& sfasdfasdf  sa";
+	std::string checkString = "&quot;a&apos;sda&lt;sd&gt; a&amp;sda 123 \\ \" apos ‘< >&&& sfasdfasdf  sa";
 
 	std::string rightString = "\"a‘sda<sd> a&sda 123 \\ \" apos ‘< >&&& sfasdfasdf  sa";
 
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(Search_element_in_start)
 
 BOOST_AUTO_TEST_CASE(Search_element_in_end)
 {
-	std::string checkString = "\"a‘sda<sd> a&ampsda 123 \\ \" apos ‘< >&&& sfasdfasdf  &amps&aamp";
+	std::string checkString = "\"a‘sda<sd> a&amp;sda 123 \\ \" apos ‘< >&&& sfasdfasdf  &amp;s&aamp";
 
 	std::string rightString = "\"a‘sda<sd> a&sda 123 \\ \" apos ‘< >&&& sfasdfasdf  &s&aamp";
 
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(Search_element_in_end)
 
 BOOST_AUTO_TEST_CASE(Check_searching_everything_string)
 {
-	std::string checkString = "&quot&apos&lt&gt&amp";
+	std::string checkString = "&quot;&apos;&lt;&gt;&amp;";
 
 	std::string rightString = "\"‘<>&";
 

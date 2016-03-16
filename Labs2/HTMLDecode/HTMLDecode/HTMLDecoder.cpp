@@ -5,14 +5,16 @@ using namespace std;
 
 string DoHtmlDecode(string inputString)
 {
-	map<string, string> translatableStrings;
-	translatableStrings.insert({ "&quot", "\"" });
-	translatableStrings.insert({ "&apos", "‘" });
-	translatableStrings.insert({ "&lt", "<" });
-	translatableStrings.insert({ "&gt", ">" });
-	translatableStrings.insert({ "&amp", "&" });
+	vector<pair<string, string>> htmlMapping = {
+		{ "&quot;", "\"" },
+		{ "&apos;", "‘" },
+		{ "&apos;", "‘" },
+		{ "&lt;", "<" },
+		{ "&gt;", ">" },
+		{ "&amp;", "&" }
+	};
 
-	for (auto element : translatableStrings)
+	for (auto element : htmlMapping)
 	{
 		boost::replace_all(inputString, element.first, element.second);
 	}
