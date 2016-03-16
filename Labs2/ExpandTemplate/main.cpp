@@ -2,27 +2,25 @@
 //
 
 #include "stdafx.h"
-#include "ExpandTemplate.h"
+#include "Application.h"
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-	std::string inputString = "-AAABBCCCaCCABC+";;
 
-	templates params;
-	params["A"] = "[a]";
-	params["AA"] = "[aa]";
-	params["B"] = "[b]";
-	params["BB"] = "[bb]";
-	params["C"] = "[c]";
-	params["CC"] = "[cc]";
-
-	std::string expandString = ExpandTemplateForString(inputString, params);
-	std::string rightString = "-[aa][a][bb][cc][c]a[cc][a][b][c]+";
-
-	cout << expandString << endl;
-	cout << rightString << endl;
+	try
+	{
+		RunProgram(argc, argv);
+	}
+	catch (std::ifstream::failure const& err) {
+		cout << err.what() << endl;
+		return 1;
+	}
+	catch (exception const& err) {
+		cout << err.what() << endl;
+		return 1;
+	}
     return 0;
 }
 
