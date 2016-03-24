@@ -3,8 +3,10 @@
 
 using namespace std;
 
-string DoHtmlDecode(string inputString)
+string DoHtmlDecode(const string &inputString)
 {
+	std::string result = inputString;
+
 	map<string, string> translatableStrings;
 	translatableStrings.insert({ "&quot;", "\"" });
 	translatableStrings.insert({ "&apos;", "‘" });
@@ -14,7 +16,7 @@ string DoHtmlDecode(string inputString)
 
 	for (auto element : translatableStrings)
 	{
-		boost::replace_all(inputString, element.first, element.second);
+		boost::replace_all(result, element.first, element.second);
 	}
-	return inputString;
+	return result;
 }
