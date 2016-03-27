@@ -7,8 +7,7 @@ CDictionaryEditor::CDictionaryEditor(const string &fileName)
 {
 	m_dictionary = CreateDictionary(fileName);
 
-	//m_state.reset(new CWaitTranslateWord(this));
-	m_state = new CWaitTranslateWord(this);
+	m_numberState = numberState::Wait_translate_word;
 	PrintInstruction();
 	m_inputDictionaryIsEmpty = m_dictionary.empty();
 
@@ -24,20 +23,48 @@ CDictionaryEditor::CDictionaryEditor(const string &fileName)
 
 CDictionaryEditor::~CDictionaryEditor()
 {
-	delete m_state;
-	m_state = nullptr;
 }
 
-void CDictionaryEditor::SetState(CDictionaryState* state)
+void CDictionaryEditor::SetIdState(numberState state)
 {
-	//m_state.reset(state);
-	//m_state.swap(unique_ptr<CApplicationState>(state));
-	m_state = state;
+	m_numberState = state;
 }
 
-void CDictionaryEditor::ProcessString(string inputString)
+CDictionaryEditor::numberState CDictionaryEditor::GetIdState() const
 {
-	m_state->ProcessString(inputString);
+	return m_numberState;
+}
+
+void CDictionaryEditor::ProcessString(std::string inputString)
+{
+	switch (GetState())
+	{
+	case CDictionaryEditor::numberState::Before_exit:
+		StateBeforeExit::ProcessString(*this, inputString);
+
+		if (GetState() == CDictionaryEditor::numberState::Save_dictionary)
+		{
+			SaveDictionaryInFile();
+			SetIdState(CDictionaryEditor::numberState::Exit);
+		}
+		break;
+	case CDictionaryEditor::numberState::Save_dictionary:
+		PrintMessageDictionarySaveAs(m_inputDictionaryIsEmpty, m_fileName);
+
+		SaveDictionaryInFile();
+		SetIdState(CDictionaryEditor::numberState::Exit);
+		break;
+	case CDictionaryEditor::numberState::Wait_translate_word:
+		StateWaitTranslateWord::ProcessString(*this, inputString);
+		break;
+	case CDictionaryEditor::numberState::Wait_translation:
+		StateWaitTranslation::ProcessString(*this, inputString);
+		break;
+	case CDictionaryEditor::numberState::Exit:
+		break;
+	default:
+		break;
+	}
 }
 
 void CDictionaryEditor::SaveDictionaryInFile()

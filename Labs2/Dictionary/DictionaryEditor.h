@@ -22,7 +22,9 @@ public:
 	CDictionaryEditor(const std::string &fileName);
 	~CDictionaryEditor();
 
-	void SetState(CDictionaryState* state);
+	void SetIdState(numberState state);
+	numberState GetIdState() const;
+
 	void ProcessString(std::string inputString);
 	void SaveDictionaryInFile();
 
@@ -31,7 +33,6 @@ public:
 	dictionary m_dictionary;
 
 	//std::unique_ptr<CApplicationState> m_state;
-	CDictionaryState* m_state;
 	numberState m_numberState;
 
 	std::string m_unknowWord;

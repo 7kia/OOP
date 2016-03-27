@@ -13,13 +13,7 @@ bool needSetExitState(string input)
 	return false;
 }
 
-CWaitTranslateWord::CWaitTranslateWord(CDictionaryEditor * pEditor)
-{
-	m_pEditor = pEditor;
-	m_pEditor->m_numberState = CDictionaryEditor::numberState::Wait_translate_word;
-}
-
-void CWaitTranslateWord::ProcessString(string inputString)
+void StateWaitTranslateWord::ProcessString(CDictionaryEditor &pEditor, string inputString)
 {
 	boost::algorithm::to_lower(inputString);
 
@@ -27,34 +21,28 @@ void CWaitTranslateWord::ProcessString(string inputString)
 	{
 		if (needSetExitState(inputString))
 		{
-			m_pEditor->SetState(new CBeforeExit(m_pEditor));
+			pEditor.SetIdState(CDictionaryEditor::numberState::Before_exit);
 			PrintMessageBeforeExit();
 			return;
 		}
 
-		auto foundElement = m_pEditor->m_dictionary.find(inputString);
+		auto foundElement = pEditor.m_dictionary.find(inputString);
 
-		if (foundElement != m_pEditor->m_dictionary.end())
+		if (foundElement != pEditor.m_dictionary.end())
 		{
 			cout << foundElement->second << endl;
 		}
 		else
 		{
-			m_pEditor->m_unknowWord = inputString;
-			m_pEditor->SetState(new CWaitTranslation(m_pEditor));
-			PrintMessageAboutUnknowWord(m_pEditor->m_unknowWord);
+			pEditor.m_unknowWord = inputString;
+			pEditor.SetIdState(CDictionaryEditor::numberState::Wait_translation);
+			PrintMessageAboutUnknowWord(pEditor.m_unknowWord);
 		}
 	}
 
 }
 
-CWaitTranslation::CWaitTranslation(CDictionaryEditor * pEditor)
-{
-	m_pEditor = pEditor;
-	m_pEditor->m_numberState = CDictionaryEditor::numberState::Wait_translation;
-}
-
-void CWaitTranslation::ProcessString(string inputString)
+void StateWaitTranslation::ProcessString(CDictionaryEditor &pEditor, string inputString)
 {
 	boost::algorithm::to_lower(inputString);
 
@@ -62,41 +50,35 @@ void CWaitTranslation::ProcessString(string inputString)
 	{
 		if (needSetExitState(inputString))
 		{
-			m_pEditor->SetState(new CBeforeExit(m_pEditor));
+			pEditor.SetIdState(CDictionaryEditor::numberState::Before_exit);
 			PrintMessageBeforeExit();
 			return;
 		}
 
-		m_pEditor->m_dictionary.insert({ m_pEditor->m_unknowWord, inputString });
+		pEditor.m_dictionary.insert({ pEditor.m_unknowWord, inputString });
 
-		m_pEditor->SetState(new CWaitTranslateWord(m_pEditor));
+		pEditor.SetIdState(CDictionaryEditor::numberState::Wait_translate_word);
 		
-		PrintMessageSuccessfullInsert(m_pEditor->m_unknowWord, inputString);
+		PrintMessageSuccessfullInsert(pEditor.m_unknowWord, inputString);
 
 	}
 	else
 	{
-		m_pEditor->SetState(new CWaitTranslateWord(m_pEditor));
-		PrintMessageIgnoreWord(m_pEditor->m_unknowWord);
+		pEditor.SetIdState(CDictionaryEditor::numberState::Wait_translate_word);
+		PrintMessageIgnoreWord(pEditor.m_unknowWord);
 	}
 }
 
-CBeforeExit::CBeforeExit(CDictionaryEditor * pEditor)
-{
-	m_pEditor = pEditor;
-	m_pEditor->m_numberState = CDictionaryEditor::numberState::Before_exit;
-}
-
-void CBeforeExit::ProcessString(string inputString)
+void StateBeforeExit::ProcessString(CDictionaryEditor &pEditor, string inputString)
 {
 
 	boost::algorithm::to_lower(inputString);
 
-	if (!inputString.empty() && !m_pEditor->m_dictionary.empty())
+	if (!inputString.empty() && !pEditor.m_dictionary.empty())
 	{
 		if (inputString == STRING_FOR_SAVE)
 		{
-			m_pEditor->SetState(new CSaveDictionary(m_pEditor));
+			pEditor.SetIdState(CDictionaryEditor::numberState::Save_dictionary);
 		}
 		else
 		{
@@ -105,22 +87,35 @@ void CBeforeExit::ProcessString(string inputString)
 	}
 	else
 	{
-		m_pEditor->SetState(new CExit(m_pEditor));
+		pEditor.SetIdState(CDictionaryEditor::numberState::Exit);
 	}
 }
 
-CSaveDictionary::CSaveDictionary(CDictionaryEditor *pEditor)
-{
-	m_pEditor = pEditor;
-	PrintMessageDictionarySaveAs(m_pEditor->m_inputDictionaryIsEmpty, m_pEditor->m_fileName);
+/*
 
-	m_pEditor->SaveDictionaryInFile();
-	m_pEditor->SetState(new CExit(m_pEditor));
+CWaitTranslateWord::CWaitTranslateWord(CDictionaryEditor * pEditor)
+{
+pEditor = pEditor;
+pEditor->m_numberState = CDictionaryEditor::numberState::Wait_translate_word;
 }
 
-void CSaveDictionary::ProcessString(string inputString)
+CBeforeExit::CBeforeExit(CDictionaryEditor * pEditor)
 {
+	pEditor = pEditor;
+	pEditor->m_numberState = CDictionaryEditor::numberState::Before_exit;
 }
+
+CSaveDictionary::CSaveDictionary(CDictionaryEditor &pEditor)
+{
+	pEditor = pEditor;
+	PrintMessageDictionarySaveAs(pEditor->m_inputDictionaryIsEmpty, pEditor->m_fileName);
+
+	pEditor->SaveDictionaryInFile();
+	pEditor->SetState(new CExit(pEditor));
+}
+
+
+
 
 CExit::CExit(CDictionaryEditor * pEditor)
 {
@@ -130,4 +125,6 @@ CExit::CExit(CDictionaryEditor * pEditor)
 void CExit::ProcessString(std::string inputString)
 {
 }
+
+*/
 

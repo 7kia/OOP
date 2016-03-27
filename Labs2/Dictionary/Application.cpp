@@ -13,6 +13,7 @@ void RunProgram(int argc, char * argv[])
 	while (editor.GetState() != CDictionaryEditor::numberState::Exit)
 	{
 		getline(cin, inputString);
+
 		editor.ProcessString(inputString);
 	}
 

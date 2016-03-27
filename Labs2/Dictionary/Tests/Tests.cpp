@@ -22,23 +22,23 @@ BOOST_AUTO_TEST_CASE(Check_correctness_adding_and_unchanged_dictionary_without_s
 	dictionary startDictionary = editor.m_dictionary;
 
 	editor.ProcessString("help");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translation);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translation);
 
 	editor.ProcessString("ןמלמשü");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 	BOOST_CHECK(IsElementInDictionary(editor.m_dictionary, "help"));
 
 	editor.ProcessString("sdfax");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translation);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translation);
 
 	editor.ProcessString("");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 
 	editor.ProcessString(".");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Before_exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Before_exit);
 
 	editor.ProcessString("");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Exit);
 
 	BOOST_CHECK(CreateDictionary("dict1.txt") == startDictionary);
 }
@@ -49,26 +49,26 @@ BOOST_AUTO_TEST_CASE(Check_searching_different_register_words_and_changed_dictio
 	CDictionaryEditor editor("dict2.txt");
 
 	editor.ProcessString("help");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translation);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translation);
 
 	editor.ProcessString("ןמלמשü");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 	BOOST_CHECK(IsElementInDictionary(editor.m_dictionary, "help"));
 
 	editor.ProcessString("HeLp");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 
 	editor.ProcessString("seed");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 
 	editor.ProcessString("SeEd");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 
 	editor.ProcessString(".");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Before_exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Before_exit);
 
 	editor.ProcessString("");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Exit);
 
 	BOOST_CHECK(CreateDictionary("dict2out.txt") == editor.m_dictionary);
 }
@@ -84,17 +84,19 @@ BOOST_AUTO_TEST_CASE(Check_on_empty_dictionary_file)
 	BOOST_CHECK(editor.m_dictionary.empty());
 
 	editor.ProcessString("help");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translation);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translation);
 
 	editor.ProcessString("ןמלמשü");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Wait_translate_word);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Wait_translate_word);
 	BOOST_CHECK(IsElementInDictionary(editor.m_dictionary, "help"));
 
 	editor.ProcessString(".");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Before_exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Before_exit);
 
 	editor.ProcessString("s");
-	BOOST_CHECK(editor.GetState() == CDictionaryEditor::numberState::Exit);
+	BOOST_CHECK(editor.GetIdState() == CDictionaryEditor::numberState::Exit);
+
+
 
 	BOOST_CHECK(CreateDictionary("dict3out.txt") == editor.m_dictionary);
 }

@@ -18,8 +18,8 @@
 #include <boost/range/algorithm/transform.hpp>
 #include <locale>         // std::locale, std::tolower
 
-#include <cstdlib>;
-#include <windows.h>;
+#include <cstdlib>
+#include <windows.h>
 
 #include <iostream>// for std::cin and std::cout
 #include <fstream>

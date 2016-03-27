@@ -25,56 +25,19 @@ static const std::string DICTIONARY_SAVE_AS = "Словарь будет сохранён в файл ";
 
 class CDictionaryEditor;
 
-class CDictionaryState
+namespace StateWaitTranslateWord
 {
-public:
-	virtual void ProcessString(std::string inputString) = 0;
+	void ProcessString(CDictionaryEditor &pEditor, std::string inputString);
 };
 
-class CWaitTranslateWord : public CDictionaryState
+namespace StateWaitTranslation
 {
-public:
-	CWaitTranslateWord(CDictionaryEditor *pEditor);
-	void ProcessString(std::string inputString) override;
-private:
-	CDictionaryEditor *m_pEditor;
-
+	void ProcessString(CDictionaryEditor &pEditor, std::string inputString);
 };
 
-class CWaitTranslation : public CDictionaryState
+namespace StateBeforeExit
 {
-public:
-	CWaitTranslation(CDictionaryEditor *pEditor);
-	void ProcessString(std::string inputString) override;;
-private:
-	CDictionaryEditor *m_pEditor;
-};
-
-class CBeforeExit : public CDictionaryState
-{
-public:
-	CBeforeExit(CDictionaryEditor *pEditor);
-	void ProcessString(std::string inputString) override;;
-private:
-	CDictionaryEditor *m_pEditor;
-};
-
-class CSaveDictionary : public CDictionaryState
-{
-public:
-	CSaveDictionary(CDictionaryEditor *pEditor);
-
-	void ProcessString(std::string inputString) override;;
-private:
-	CDictionaryEditor *m_pEditor;
-};
-
-class CExit : public CDictionaryState
-{
-public:
-	CExit(CDictionaryEditor *pEditor);
-
-	void ProcessString(std::string inputString) override;
+	void ProcessString(CDictionaryEditor &pEditor, std::string inputString);
 };
 
 void PrintMessageSuccessfullInsert(std::string word, std::string translation);
