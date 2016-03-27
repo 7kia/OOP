@@ -85,11 +85,11 @@ bool CCanvas::CheckCorrectnessChar(char code)
 void CCanvas::FillRectangle(CRectangle & rect, char code, CCanvas & canvas)
 {
 
-	for (int x = rect.GetLeft(); x < rect.GetRight(); ++x)
+	for (int x = rect.GetLeft(); x < rect.GetRight(); x++)
 	{
-		for (int y = rect.GetTop(); y < rect.GetBottom(); ++y)
+		for (int y = rect.GetTop(); y < rect.GetBottom(); y++)
 		{
-			canvas.SetPixel(x, y, code);
+			canvas.SetPixel(y, x, code);
 		}
 	}
 }
