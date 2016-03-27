@@ -93,19 +93,17 @@ BOOST_AUTO_TEST_CASE(Check_CRectangle_Intersect)
 	int dy = 1;
 	rect2.Move(dx, dy);
 	BOOST_CHECK(rect.Intersect(rect2) == true);
-	BOOST_CHECK(rect.GetWidth() == width);
-	BOOST_CHECK(rect.GetHeight() == height);
+	BOOST_CHECK(rect.GetWidth() == (width - 1));
+	BOOST_CHECK(rect.GetHeight() == (height - 1));
 
 
-	rect2.Move(width - dx, height - dy);
-	BOOST_CHECK(rect.Intersect(rect2) == true);
-	BOOST_CHECK(rect.GetWidth() == width);
-	BOOST_CHECK(rect.GetHeight() == height);
+	CRectangle rect3(Vector2I(x, y), width, height);
+	CRectangle rect4(Vector2I(x, y), width, height);
 
-	rect2.Move(width - dx, height - dy);
-	BOOST_CHECK(rect.Intersect(rect2) == false);
-	BOOST_CHECK(rect.GetWidth() == 0);
-	BOOST_CHECK(rect.GetHeight() == 0);
+	rect4.Move(width - dx, height - dy);
+	BOOST_CHECK(rect3.Intersect(rect4) == true);
+	BOOST_CHECK(rect3.GetWidth() == dx);
+	BOOST_CHECK(rect3.GetHeight() == dy);
 
 }
 

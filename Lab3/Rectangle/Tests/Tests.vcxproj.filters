@@ -39,6 +39,12 @@
     <ClInclude Include="TestRectangle.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="..\Canvas.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CApplication.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -58,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="TestsRectangle.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Canvas.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CApplication.cpp">
+      <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -108,7 +108,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>$(TargetPath)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,6 +150,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Canvas.h" />
+    <ClInclude Include="..\CApplication.h" />
     <ClInclude Include="..\Rectangle.h" />
     <ClInclude Include="..\Vector2I.h" />
     <ClInclude Include="stdafx.h" />
@@ -157,6 +160,8 @@
     <ClInclude Include="TestRectangle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Canvas.cpp" />
+    <ClCompile Include="..\CApplication.cpp" />
     <ClCompile Include="..\Rectangle.cpp" />
     <ClCompile Include="..\Vector2I.cpp" />
     <ClCompile Include="stdafx.cpp">
