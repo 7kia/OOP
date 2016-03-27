@@ -35,7 +35,12 @@ void CApplication::Run()
 
 	ApplyCommandOnRectangle(rectangles[1], m_secondCommandFile);
 
-	WriteResultIntersectionInFile(rectangles, m_outputFile);
+	rectangles.push_back(rectangles[0]);
+	rectangles[2].Intersect(rectangles[1]);
+	WriteResultTransformationsInFile(rectangles, m_outputFile);
+
+	WriteResultIntersectionInFile(rectangles, m_inserectFile);
+
 //	outputFile << secondMaxCost;
 }
 
@@ -55,7 +60,6 @@ void CApplication::OpenFiles()
 	CheckAndOpenFileForWriting(m_inserectFile, m_nameInserectFile);
 
 }
-
 
 void CApplication::CheckAndOpenFileForReading(ifstream & file, const string& fileName)
 {
@@ -116,9 +120,10 @@ void CApplication::ApplyCommandOnRectangle(CRectangle & rectangle, std::ifstream
 
 void CApplication::ProcessRectangleCommand(const listArguments & arguments, CRectangle & rectangle)
 {
-	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Rectangle])
+	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Rectangle)])
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Rectangle]));
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS
+			+ to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Rectangle)]));
 	}
 
 	rectangle.SetLeft(stoi(arguments[1]));
@@ -129,9 +134,10 @@ void CApplication::ProcessRectangleCommand(const listArguments & arguments, CRec
 
 void CApplication::ProcessMoveCommand(const listArguments & arguments, CRectangle & rectangle)
 {
-	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Move])
+	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Move)])
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Move]));
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS 
+			+ to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Move)]));
 	}
 
 	rectangle.Move(stoi(arguments[1]), stoi(arguments[2]));
@@ -139,9 +145,10 @@ void CApplication::ProcessMoveCommand(const listArguments & arguments, CRectangl
 
 void CApplication::ProcessScaleCommand(const listArguments & arguments, CRectangle & rectangle)
 {
-	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Scale])
+	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Scale)])
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[IdCommand::Scale]));
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS
+			+ to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Scale)]));
 	}
 
 	rectangle.Scale(stoi(arguments[1]), stoi(arguments[2]));
@@ -152,18 +159,33 @@ bool CApplication::IsCommand(const std::string & word)
 	return find(COMMANDS_NAME.begin(), COMMANDS_NAME.end(), word) != COMMANDS_NAME.end();
 }
 
-void CApplication::WriteResultIntersectionInFile(vector<CRectangle> & rectangles, ofstream & file)
+void CApplication::WriteResultTransformationsInFile(vector<CRectangle> & rectangles, ofstream & file)
 {
-	size_t index = 0;
-	for (auto rectangle : rectangles)
+	
+	for (size_t index = 0; index < 2; index++)
 	{
-		file << "Rectangle " << ++index << ":\n";
-		file << "\t" << "Left top :" << '(' << rectangle.GetLeft() << ';' << rectangle.GetTop() << ")\n";
-		file << "\t" << "Size :" << '(' << rectangle.GetWidth() << "*" << rectangle.GetHeight() << ")\n";
-		file << "\t" << "Right bottom :" << '(' << rectangle.GetRight() << ';' << rectangle.GetBottom() << ")\n";
-		file << "\t" << "Area :" << rectangle.GetArea() << "\n";
-		file << "\t" << "Perimeter :" << rectangle.GetPerimeter() << "\n";
+		file << "Rectangle " << index + 1 << ":\n";
+		file << "\t" << "Left top :" << '(' << rectangles[index].GetLeft() << ';' << rectangles[index].GetTop() << ")\n";
+		file << "\t" << "Size :" << '(' << rectangles[index].GetWidth() << "*" << rectangles[index].GetHeight() << ")\n";
+		file << "\t" << "Right bottom :" << '(' << rectangles[index].GetRight() << ';' << rectangles[index].GetBottom() << ")\n";
+		file << "\t" << "Area :" << rectangles[index].GetArea() << "\n";
+		file << "\t" << "Perimeter :" << rectangles[index].GetPerimeter() << "\n";
 	};
 
+	file << "Intersection :\n";
+	file << "\t" << "Left top :" << '(' << rectangles[2].GetLeft() << ';' << rectangles[2].GetTop() << ")\n";
+	file << "\t" << "Size :" << '(' << rectangles[2].GetWidth() << "*" << rectangles[2].GetHeight() << ")\n";
+	file << "\t" << "Right bottom :" << '(' << rectangles[2].GetRight() << ';' << rectangles[2].GetBottom() << ")\n";
+	file << "\t" << "Area :" << rectangles[2].GetArea() << "\n";
+	file << "\t" << "Perimeter :" << rectangles[2].GetPerimeter() << "\n";
+}
 
+void CApplication::WriteResultIntersectionInFile(vector<CRectangle> & rectangles, ofstream & file)
+{
+	CCanvas canvas(30, 30);
+	canvas.FillRectangle(rectangles[0], '0', canvas);
+	canvas.FillRectangle(rectangles[1], '1', canvas);
+	canvas.FillRectangle(rectangles[2], '2', canvas);
+
+	canvas.Write(file);
 }

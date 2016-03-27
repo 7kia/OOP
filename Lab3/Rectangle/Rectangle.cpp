@@ -143,21 +143,36 @@ bool CRectangle::Intersect(CRectangle const & other)
 
 	if (leftIsIntersect && topIsIntersect)
 	{
+		SetWidth(GetLeft() - other.GetRight());
+		SetHeight(GetTop() - other.GetBottom());
+		SetLeftTopPoint(Vector2I(other.GetRight(), other.GetBottom()));
+
 		return true;
 	}
 	else if (rightIsIntersect && topIsIntersect)
 	{
+		SetWidth(GetRight() - other.GetLeft());
+		SetHeight(GetTop() - other.GetBottom());
+		SetLeftTopPoint(Vector2I(other.GetLeft(), other.GetBottom()));
+
 		return true;
 	}
 	else if (rightIsIntersect && bottomIsIntersect)
 	{
+		SetWidth(GetRight() - other.GetLeft());
+		SetHeight(GetBottom() - other.GetTop());
+		SetLeftTopPoint(Vector2I(other.GetLeft(), other.GetTop()));
+
 		return true;
 	}
 	else if (leftIsIntersect && bottomIsIntersect)
 	{
+		SetWidth(GetLeft() - other.GetRight());
+		SetHeight(GetBottom() - other.GetTop());
+		SetLeftTopPoint(Vector2I(other.GetRight(), other.GetTop()));
+
 		return true;
 	}
-
 
 	m_width = 0;
 	m_height = 0;

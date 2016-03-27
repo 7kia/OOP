@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Rectangle.h"
+#include "Canvas.h"
 #include <boost/algorithm/string.hpp>
 
 typedef typename std::vector<std::string> listArguments;
@@ -71,6 +72,7 @@ private:
 	void ProcessMoveCommand(const listArguments & arguments, CRectangle & rectangle);
 	void ProcessScaleCommand(const listArguments & arguments, CRectangle & rectangle);
 	bool IsCommand(const std::string & word);
+	void WriteResultTransformationsInFile(std::vector<CRectangle> & rectangles, std::ofstream & file);
 	void WriteResultIntersectionInFile(std::vector<CRectangle> & rectangles, std::ofstream & file);
 };
 
