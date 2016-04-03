@@ -42,6 +42,12 @@
     <ClInclude Include="..\MyCPoint.h">
       <Filter>TestsClasess</Filter>
     </ClInclude>
+    <ClInclude Include="..\Triangle.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ISolidShape.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -66,6 +72,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\MyCPoint.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Triangle.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ISolidShape.cpp">
       <Filter>TestsClasess</Filter>
     </ClCompile>
   </ItemGroup>

@@ -29,9 +29,9 @@ public:
 	virtual float				GetArea() const = 0;
 	virtual std::string			GetStringPresentation() const = 0;
 
-	void						SetColor(SColor color);
-	void						SetColor(uint8_t r, uint8_t g, uint8_t b);
-	SColor						GetColor() const;
+	virtual void						SetColor(SColor color);
+	virtual void						SetColor(uint8_t r, uint8_t g, uint8_t b);
+	virtual SColor						GetColor() const;
 protected:
 	SColor						m_color;
 	std::string					m_type;

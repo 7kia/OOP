@@ -162,6 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyCPoint.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IShape.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MyCPoint.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
