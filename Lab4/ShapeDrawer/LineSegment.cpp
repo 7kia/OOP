@@ -10,8 +10,8 @@ CLineSegment::CLineSegment()
 
 CLineSegment::CLineSegment(sf::Vector2f firstPoint, sf::Vector2f secondPoint, SColor color)
 	: IShape("Line segment", color)
-	, m_positionFirstPoint(firstPoint)
-	, m_positionSecondPoint(secondPoint)
+	, m_firstPoint(firstPoint, color)
+	, m_secondPoint(secondPoint, color)
 {
 }
 
@@ -22,9 +22,9 @@ CLineSegment::~CLineSegment()
 float CLineSegment::GetPerimeter() const
 {
 	
-	return sqrtf(std::powf((m_positionSecondPoint.x - m_positionFirstPoint.x), 2.f)
+	return sqrtf(std::powf((m_firstPoint.GetPosition().x - m_secondPoint.GetPosition().x), 2.f)
 					+
-				std::powf((m_positionSecondPoint.y - m_positionFirstPoint.y), 2.f));
+				std::powf((m_firstPoint.GetPosition().y - m_secondPoint.GetPosition().y), 2.f));
 }
 
 float CLineSegment::GetArea() const
@@ -37,10 +37,40 @@ std::string CLineSegment::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 	strm << m_type << ":" << std::endl
-		<< "\tPosition first point = (" << m_positionFirstPoint.x << ", " << m_positionFirstPoint.y << ")" << std::endl
-		<< "\tPosition second point = (" << m_positionSecondPoint.x << ", " << m_positionSecondPoint.y << ")" << std::endl
+		<< "\tPosition first point = (" << m_firstPoint.GetPosition().x << ", " << m_firstPoint.GetPosition().y << ")" << std::endl
+		<< "\tPosition second point = (" << m_secondPoint.GetPosition().x << ", " << m_secondPoint.GetPosition().y << ")" << std::endl
 		<< "\tColor = " << GetColor() << std::endl
 		<< "\tLength = " << GetPerimeter() << std::endl
 		<< "\tArea = " << GetArea() << std::endl;
 	return strm.str();
+}
+
+void CLineSegment::SetPositionFirstPoint(sf::Vector2f position)
+{
+	m_firstPoint.SetPosition(position);
+}
+
+void CLineSegment::SetPositionFirstPoint(float x, float y)
+{
+	m_firstPoint.SetPosition(x, y);
+}
+
+sf::Vector2f CLineSegment::GetPositiionFirstPoint() const
+{
+	return m_firstPoint.GetPosition();
+}
+
+void CLineSegment::SetPositionSecondPoint(sf::Vector2f position)
+{
+	m_firstPoint.SetPosition(position);
+}
+
+void CLineSegment::SetPositionSecondPoint(float x, float y)
+{
+	m_firstPoint.SetPosition(x, y);
+}
+
+sf::Vector2f CLineSegment::GetPositiionSecondPoint() const
+{
+	return m_firstPoint.GetPosition();
 }

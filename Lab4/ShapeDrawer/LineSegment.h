@@ -1,8 +1,8 @@
 #pragma once
 
-#include "IShape.h"
+#include "MyCPoint.h"
 
-class CLineSegment final:
+class CLineSegment final :
 	public IShape
 {
 public:
@@ -13,8 +13,16 @@ public:
 	float				GetPerimeter() const override;
 	float				GetArea() const override;
 	std::string			GetStringPresentation() const override;
-private:
-	sf::Vector2f		m_positionFirstPoint;
-	sf::Vector2f		m_positionSecondPoint;
-};
 
+	void				SetPositionFirstPoint(sf::Vector2f position);
+	void				SetPositionFirstPoint(float x, float y);
+	sf::Vector2f		GetPositiionFirstPoint() const;
+
+	void				SetPositionSecondPoint(sf::Vector2f position);
+	void				SetPositionSecondPoint(float x, float y);
+	sf::Vector2f		GetPositiionSecondPoint() const;
+
+private:
+	MyCPoint m_firstPoint;
+	MyCPoint m_secondPoint;
+};

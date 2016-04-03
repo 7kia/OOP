@@ -8,9 +8,6 @@ class ISolidShape
 	: public IShape
 {
 public:
-	ISolidShape();
-	~ISolidShape();
-
 	virtual void				SetFillColor() const = 0;
 	virtual SColor				GetFillColor() const = 0;
 private:
