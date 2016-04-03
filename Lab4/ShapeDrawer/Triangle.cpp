@@ -8,11 +8,11 @@ CTriangle::CTriangle()
 }
 
 CTriangle::CTriangle(sf::Vector2f firstPoint, sf::Vector2f secondPoint, sf::Vector2f thirdPoint,
-					SColor boundColor, SColor fillColor)
-	: ISolidShape("Triangle", boundColor, fillColor)
-	, m_firstLine(firstPoint, secondPoint, boundColor)
-	, m_secondLine(secondPoint, thirdPoint, boundColor)
-	, m_thirdLine(thirdPoint, firstPoint, boundColor)
+					SColor fillColor, SColor outlineColor)
+	: ISolidShape("Triangle", fillColor, outlineColor)
+	, m_firstLine(firstPoint, secondPoint, outlineColor)
+	, m_secondLine(secondPoint, thirdPoint, outlineColor)
+	, m_thirdLine(thirdPoint, firstPoint, outlineColor)
 {
 }
 
@@ -49,8 +49,8 @@ std::string CTriangle::GetStringPresentation() const
 										<< ", " << m_firstLine.GetPositiionSecondPoint().y << ")" << std::endl
 		<< "\tPosition third point = (" << m_secondLine.GetPositiionSecondPoint().x
 										<< ", " << m_secondLine.GetPositiionSecondPoint().y << ")" << std::endl
-		<< "\tBound Color = " << GetBoundColor() << std::endl
-		<< "\tFill Color = " << GetFillColor() << std::endl
+		<< "\tOutline color = " << GetOutlineColor() << std::endl
+		<< "\tFill color = " << GetFillColor() << std::endl
 		<< "\tPerimeter = " << GetPerimeter() << std::endl
 		<< "\tArea = " << GetArea() << std::endl;
 	return strm.str();

@@ -38,7 +38,7 @@ std::string MyCPoint::GetStringPresentation() const
 	strm << m_type << ":" << std::endl
 		<< "\tPosition = (" << m_position.x << ", " << m_position.y << ")" << std::endl
 		<< "\tLength = " << GetPerimeter() << std::endl
-		<< "\tColor = " << GetColor() << std::endl
+		<< "\tColor = " << GetFillColor() << std::endl
 		<< "\tArea = " << GetArea() << std::endl;
 	return strm.str();
 }

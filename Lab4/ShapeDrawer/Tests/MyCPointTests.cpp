@@ -19,11 +19,6 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 	BOOST_CHECK(static_cast<const IShape*>(&point));
 }
 
-BOOST_AUTO_TEST_CASE(has_color)
-{
-	BOOST_CHECK_EQUAL(point.GetColor(), expectedColor);
-}
-
 BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
 {
 	BOOST_CHECK(IsEqual(point.GetPerimeter(), expectedLength));

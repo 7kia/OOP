@@ -4,7 +4,7 @@
 
 IShape::IShape(const std::string & type, SColor color)
 	: m_type(type)
-	, m_color(color)
+	, m_fillColor(color)
 {
 }
 
@@ -13,21 +13,21 @@ IShape::~IShape()
 {
 }
 
-void IShape::SetColor(SColor color)
+void IShape::SetFillColor(SColor color)
 {
-	m_color = color;
+	m_fillColor = color;
 }
 
-void IShape::SetColor(uint8_t r, uint8_t g, uint8_t b)
+void IShape::SetFillColor(uint8_t r, uint8_t g, uint8_t b)
 {
-	m_color.red = r;
-	m_color.blue = b;
-	m_color.green = g;
+	m_fillColor.red = r;
+	m_fillColor.blue = b;
+	m_fillColor.green = g;
 }
 
-SColor IShape::GetColor() const
+SColor IShape::GetFillColor() const
 {
-	return m_color;
+	return m_fillColor;
 }
 
 SColor::SColor(uint8_t r, uint8_t g, uint8_t b)

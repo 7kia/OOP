@@ -29,11 +29,11 @@ public:
 	virtual float				GetArea() const = 0;
 	virtual std::string			GetStringPresentation() const = 0;
 
-	virtual void						SetColor(SColor color);
-	virtual void						SetColor(uint8_t r, uint8_t g, uint8_t b);
-	virtual SColor						GetColor() const;
+	virtual void				SetFillColor(SColor color);
+	virtual void				SetFillColor(uint8_t r, uint8_t g, uint8_t b);
+	virtual SColor				GetFillColor() const;
 protected:
-	SColor						m_color;
+	SColor						m_fillColor;
 	std::string					m_type;
 };
 

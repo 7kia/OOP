@@ -48,6 +48,9 @@
     <ClInclude Include="..\ISolidShape.h">
       <Filter>TestsClasess</Filter>
     </ClInclude>
+    <ClInclude Include="TriangleTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="..\ISolidShape.cpp">
       <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleTests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
