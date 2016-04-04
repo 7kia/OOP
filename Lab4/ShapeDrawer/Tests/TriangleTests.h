@@ -1,3 +1,3 @@
 #pragma once
 
-#include "../Triangle.h"
+#include "../Shapes/Triangle.h"

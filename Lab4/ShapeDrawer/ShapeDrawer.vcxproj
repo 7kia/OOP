@@ -98,8 +98,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -156,26 +155,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="IShape.cpp" />
-    <ClCompile Include="ISolidShape.cpp" />
-    <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyCPoint.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shapes\Circle.cpp" />
+    <ClCompile Include="Shapes\IShape.cpp" />
+    <ClCompile Include="Shapes\ISolidShape.cpp" />
+    <ClCompile Include="Shapes\LineSegment.cpp" />
+    <ClCompile Include="Shapes\MyCPoint.cpp" />
+    <ClCompile Include="Shapes\Rectangle.cpp" />
+    <ClCompile Include="Shapes\Triangle.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="IShape.h" />
-    <ClInclude Include="ISolidShape.h" />
-    <ClInclude Include="LineSegment.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="MyCPoint.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Shapes\Circle.h" />
+    <ClInclude Include="Shapes\IShape.h" />
+    <ClInclude Include="Shapes\ISolidShape.h" />
+    <ClInclude Include="Shapes\LineSegment.h" />
+    <ClInclude Include="Shapes\MyCPoint.h" />
+    <ClInclude Include="Shapes\Rectangle.h" />
+    <ClInclude Include="Shapes\Shapes.h" />
+    <ClInclude Include="Shapes\Triangle.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

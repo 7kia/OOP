@@ -1,3 +1,3 @@
 #pragma once
 
-#include "../LineSegment.h"
+#include "../Shapes/LineSegment.h"

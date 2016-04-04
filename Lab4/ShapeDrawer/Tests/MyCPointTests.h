@@ -1,4 +1,4 @@
 #pragma once
 
-#include "../MyCPoint.h"
+#include "../Shapes/MyCPoint.h"
 

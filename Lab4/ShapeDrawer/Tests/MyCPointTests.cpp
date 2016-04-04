@@ -61,12 +61,12 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 
 BOOST_AUTO_TEST_CASE(not_has_a_length)//"$(TargetPath)" --log_level=test_suite
 {
-	BOOST_CHECK_EQUAL(point.GetPerimeter(), expectedLength, epsilon);
+	BOOST_CHECK(IsEqual(point.GetPerimeter(), expectedLength));
 }
 
 BOOST_AUTO_TEST_CASE(not_has_a_area)
 {
-	BOOST_CHECK_EQUAL(point.GetArea(), expectedArea, epsilon);
+	BOOST_CHECK(IsEqual(point.GetArea(), expectedArea));
 }
 
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)

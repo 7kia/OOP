@@ -21,54 +21,57 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shapes\Circle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\IShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\ISolidShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\LineSegment.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\MyCPoint.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Rectangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Triangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="IShape.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="ISolidShape.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="LineSegment.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="MyCPoint.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="IShape.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="ISolidShape.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="LineSegment.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="MyCPoint.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Circle.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\IShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\ISolidShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\LineSegment.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\MyCPoint.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Rectangle.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Triangle.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Shapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
