@@ -51,6 +51,18 @@
     <ClInclude Include="TriangleTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RectangleTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Rectangle.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Circle.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +97,18 @@
     </ClCompile>
     <ClCompile Include="TriangleTests.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Rectangle.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Circle.cpp">
+      <Filter>TestsClasess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

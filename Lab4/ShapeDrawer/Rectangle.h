@@ -3,7 +3,7 @@
 #include "LineSegment.h"
 #include "ISolidShape.h"
 
-class CRectangle final :
+class CRectangle final :// was exported from lab 3 Rectangle
 	public ISolidShape
 {
 public:

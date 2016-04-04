@@ -1,9 +1,12 @@
 #pragma once
 
 #include "SFML\Graphics.hpp"
+#include <boost/math/constants/constants.hpp>
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+
+const float pi = boost::math::constants::pi<float>();
 
 struct SColor
 {

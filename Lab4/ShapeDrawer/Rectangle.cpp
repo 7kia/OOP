@@ -127,7 +127,7 @@ std::string CRectangle::GetStringPresentation() const
 	strm << std::setprecision(3);
 	strm << m_type << ":" << std::endl
 		<< "\tLeft top point = (" << m_leftTopPoint.x
-		<< ", " << m_leftTopPoint.y << ")" << std::endl
+									<< ", " << m_leftTopPoint.y << ")" << std::endl
 		<< "\tOutline color = " << GetOutlineColor() << std::endl
 		<< "\tFill color = " << GetFillColor() << std::endl
 		<< "\tPerimeter = " << GetPerimeter() << std::endl

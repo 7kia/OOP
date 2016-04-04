@@ -165,11 +165,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Circle.h" />
     <ClInclude Include="..\IShape.h" />
     <ClInclude Include="..\ISolidShape.h" />
     <ClInclude Include="..\LineSegment.h" />
     <ClInclude Include="..\MyCPoint.h" />
+    <ClInclude Include="..\Rectangle.h" />
     <ClInclude Include="..\Triangle.h" />
+    <ClInclude Include="CircleTests.h" />
+    <ClInclude Include="RectangleTests.h" />
     <ClInclude Include="TriangleTests.h" />
     <ClInclude Include="LineSegmentTests.h" />
     <ClInclude Include="MyCPointTests.h" />
@@ -177,14 +181,18 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Circle.cpp" />
     <ClCompile Include="..\IShape.cpp" />
     <ClCompile Include="..\ISolidShape.cpp" />
     <ClCompile Include="..\LineSegment.cpp" />
     <ClCompile Include="..\MyCPoint.cpp" />
+    <ClCompile Include="..\Rectangle.cpp" />
     <ClCompile Include="..\Triangle.cpp" />
     <ClCompile Include="bodies_tests.cpp" />
+    <ClCompile Include="CircleTests.cpp" />
     <ClCompile Include="LineSegmentTests.cpp" />
     <ClCompile Include="MyCPointTests.cpp" />
+    <ClCompile Include="RectangleTests.cpp" />
     <ClCompile Include="TriangleTests.cpp" />
     <ClCompile Include="Tests.cpp" />
     <ClCompile Include="stdafx.cpp">
