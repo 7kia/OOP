@@ -17,6 +17,10 @@ public:
 
 	void				SetRadiuse(float radiuse);
 	float				GetRadiuse() const;
+
+	void				SetPositionCenter(float x, float y);
+	void				SetPositionCenter(sf::Vector2f position);
+	sf::Vector2f		GetPosition() const;
 private:
 	sf::Vector2f		m_positionCenter;
 	float				m_radiuse = 0.f;

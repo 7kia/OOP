@@ -6,13 +6,15 @@ struct Circle_
 {
 	const float expectedLength = 18.849f;
 	const float expectedArea = 28.274f;
+	const float expectedRadiuse = 3.f;
+	const sf::Vector2f expectedPosition = { 1.f, 0.f };
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
 	const CCircle circle;
 	Circle_()
 		: expectedOutlineColor(160, 160, 160)
 		, expectedFillColor(10, 10, 10)
-		, circle(sf::Vector2f(1.f, 0.f), 3.f, 
+		, circle(expectedPosition, expectedRadiuse,
 				expectedFillColor, expectedOutlineColor)
 	{}
 };
@@ -29,7 +31,17 @@ BOOST_AUTO_TEST_CASE(has_color)
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedFillColor);
 }
 
-BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
+BOOST_AUTO_TEST_CASE(has_a_radiuse)
+{
+	BOOST_CHECK(circle.GetRadiuse() == expectedRadiuse);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_position)
+{
+	BOOST_CHECK(circle.GetPosition() == expectedPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_length)
 {
 	BOOST_CHECK(IsEqual(circle.GetPerimeter(), expectedLength));
 }
@@ -58,6 +70,8 @@ struct DefaultCircle_
 {
 	const float expectedLength = 0.f;
 	const float expectedArea = 0.f;
+	const float expectedRadiuse = 0.f;
+	const sf::Vector2f expectedPosition = { 0.f, 0.f };
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
 	const CCircle circle;
@@ -77,6 +91,16 @@ BOOST_AUTO_TEST_CASE(has_color)
 {
 	BOOST_CHECK_EQUAL(circle.GetOutlineColor(), expectedOutlineColor);
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedFillColor);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_radiuse)
+{
+	BOOST_CHECK(circle.GetRadiuse() == expectedRadiuse);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_position)
+{
+	BOOST_CHECK(circle.GetPosition() == expectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)

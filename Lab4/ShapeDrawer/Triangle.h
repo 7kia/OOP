@@ -9,7 +9,7 @@ class CTriangle final:
 public:
 	CTriangle();
 	CTriangle(sf::Vector2f firstPoint, sf::Vector2f secondPoint, sf::Vector2f thirdPoint,
-		SColor fillColor, SColor outlineColor);
+				SColor fillColor, SColor outlineColor);
 	~CTriangle();
 
 	float				GetPerimeter() const override;
@@ -17,8 +17,8 @@ public:
 	std::string			GetStringPresentation() const override;
 
 private:
-	CLineSegment m_firstLine;
-	CLineSegment m_secondLine;
-	CLineSegment m_thirdLine;
+	CLineSegment		m_firstLine;
+	CLineSegment		m_secondLine;
+	CLineSegment		m_thirdLine;
 };
 

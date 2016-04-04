@@ -23,6 +23,6 @@ public:
 	sf::Vector2f		GetPositiionSecondPoint() const;
 
 private:
-	MyCPoint m_firstPoint;
-	MyCPoint m_secondPoint;
+	MyCPoint			m_firstPoint;
+	MyCPoint			m_secondPoint;
 };

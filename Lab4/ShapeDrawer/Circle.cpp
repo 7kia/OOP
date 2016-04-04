@@ -62,3 +62,18 @@ float CCircle::GetRadiuse() const
 {
 	return m_radiuse;
 }
+
+void CCircle::SetPositionCenter(float x, float y)
+{
+	m_positionCenter = { x, y };
+}
+
+void CCircle::SetPositionCenter(sf::Vector2f position)
+{
+	m_positionCenter = position;
+}
+
+sf::Vector2f CCircle::GetPosition() const
+{
+	return m_positionCenter;
+}

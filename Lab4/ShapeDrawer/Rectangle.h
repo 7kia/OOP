@@ -12,8 +12,8 @@ public:
 				SColor fillColor, SColor outlineColor);
 	~CRectangle();
 
-	void			SetLeftTopPoint(sf::Vector2f leftTopPoint);
-	sf::Vector2f	GetLeftTopPoint() const;
+	void				SetLeftTopPoint(sf::Vector2f leftTopPoint);
+	sf::Vector2f		GetLeftTopPoint() const;
 
 	void				SetWidth(float width);
 	float				GetWidth() const;
@@ -37,11 +37,11 @@ public:
 	float				GetArea() const override;
 	std::string			GetStringPresentation() const override;
 
-	void			Move(float dx, float dy);
-	void			Scale(float sx, float sy);
-	bool			Intersect(CRectangle const& other);
+	void				Move(float dx, float dy);
+	void				Scale(float sx, float sy);
+	bool				Intersect(CRectangle const& other);
 private:
-	sf::Vector2f	m_leftTopPoint;
+	sf::Vector2f		m_leftTopPoint;
 	float				m_width;
 	float				m_height;
 };

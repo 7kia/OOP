@@ -6,13 +6,20 @@ struct Triangle_
 {
 	const float expectedLength = 4.828f;
 	const float expectedArea = 1.f;
+
+	const sf::Vector2f firstPosition = { 1.f, 0.f };
+	const sf::Vector2f secondPosition = { -1.f, 0.f };
+	const sf::Vector2f thirdPosition = { 0.f, 1.f };
+
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
+
 	const CTriangle triangle;
+
 	Triangle_()
 		: expectedOutlineColor(160, 160, 160)
 		, expectedFillColor(10, 10, 10)
-		, triangle(sf::Vector2f(1.f, 0.f), sf::Vector2f(-1.f, 0.f), sf::Vector2f(0.f, 1.f),
+		, triangle(firstPosition, secondPosition, thirdPosition,
 			expectedFillColor, expectedOutlineColor)
 	{}
 };
