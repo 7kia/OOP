@@ -37,6 +37,23 @@ SColor::SColor(uint8_t r, uint8_t g, uint8_t b)
 	green = g;
 }
 
+SColor::SColor(const std::string & value)
+{
+	if ((value[0] == '#') && (value.size() == 7))
+	{
+		std::istringstream valueRed(value.substr(1, 2));
+		std::istringstream valueBlue(value.substr(3, 2));
+		std::istringstream valueGreen(value.substr(5, 2));
+		valueRed >> std::hex >> red;
+		valueBlue >> std::hex >> blue;
+		valueGreen >> std::hex >> green;
+	}
+	else
+	{
+		throw std::invalid_argument(MESSAGE_INCORRECT_VALUE);
+	}
+}
+
 bool SColor::operator==(SColor const & other) const
 {
 	return (red == other.red) && (blue == other.blue) && (green == other.green);

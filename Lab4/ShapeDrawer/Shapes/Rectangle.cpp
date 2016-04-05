@@ -32,6 +32,11 @@ void CRectangle::SetLeftTopPoint(sf::Vector2f leftTopPoint)
 	m_leftTopPoint = leftTopPoint;
 }
 
+void CRectangle::SetLeftTopPoint(float x, float y)
+{
+	m_leftTopPoint = { x, y };
+}
+
 sf::Vector2f CRectangle::GetLeftTopPoint() const
 {
 	return m_leftTopPoint;

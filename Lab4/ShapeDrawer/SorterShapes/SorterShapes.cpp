@@ -1,11 +1,10 @@
-// SorterShapes.cpp: определяет точку входа для консольного приложения.
-//
-
 #include "stdafx.h"
+#include "SorterShapes.h"
 
-
-int main()
+void CSorterShapes::PrintListShapes(std::vector<IShape*>& listShapes, std::ostringstream &strm)
 {
-    return 0;
+	for (const auto& shape : listShapes)
+	{
+		strm << shape->GetStringPresentation();
+	}
 }
-

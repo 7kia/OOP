@@ -22,7 +22,6 @@
     <ProjectGuid>{93656AD3-9342-41E7-A77F-9660AA6F84A8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>bodies_tests</RootNamespace>
-    <ProjectName>ShapesTests</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

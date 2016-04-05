@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Заголовочные файлы">
+    <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
+    <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Shapes">
-      <UniqueIdentifier>{5f36a2e8-462e-4cd4-baed-51ab48638ea8}</UniqueIdentifier>
+    <Filter Include="TestsClasess">
+      <UniqueIdentifier>{bd91a863-51e2-4c60-ac3d-10b01756c5b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,78 +22,93 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SorterShapes.h">
-      <Filter>Файлы исходного кода</Filter>
+    <ClInclude Include="LineSegmentTests.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Runner.h">
-      <Filter>Файлы исходного кода</Filter>
+    <ClInclude Include="MyCPointTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleTests.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Circle.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\IShape.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\ISolidShape.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\LineSegment.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\MyCPoint.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Rectangle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shapes\Shapes.h">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Triangle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>TestsClasess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="bodies_tests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Runner.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SorterShapes.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="LineSegmentTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyCPointTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Circle.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\IShape.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\ISolidShape.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\LineSegment.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\MyCPoint.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Rectangle.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Triangle.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>TestsClasess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

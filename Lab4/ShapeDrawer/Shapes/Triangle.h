@@ -16,6 +16,15 @@ public:
 	float				GetArea() const override;
 	std::string			GetStringPresentation() const override;
 
+	void				SetPositionFirstPoint(sf::Vector2f position);
+	void				SetPositionFirstPoint(float x, float y);
+
+	void				SetPositionSecondPoint(sf::Vector2f position);
+	void				SetPositionSecondPoint(float x, float y);
+
+	void				SetPositionThirdPoint(sf::Vector2f position);
+	void				SetPositionThirdPoint(float x, float y);
+
 private:
 	CLineSegment		m_firstLine;
 	CLineSegment		m_secondLine;

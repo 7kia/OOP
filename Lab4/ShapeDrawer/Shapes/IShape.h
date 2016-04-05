@@ -5,12 +5,14 @@
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+#include <string>
 
-const float pi = boost::math::constants::pi<float>();
-
+static const float pi = boost::math::constants::pi<float>();
+static const std::string MESSAGE_INCORRECT_VALUE = "Incorrect value!!!";
 struct SColor
 {
 	SColor(uint8_t r, uint8_t g, uint8_t b);
+	SColor(const std::string &value);
 	uint8_t red = 0;
 	uint8_t blue = 0;
 	uint8_t green = 0;

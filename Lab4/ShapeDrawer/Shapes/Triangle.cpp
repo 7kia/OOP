@@ -49,10 +49,47 @@ std::string CTriangle::GetStringPresentation() const
 										<< ", " << m_firstLine.GetPositiionSecondPoint().y << ")" << std::endl
 		<< "\tPosition third point = (" << m_secondLine.GetPositiionSecondPoint().x
 										<< ", " << m_secondLine.GetPositiionSecondPoint().y << ")" << std::endl
-		<< "\tOutline color = " << GetOutlineColor() << std::endl
+		<< "\tOutline color = " << GetOutlineColor() << std::endl// TODO : add proportes
 		<< "\tFill color = " << GetFillColor() << std::endl
 		<< "\tPerimeter = " << GetPerimeter() << std::endl
 		<< "\tArea = " << GetArea() << std::endl;
 	return strm.str();
+}
+
+void CTriangle::SetPositionFirstPoint(sf::Vector2f position)
+{
+	m_firstLine.SetPositionFirstPoint(position);
+	m_thirdLine.SetPositionSecondPoint(position);
+}
+
+void CTriangle::SetPositionFirstPoint(float x, float y)
+{
+	m_firstLine.SetPositionFirstPoint(x, y);
+	m_thirdLine.SetPositionSecondPoint(x, y);
+}
+
+void CTriangle::SetPositionSecondPoint(sf::Vector2f position)
+{
+	m_firstLine.SetPositionSecondPoint(position);
+	m_secondLine.SetPositionFirstPoint(position);
+
+}
+
+void CTriangle::SetPositionSecondPoint(float x, float y)
+{
+	m_firstLine.SetPositionSecondPoint(x, y);
+	m_secondLine.SetPositionFirstPoint(x, y);
+}
+
+void CTriangle::SetPositionThirdPoint(sf::Vector2f position)
+{
+	m_secondLine.SetPositionSecondPoint(position);
+	m_thirdLine.SetPositionFirstPoint(position);
+}
+
+void CTriangle::SetPositionThirdPoint(float x, float y)
+{
+	m_secondLine.SetPositionSecondPoint(x, y);
+	m_thirdLine.SetPositionFirstPoint(x, y);
 }
 

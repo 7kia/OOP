@@ -13,6 +13,7 @@ public:
 	~CRectangle();
 
 	void				SetLeftTopPoint(sf::Vector2f leftTopPoint);
+	void				SetLeftTopPoint(float x, float y);
 	sf::Vector2f		GetLeftTopPoint() const;
 
 	void				SetWidth(float width);
