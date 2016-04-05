@@ -18,6 +18,8 @@ public:
 	void				SetPosition(float x, float y);
 	sf::Vector2f		GetPosition() const;
 private:
+	void				AppendProperties(std::ostream & strm) const;
+private:
 	sf::Vector2f		m_position;
 };
 

@@ -32,10 +32,10 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Point:
-	Position = (1, 2)
-	Length = 0
 	Color = #101010
+	Length = 0
 	Area = 0
+	Position = (1, 2)
 )";
 	BOOST_CHECK_EQUAL(point.GetStringPresentation(), expectedString);
 }
@@ -72,10 +72,10 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Point:
-	Position = (0, 0)
-	Length = 0
 	Color = #000000
+	Length = 0
 	Area = 0
+	Position = (0, 0)
 )";
 	BOOST_CHECK_EQUAL(point.GetStringPresentation(), expectedString);
 }

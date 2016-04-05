@@ -35,11 +35,10 @@ std::string MyCPoint::GetStringPresentation() const
 {
 	std::ostringstream strm;
 	strm << std::setprecision(3);
-	strm << m_type << ":" << std::endl
-		<< "\tPosition = (" << m_position.x << ", " << m_position.y << ")" << std::endl
-		<< "\tLength = " << GetPerimeter() << std::endl
-		<< "\tColor = " << GetFillColor() << std::endl
-		<< "\tArea = " << GetArea() << std::endl;
+
+	IShape::AppendProperties(strm);
+	MyCPoint::AppendProperties(strm);
+
 	return strm.str();
 }
 
@@ -56,5 +55,10 @@ void MyCPoint::SetPosition(float x, float y)
 sf::Vector2f MyCPoint::GetPosition() const
 {
 	return m_position;
+}
+
+void MyCPoint::AppendProperties(std::ostream & strm) const
+{
+	strm << "\tPosition = (" << m_position.x << ", " << m_position.y << ")" << std::endl;
 }
 

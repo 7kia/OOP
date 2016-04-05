@@ -21,7 +21,8 @@ public:
 	void				SetPositionSecondPoint(sf::Vector2f position);
 	void				SetPositionSecondPoint(float x, float y);
 	sf::Vector2f		GetPositiionSecondPoint() const;
-
+private:
+	void				AppendProperties(std::ostream & strm) const;
 private:
 	MyCPoint			m_firstPoint;
 	MyCPoint			m_secondPoint;

@@ -30,6 +30,14 @@ SColor IShape::GetFillColor() const
 	return m_fillColor;
 }
 
+void IShape::AppendProperties(std::ostream & strm) const
+{
+	strm << m_type << ":" << std::endl
+		<< "\tColor = " << GetFillColor() << std::endl
+		<< "\tLength = " << GetPerimeter() << std::endl
+		<< "\tArea = " << GetArea() << std::endl;
+}
+
 SColor::SColor(uint8_t r, uint8_t g, uint8_t b)
 {
 	red = r;

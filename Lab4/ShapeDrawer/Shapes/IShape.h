@@ -38,6 +38,8 @@ public:
 	virtual void				SetFillColor(uint8_t r, uint8_t g, uint8_t b);
 	virtual SColor				GetFillColor() const;
 protected:
+	virtual void				AppendProperties(std::ostream & strm) const;
+protected:
 	SColor						m_fillColor;
 	std::string					m_type;
 };

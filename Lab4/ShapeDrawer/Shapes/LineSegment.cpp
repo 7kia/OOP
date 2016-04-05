@@ -36,12 +36,10 @@ std::string CLineSegment::GetStringPresentation() const
 {
 	std::ostringstream strm;
 	strm << std::setprecision(3);
-	strm << m_type << ":" << std::endl
-		<< "\tPosition first point = (" << m_firstPoint.GetPosition().x << ", " << m_firstPoint.GetPosition().y << ")" << std::endl
-		<< "\tPosition second point = (" << m_secondPoint.GetPosition().x << ", " << m_secondPoint.GetPosition().y << ")" << std::endl
-		<< "\tColor = " << GetFillColor() << std::endl
-		<< "\tLength = " << GetPerimeter() << std::endl
-		<< "\tArea = " << GetArea() << std::endl;
+
+	IShape::AppendProperties(strm);
+	CLineSegment::AppendProperties(strm);
+
 	return strm.str();
 }
 
@@ -73,4 +71,12 @@ void CLineSegment::SetPositionSecondPoint(float x, float y)
 sf::Vector2f CLineSegment::GetPositiionSecondPoint() const
 {
 	return m_secondPoint.GetPosition();
+}
+
+void CLineSegment::AppendProperties(std::ostream & strm) const
+{
+	strm << "\tPosition first point = (" << m_firstPoint.GetPosition().x << ", "
+										<< m_firstPoint.GetPosition().y << ")" << std::endl
+		<< "\tPosition second point = (" << m_secondPoint.GetPosition().x << ", " 
+										<< m_secondPoint.GetPosition().y << ")" << std::endl;
 }
