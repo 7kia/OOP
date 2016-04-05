@@ -102,63 +102,71 @@ void CShapeReader::CheckAmountArguments(const listArguments & arguments, IdComma
 		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS
 			+ to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(id)]));
 	}
-
 }
 
 void CShapeReader::AddPoint(const listArguments & arguments)
 {
-	CheckAmountArguments(arguments, IdCommand::Rectangle);
+	CheckAmountArguments(arguments, IdCommand::Point);
 
-	MyCPoint addPoint;
-	addPoint.SetPosition(stof(arguments[1]), stof(arguments[2]));
-	addPoint.SetFillColor(arguments[3]);
+	std::shared_ptr<MyCPoint> addPoint(new MyCPoint);
+	addPoint->SetPosition(stof(arguments[1]), stof(arguments[2]));
+	addPoint->SetFillColor(arguments[3]);
+
+	m_shapes.push_back(addPoint);
 }
 
 void CShapeReader::AddLineSegment(const listArguments & arguments)
 {
 	CheckAmountArguments(arguments, IdCommand::LineSegment);
 
-	CLineSegment addLine;
-	addLine.SetPositionFirstPoint(stof(arguments[1]), stof(arguments[2]));
-	addLine.SetPositionSecondPoint(stof(arguments[3]), stof(arguments[4]));
-	addLine.SetFillColor(arguments[5]);
+	std::shared_ptr<CLineSegment> addLine(new CLineSegment);
+	addLine->SetPositionFirstPoint(stof(arguments[1]), stof(arguments[2]));
+	addLine->SetPositionSecondPoint(stof(arguments[3]), stof(arguments[4]));
+	addLine->SetFillColor(arguments[5]);
+
+	m_shapes.push_back(addLine);
 }
 
 void CShapeReader::AddTriangle(const listArguments & arguments)
 {
 	CheckAmountArguments(arguments, IdCommand::Triangle);
 
-	CTriangle addTriangle;
-	addTriangle.SetPositionFirstPoint(stof(arguments[1]), stof(arguments[2]));
-	addTriangle.SetPositionSecondPoint(stof(arguments[3]), stof(arguments[4]));
-	addTriangle.SetPositionThirdPoint(stof(arguments[5]), stof(arguments[6]));
-	addTriangle.SetFillColor(arguments[7]);
-	addTriangle.SetOutlineColor(arguments[8]);
+	std::shared_ptr<CTriangle> addTriangle(new CTriangle);
+	addTriangle->SetPositionFirstPoint(stof(arguments[1]), stof(arguments[2]));
+	addTriangle->SetPositionSecondPoint(stof(arguments[3]), stof(arguments[4]));
+	addTriangle->SetPositionThirdPoint(stof(arguments[5]), stof(arguments[6]));
+	addTriangle->SetFillColor(arguments[7]);
+	addTriangle->SetOutlineColor(arguments[8]);
+
+	m_shapes.push_back(addTriangle);
 }
 
 void CShapeReader::AddRectangle(const listArguments & arguments)
 {
 	CheckAmountArguments(arguments, IdCommand::Rectangle);
 
-	CRectangle addRectangle;
-	addRectangle.SetLeftTopPoint(stof(arguments[1]), stof(arguments[2]));
-	addRectangle.SetWidth(stof(arguments[3]));
-	addRectangle.SetHeight(stof(arguments[4]));
-	addRectangle.SetFillColor(arguments[5]);
-	addRectangle.SetOutlineColor(arguments[6]);
+	std::shared_ptr<CRectangle> addRectangle(new CRectangle);
+	addRectangle->SetLeftTopPoint(stof(arguments[1]), stof(arguments[2]));
+	addRectangle->SetWidth(stof(arguments[3]));
+	addRectangle->SetHeight(stof(arguments[4]));
+	addRectangle->SetFillColor(arguments[5]);
+	addRectangle->SetOutlineColor(arguments[6]);
+
+	m_shapes.push_back(addRectangle);
 }
 
 void CShapeReader::AddCircle(const listArguments & arguments)
 {
 	CheckAmountArguments(arguments, IdCommand::Circle);
 
-	CCircle addCircle;
-	addCircle.SetPositionCenter(stof(arguments[1]), stof(arguments[2]));
-	addCircle.SetRadiuse(stof(arguments[3]));
-	addCircle.SetFillColor(arguments[4]);
-	addCircle.SetOutlineColor(arguments[5]);
-}
+	std::shared_ptr<CCircle> addCircle(new CCircle);
+	addCircle->SetPositionCenter(stof(arguments[1]), stof(arguments[2]));
+	addCircle->SetRadiuse(stof(arguments[3]));
+	addCircle->SetFillColor(arguments[4]);
+	addCircle->SetOutlineColor(arguments[5]);
 
+	m_shapes.push_back(addCircle);
+}
 
 bool CShapeReader::IsCommand(const std::string & word)
 {

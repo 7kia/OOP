@@ -36,11 +36,11 @@ public:
 	};
 	const std::vector<int> AMOUNT_ARGUMENTS_FOR_COMMAND =
 	{
-		3	,
-		5	,
-		8	,
+		4	,
 		6	,
-		5
+		9	,
+		7	,
+		6
 	};
 private:
 	const std::string MESSAGE_INCORRECT_COMMAND = "Incorrect command.";
@@ -72,5 +72,5 @@ private:
 	listArguments		SplitWords(std::string const & text);
 	bool				IsCommand(const std::string & word);
 private:
-	std::vector<IShape> m_shapes;
+	std::vector<std::shared_ptr<IShape>> m_shapes;
 };
