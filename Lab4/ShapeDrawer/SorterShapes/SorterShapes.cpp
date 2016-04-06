@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SorterShapes.h"
 
-void CSorterShapes::PrintListShapes(const sortList& listShapes, std::ostream &strm)
+void PrintListShapes(const sortList& listShapes, std::ostream &strm)
 {
 	for (const auto& shape : listShapes)
 	{
@@ -9,7 +9,7 @@ void CSorterShapes::PrintListShapes(const sortList& listShapes, std::ostream &st
 	}
 }
 
-CSorterShapes::sortList CSorterShapes::GetSortedByDecreasePerimeterList(const sortList& listShapes)
+sortList GetSortedByDecreasePerimeterList(const sortList& listShapes)
 {
 	std::vector<elementSortList> sortedList;
 	for (const auto &shape : listShapes)
@@ -29,7 +29,7 @@ CSorterShapes::sortList CSorterShapes::GetSortedByDecreasePerimeterList(const so
 	return resultList;
 }
 
-CSorterShapes::sortList CSorterShapes::GetSortedByAreaList(const sortList & listShapes)
+sortList GetSortedByAreaList(const sortList & listShapes)
 {
 	std::vector<elementSortList> sortedList;
 	for (const auto &shape : listShapes)
@@ -49,7 +49,7 @@ CSorterShapes::sortList CSorterShapes::GetSortedByAreaList(const sortList & list
 }
 
 /*
-CSorterShapes::sortList CSorterShapes::GetSortedList(const std::vector<IShape*>& listShapes,
+sortList GetSortedList(const std::vector<IShape*>& listShapes,
 	std::function<float()> getMethod,
 	std::function<bool(float, float)> conditionSorting)
 {

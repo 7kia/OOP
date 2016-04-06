@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderShapes.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\IShape.cpp" />
     <ClCompile Include="Shapes\ISolidShape.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="RenderShapes.h" />
     <ClInclude Include="Shapes\Circle.h" />
     <ClInclude Include="Shapes\IShape.h" />
     <ClInclude Include="Shapes\ISolidShape.h" />

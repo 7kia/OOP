@@ -8,7 +8,7 @@
 
 #include "SorterShapes.h"
 
-class CShapeReader : public CSorterShapes
+class CShapeReader
 {
 public:
 	CShapeReader(std::string nameInputFile, std::string nameSortByPerimeterFile, std::string nameSortByAreaFile);
