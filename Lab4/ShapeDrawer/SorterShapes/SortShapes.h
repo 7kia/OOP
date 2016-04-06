@@ -11,14 +11,14 @@
 #include <memory>
 
 typedef std::pair<float, std::shared_ptr<IShape>> elementSortList;
-typedef std::vector<std::shared_ptr<IShape>> listDataShapes;
+typedef std::vector<std::shared_ptr<IShape>> sortList;
 
-void		PrintListShapes(const listDataShapes &listShapes, std::ostream &strm);
+void		PrintListShapes(const sortList &listShapes, std::ostream &strm);
 
-listDataShapes	GetSortedByDecreasePerimeterList(const listDataShapes& listShapes);
-listDataShapes	GetSortedByAreaList(const listDataShapes& listShapes);
+sortList	GetSortedByDecreasePerimeterList(const sortList& listShapes);
+sortList	GetSortedByAreaList(const sortList& listShapes);
 
 // TODO : delete if will not neccessary
-listDataShapes	GetSortedList(const std::vector<std::shared_ptr<IShape>>& listShapes,
+sortList	GetSortedList(const std::vector<std::shared_ptr<IShape>>& listShapes,
 							std::function<float()> getMethod, 
 							std::function<bool(float, float)> conditionSorting);

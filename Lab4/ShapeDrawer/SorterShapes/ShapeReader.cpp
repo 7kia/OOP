@@ -3,13 +3,11 @@
 
 using namespace std;
 
-CShapeReader::CShapeReader(std::string nameInputFile, std::string nameSortByPerimeterFile, std::string nameSortByAreaFile)
+CShapeReader::CShapeReader(std::string nameInputFile)
 {
 	m_nameInputFile = nameInputFile;
-	m_nameSortByPerimeterFile = nameSortByPerimeterFile;
-	m_nameSortByAreaFile = nameSortByAreaFile;
 
-	OpenFiles();
+	CheckAndOpenFileForReading(m_inputFile, m_nameInputFile);
 	ReadShapes(m_inputFile);
 }
 
@@ -17,20 +15,25 @@ CShapeReader::~CShapeReader()
 {
 }
 
-void CShapeReader::SortContent()
-{	
-	sortList sortedByPerimeter = GetSortedByDecreasePerimeterList(m_shapes);
-	PrintListShapes(sortedByPerimeter, m_sortByDecreasePerimeterFile);
-
-	sortList sortedByArea = GetSortedByAreaList(m_shapes);
-	PrintListShapes(sortedByArea, m_sortByIncreaseAreaFile);
+listDataShapes CShapeReader::GetShapes() const
+{
+	return m_shapes;
 }
 
-void CShapeReader::OpenFiles()
-{
-	CheckAndOpenFileForReading(m_inputFile, m_nameInputFile);
-	CheckAndOpenFileForWriting(m_sortByDecreasePerimeterFile, m_nameSortByPerimeterFile);
-	CheckAndOpenFileForWriting(m_sortByIncreaseAreaFile, m_nameSortByAreaFile);
+void CShapeReader::SortContent(const std::string & nameSortByPerimeterFile,
+								const std::string & nameSortByAreaFile)
+{	
+	std::ofstream	m_sortByDecreasePerimeterFile;
+	std::ofstream	m_sortByIncreaseAreaFile;
+
+	CheckAndOpenFileForWriting(m_sortByDecreasePerimeterFile, nameSortByPerimeterFile);
+	CheckAndOpenFileForWriting(m_sortByIncreaseAreaFile, nameSortByAreaFile);
+
+	listDataShapes sortedByPerimeter = GetSortedByDecreasePerimeterList(m_shapes);
+	PrintListShapes(sortedByPerimeter, m_sortByDecreasePerimeterFile);
+
+	listDataShapes sortedByArea = GetSortedByAreaList(m_shapes);
+	PrintListShapes(sortedByArea, m_sortByIncreaseAreaFile);
 }
 
 void CShapeReader::CheckAndOpenFileForReading(ifstream & file, const string& fileName)

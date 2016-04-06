@@ -8,9 +8,9 @@ BOOST_AUTO_TEST_SUITE(ApplicationTestModule)
 bool TestSorter(const std::string & inputFile, const std::string & nameSortByPerimeter,
 				const std::string & nameSortByArea)
 {
-	CShapeReader reader(inputFile, nameSortByPerimeter, nameSortByArea);
+	CShapeReader reader(inputFile);
 
-	reader.SortContent();
+	reader.SortContent(nameSortByPerimeter, nameSortByArea);
 	
 	return true;
 }

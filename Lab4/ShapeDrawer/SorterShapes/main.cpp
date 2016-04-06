@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
 	try
 	{
 		CheckParametrs(argc);
-		CShapeReader reader(argv[1], argv[2], argv[3]);
+		CShapeReader reader(argv[1]);
 
-		reader.SortContent();
+		reader.SortContent(argv[2], argv[3]);
 	}
 	catch (const std::exception& e)
 	{

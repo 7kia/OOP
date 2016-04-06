@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "SorterShapes.h"
+#include "SortShapes.h"
 
-void PrintListShapes(const listDataShapes& listShapes, std::ostream &strm)
+void PrintListShapes(const sortList& listShapes, std::ostream &strm)
 {
 	for (const auto& shape : listShapes)
 	{
@@ -9,7 +9,7 @@ void PrintListShapes(const listDataShapes& listShapes, std::ostream &strm)
 	}
 }
 
-listDataShapes GetSortedByDecreasePerimeterList(const listDataShapes& listShapes)
+sortList GetSortedByDecreasePerimeterList(const sortList& listShapes)
 {
 	std::vector<elementSortList> sortedList;
 	for (const auto &shape : listShapes)
@@ -20,7 +20,7 @@ listDataShapes GetSortedByDecreasePerimeterList(const listDataShapes& listShapes
 	std::sort(sortedList.begin(), sortedList.end());
 	std::reverse(sortedList.begin(), sortedList.end());
 
-	listDataShapes resultList;
+	sortList resultList;
 	for (const auto element : sortedList)
 	{
 		resultList.push_back(element.second);
@@ -29,7 +29,7 @@ listDataShapes GetSortedByDecreasePerimeterList(const listDataShapes& listShapes
 	return resultList;
 }
 
-listDataShapes GetSortedByAreaList(const listDataShapes & listShapes)
+sortList GetSortedByAreaList(const sortList & listShapes)
 {
 	std::vector<elementSortList> sortedList;
 	for (const auto &shape : listShapes)
@@ -39,7 +39,7 @@ listDataShapes GetSortedByAreaList(const listDataShapes & listShapes)
 
 	std::sort(sortedList.begin(), sortedList.end());
 
-	listDataShapes resultList;
+	sortList resultList;
 	for (const auto element : sortedList)
 	{
 		resultList.push_back(element.second);
