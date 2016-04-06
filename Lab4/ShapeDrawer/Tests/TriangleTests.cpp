@@ -17,8 +17,8 @@ struct Triangle_
 	const CTriangle triangle;
 
 	Triangle_()
-		: expectedOutlineColor(160, 160, 160)
-		, expectedFillColor(10, 10, 10)
+		: expectedOutlineColor(10, 10, 10)
+		, expectedFillColor(160, 160, 160)
 		, triangle(firstPosition, secondPosition, thirdPosition,
 			expectedFillColor, expectedOutlineColor)
 	{}
@@ -30,9 +30,13 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 	BOOST_CHECK(static_cast<const IShape*>(&triangle));
 }
 
-BOOST_AUTO_TEST_CASE(has_color)
+BOOST_AUTO_TEST_CASE(has_color_outline_color)
 {
 	BOOST_CHECK_EQUAL(triangle.GetOutlineColor(), expectedOutlineColor);
+}
+
+BOOST_AUTO_TEST_CASE(has_color_fill_color)
+{
 	BOOST_CHECK_EQUAL(triangle.GetFillColor(), expectedFillColor);
 }
 
@@ -49,13 +53,13 @@ BOOST_AUTO_TEST_CASE(has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Triangle:
+	Fill color = #a0a0a0
+	Perimeter = 4.83
+	Area = 1
+	Outline color = #0a0a0a
 	Position first point = (1, 0)
 	Position second point = (-1, 0)
 	Position third point = (0, 1)
-	Outline color = #a0a0a0
-	Fill color = #0a0a0a
-	Perimeter = 4.83
-	Area = 1
 )";
 	BOOST_CHECK_EQUAL(triangle.GetStringPresentation(), expectedString);
 }
@@ -100,13 +104,13 @@ BOOST_AUTO_TEST_CASE(has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Triangle:
-	Position first point = (0, 0)
-	Position second point = (0, 0)
-	Position third point = (0, 0)
-	Outline color = #000000
 	Fill color = #000000
 	Perimeter = 0
 	Area = 0
+	Outline color = #000000
+	Position first point = (0, 0)
+	Position second point = (0, 0)
+	Position third point = (0, 0)
 )";
 	BOOST_CHECK_EQUAL(triangle.GetStringPresentation(), expectedString);
 }

@@ -24,6 +24,8 @@ std::ostream& operator<<(std::ostream& stream, SColor const& color);
 static const SColor DEFAULT_COLOR(0, 0, 0);
 static const int AMOUNT_NUMBERS_FOR_OUTPUT = 3;
 
+std::ostream& operator<<(std::ostream& stream, const sf::Vector2f & vector);
+
 class IShape
 {
 public:

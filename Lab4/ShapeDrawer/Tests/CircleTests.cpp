@@ -12,10 +12,10 @@ struct Circle_
 	const SColor expectedFillColor;
 	const CCircle circle;
 	Circle_()
-		: expectedOutlineColor(160, 160, 160)
-		, expectedFillColor(10, 10, 10)
+		: expectedOutlineColor(10, 10, 10)
+		, expectedFillColor(160, 160, 160)
 		, circle(expectedPosition, expectedRadiuse,
-				expectedFillColor, expectedOutlineColor)
+			expectedFillColor, expectedOutlineColor)
 	{}
 };
 
@@ -25,9 +25,13 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 	BOOST_CHECK(static_cast<const IShape*>(&circle));
 }
 
-BOOST_AUTO_TEST_CASE(has_color)
+BOOST_AUTO_TEST_CASE(has_color_outline_color)
 {
 	BOOST_CHECK_EQUAL(circle.GetOutlineColor(), expectedOutlineColor);
+}
+
+BOOST_AUTO_TEST_CASE(has_color_fill_color)
+{
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedFillColor);
 }
 
@@ -54,12 +58,12 @@ BOOST_AUTO_TEST_CASE(has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Circle:
-	Position center = (1, 0)
-	Radiuse = 3
-	Outline color = #a0a0a0
-	Fill color = #0a0a0a
+	Fill color = #a0a0a0
 	Perimeter = 18.8
 	Area = 28.3
+	Outline color = #0a0a0a
+	Position center = (1, 0)
+	Radiuse = 3
 )";
 	BOOST_CHECK_EQUAL(circle.GetStringPresentation(), expectedString);
 }
@@ -116,12 +120,12 @@ BOOST_AUTO_TEST_CASE(has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Circle:
-	Position center = (0, 0)
-	Radiuse = 0
-	Outline color = #000000
 	Fill color = #000000
 	Perimeter = 0
 	Area = 0
+	Outline color = #000000
+	Position center = (0, 0)
+	Radiuse = 0
 )";
 	BOOST_CHECK_EQUAL(circle.GetStringPresentation(), expectedString);
 }

@@ -6,7 +6,7 @@ struct MyCPoint_
 	const float expectedLength = 0.f;
 	const float expectedArea = 0.f;
 	const SColor expectedColor;
-	const MyCPoint point;
+	const MyCPoint point;// TODO
 	MyCPoint_()
 		: expectedColor(16, 16, 16)
 		, point(sf::Vector2f(1.f, 2.f), expectedColor)
@@ -32,8 +32,8 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Point:
-	Color = #101010
-	Length = 0
+	Fill color = #101010
+	Perimeter = 0
 	Area = 0
 	Position = (1, 2)
 )";
@@ -72,8 +72,8 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Point:
-	Color = #000000
-	Length = 0
+	Fill color = #000000
+	Perimeter = 0
 	Area = 0
 	Position = (0, 0)
 )";

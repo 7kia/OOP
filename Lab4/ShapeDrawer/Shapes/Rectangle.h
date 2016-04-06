@@ -42,6 +42,8 @@ public:
 	void				Scale(float sx, float sy);
 	bool				Intersect(CRectangle const& other);
 private:
+	void				AppendProperties(std::ostream & strm) const;
+private:
 	sf::Vector2f		m_leftTopPoint;
 	float				m_width;
 	float				m_height;

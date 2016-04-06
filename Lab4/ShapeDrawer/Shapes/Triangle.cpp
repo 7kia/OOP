@@ -42,17 +42,11 @@ std::string CTriangle::GetStringPresentation() const
 {
 	std::ostringstream strm;
 	strm << std::setprecision(3);
-	strm << m_type << ":" << std::endl
-		<< "\tPosition first point = (" << m_firstLine.GetPositiionFirstPoint().x 
-										<< ", " << m_firstLine.GetPositiionFirstPoint().y << ")" << std::endl
-		<< "\tPosition second point = (" << m_firstLine.GetPositiionSecondPoint().x
-										<< ", " << m_firstLine.GetPositiionSecondPoint().y << ")" << std::endl
-		<< "\tPosition third point = (" << m_secondLine.GetPositiionSecondPoint().x
-										<< ", " << m_secondLine.GetPositiionSecondPoint().y << ")" << std::endl
-		<< "\tOutline color = " << GetOutlineColor() << std::endl// TODO : add proportes
-		<< "\tFill color = " << GetFillColor() << std::endl
-		<< "\tPerimeter = " << GetPerimeter() << std::endl
-		<< "\tArea = " << GetArea() << std::endl;
+
+	IShape::AppendProperties(strm);
+	ISolidShape::AppendProperties(strm);
+	CTriangle::AppendProperties(strm);
+
 	return strm.str();
 }
 
@@ -91,5 +85,15 @@ void CTriangle::SetPositionThirdPoint(float x, float y)
 {
 	m_secondLine.SetPositionSecondPoint(x, y);
 	m_thirdLine.SetPositionFirstPoint(x, y);
+}
+
+void CTriangle::AppendProperties(std::ostream & strm) const
+{
+	strm << "\tPosition first point = (" << m_firstLine.GetPositiionFirstPoint().x << ", "
+										<< m_firstLine.GetPositiionFirstPoint().y << ")" << std::endl
+		<< "\tPosition second point = (" << m_firstLine.GetPositiionSecondPoint().x << ", " 
+										<< m_firstLine.GetPositiionSecondPoint().y << ")" << std::endl
+		<< "\tPosition third point = (" << m_secondLine.GetPositiionSecondPoint().x << ", " 
+										<< m_secondLine.GetPositiionSecondPoint().y << ")" << std::endl;
 }
 

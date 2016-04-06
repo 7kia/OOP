@@ -22,6 +22,8 @@ public:
 	void				SetPositionCenter(sf::Vector2f position);
 	sf::Vector2f		GetPosition() const;
 private:
+	void				AppendProperties(std::ostream & strm) const;
+private:
 	sf::Vector2f		m_positionCenter;
 	float				m_radiuse = 0.f;
 };

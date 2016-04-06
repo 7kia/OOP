@@ -17,3 +17,9 @@ bool IsEqual(float a, float b)
 {
 	return fabs(a - b) < 0.001f;
 }
+
+void VerifyVector2f(const sf::Vector2f & vector, const sf::Vector2f & expectedVector)
+{
+	BOOST_CHECK_EQUAL(vector.x, expectedVector.x);
+	BOOST_CHECK_EQUAL(vector.y, expectedVector.y);
+}

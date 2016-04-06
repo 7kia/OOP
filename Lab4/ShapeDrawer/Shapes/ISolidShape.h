@@ -14,7 +14,9 @@ public:
 	void				SetOutlineColor(uint8_t r, uint8_t g, uint8_t b);
 	void				SetOutlineColor(SColor color);
 	SColor				GetOutlineColor() const;
+protected:
+	void				AppendProperties(std::ostream & strm) const;
 private:
-	SColor m_outlineColor = DEFAULT_FILL_COLOR;
+	SColor				m_outlineColor = DEFAULT_FILL_COLOR;
 };
 

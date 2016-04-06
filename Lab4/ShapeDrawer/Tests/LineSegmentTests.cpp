@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Line segment:
-	Color = #101010
-	Length = 1.41
+	Fill color = #101010
+	Perimeter = 1.41
 	Area = 0
 	Position first point = (0, 0)
 	Position second point = (1, 1)
@@ -83,8 +83,8 @@ BOOST_AUTO_TEST_CASE(not_has_a_area)
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
 	const auto expectedString = R"(Line segment:
-	Color = #000000
-	Length = 0
+	Fill color = #000000
+	Perimeter = 0
 	Area = 0
 	Position first point = (0, 0)
 	Position second point = (0, 0)

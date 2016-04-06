@@ -130,13 +130,11 @@ std::string CRectangle::GetStringPresentation() const
 {
 	std::ostringstream strm;
 	strm << std::setprecision(3);
-	strm << m_type << ":" << std::endl
-		<< "\tLeft top point = (" << m_leftTopPoint.x
-									<< ", " << m_leftTopPoint.y << ")" << std::endl
-		<< "\tOutline color = " << GetOutlineColor() << std::endl
-		<< "\tFill color = " << GetFillColor() << std::endl
-		<< "\tPerimeter = " << GetPerimeter() << std::endl
-		<< "\tArea = " << GetArea() << std::endl;
+
+	IShape::AppendProperties(strm);
+	ISolidShape::AppendProperties(strm);
+	CRectangle::AppendProperties(strm);
+
 	return strm.str();
 }
 
@@ -199,4 +197,13 @@ bool CRectangle::Intersect(CRectangle const & other)
 	m_width = 0;
 	m_height = 0;
 	return false;
+}
+
+void CRectangle::AppendProperties(std::ostream & strm) const
+{
+	strm << "\tLeft top point = (" << m_leftTopPoint.x << ", "
+		<< m_leftTopPoint.y << ")" << std::endl
+		<< "\tWidth = " << GetWidth() << std::endl
+		<< "\tHeigth = " << GetHeight() << std::endl;
+
 }

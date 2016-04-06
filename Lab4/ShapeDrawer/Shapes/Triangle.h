@@ -24,7 +24,8 @@ public:
 
 	void				SetPositionThirdPoint(sf::Vector2f position);
 	void				SetPositionThirdPoint(float x, float y);
-
+private:
+	void				AppendProperties(std::ostream & strm) const;
 private:
 	CLineSegment		m_firstLine;
 	CLineSegment		m_secondLine;

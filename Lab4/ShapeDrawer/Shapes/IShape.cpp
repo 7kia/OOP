@@ -33,8 +33,8 @@ SColor IShape::GetFillColor() const
 void IShape::AppendProperties(std::ostream & strm) const
 {
 	strm << m_type << ":" << std::endl
-		<< "\tColor = " << GetFillColor() << std::endl
-		<< "\tLength = " << GetPerimeter() << std::endl
+		<< "\tFill color = " << GetFillColor() << std::endl
+		<< "\tPerimeter = " << GetPerimeter() << std::endl
 		<< "\tArea = " << GetArea() << std::endl;
 }
 
@@ -72,5 +72,11 @@ std::ostream& operator<<(std::ostream& stream, SColor const& color)
 	stream << "#" << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(color.red)
 					<< std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(color.blue)
 					<< std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(color.green);
+	return stream;
+}
+
+std::ostream & operator<<(std::ostream & stream, sf::Vector2f const & vector)
+{
+	stream << "(" << vector.x << ", " << vector.x << ")";
 	return stream;
 }

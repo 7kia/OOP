@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "ISolidShape.h"
 
-ISolidShape::ISolidShape(const std::string & type, SColor boundColor, SColor fillColor)
-	: IShape(type, boundColor)
-	, m_outlineColor(fillColor)
+ISolidShape::ISolidShape(const std::string & type, SColor fillColor, SColor boundColor)
+	: IShape(type, fillColor)
+	, m_outlineColor(boundColor)
 {
 }
 
@@ -27,4 +27,9 @@ void ISolidShape::SetOutlineColor(SColor color)
 SColor ISolidShape::GetOutlineColor() const
 {
 	return m_outlineColor;
+}
+
+void ISolidShape::AppendProperties(std::ostream & strm) const
+{
+	strm << "\tOutline color = " << GetOutlineColor() << std::endl;
 }
