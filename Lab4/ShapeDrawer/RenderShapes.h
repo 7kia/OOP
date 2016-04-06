@@ -3,8 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-#include "Shapes\Shapes.h"
+#include "SorterShapes\ShapeReader.h"
 
 typedef std::vector<std::shared_ptr<sf::Shape>> listRenderShapes;
 
-void Render(sf::RenderWindow & window, const std::vector<std::shared_ptr<IShape>> &shapes);
+namespace DefaultParametresShape
+{
+	static const float thiknessLine = 5;
+	sf::Vector2f originLine = { DefaultParametresShape::thiknessLine / 2.f, 0.f };
+
+};
+
+listRenderShapes ConvertDataShapesToRenderShapes(const listDataShapes & data);
+void Render(sf::RenderWindow & window, listDataShapes &shapes);

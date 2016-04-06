@@ -36,9 +36,11 @@ public:
 	virtual float				GetArea() const = 0;
 	virtual std::string			GetStringPresentation() const = 0;
 
-	virtual void				SetFillColor(SColor color);
-	virtual void				SetFillColor(uint8_t r, uint8_t g, uint8_t b);
-	virtual SColor				GetFillColor() const;
+	void						SetFillColor(SColor color);
+	void						SetFillColor(uint8_t r, uint8_t g, uint8_t b);
+	SColor						GetFillColor() const;
+
+	std::string					GetType() const;// for render
 protected:
 	virtual void				AppendProperties(std::ostream & strm) const;
 protected:

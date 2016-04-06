@@ -30,6 +30,11 @@ SColor IShape::GetFillColor() const
 	return m_fillColor;
 }
 
+std::string IShape::GetType() const
+{
+	return m_type;
+}
+
 void IShape::AppendProperties(std::ostream & strm) const
 {
 	strm << m_type << ":" << std::endl
