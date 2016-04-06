@@ -15,13 +15,14 @@ public:
 	typedef std::pair<float, std::shared_ptr<IShape>> elementSortList;
 	typedef std::vector<std::shared_ptr<IShape>> sortList;
 public:
-	void		PrintListShapes(std::vector<IShape*> &listShapes, std::ostringstream &strm);
+	void		PrintListShapes(const sortList &listShapes, std::ostream &strm);
 
-	sortList GetSortedByPerimeterList(const std::vector<std::shared_ptr<IShape>>& listShapes);
+	sortList	GetSortedByDecreasePerimeterList(const sortList& listShapes);
+	sortList	GetSortedByAreaList(const sortList& listShapes);
 
 
-	sortList GetSortedList(const std::vector<std::shared_ptr<IShape>>& listShapes,
-		std::function<float()> getMethod, 
-		std::function<bool(float, float)> conditionSorting);
+	sortList	GetSortedList(const std::vector<std::shared_ptr<IShape>>& listShapes,
+								std::function<float()> getMethod, 
+								std::function<bool(float, float)> conditionSorting);
 private:
 };

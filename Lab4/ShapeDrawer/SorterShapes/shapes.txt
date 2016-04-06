@@ -3,3 +3,4 @@ Line 1.4f -5.f 2.f 5.5f #111111
 Triangle 1.f 0.f -1.f 0.f 0.f 1.f #101010 #020202
 Rectangle 1.f 1.f 2.f 3.f #334455 #aaffdd
 Circle 1.f -1.f 4.f #090909 #adadad
+Circle 1.f -1.f 1.f #090909 #adadad

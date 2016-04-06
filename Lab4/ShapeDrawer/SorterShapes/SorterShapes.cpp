@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SorterShapes.h"
 
-void CSorterShapes::PrintListShapes(std::vector<IShape*>& listShapes, std::ostringstream &strm)
+void CSorterShapes::PrintListShapes(const sortList& listShapes, std::ostream &strm)
 {
 	for (const auto& shape : listShapes)
 	{
@@ -9,12 +9,32 @@ void CSorterShapes::PrintListShapes(std::vector<IShape*>& listShapes, std::ostri
 	}
 }
 
-CSorterShapes::sortList CSorterShapes::GetSortedByPerimeterList(const std::vector<std::shared_ptr<IShape>>& listShapes)
+CSorterShapes::sortList CSorterShapes::GetSortedByDecreasePerimeterList(const sortList& listShapes)
 {
 	std::vector<elementSortList> sortedList;
 	for (const auto &shape : listShapes)
 	{
 		sortedList.push_back({ shape->GetPerimeter(), shape });
+	}
+
+	std::sort(sortedList.begin(), sortedList.end());
+	std::reverse(sortedList.begin(), sortedList.end());
+
+	sortList resultList;
+	for (const auto element : sortedList)
+	{
+		resultList.push_back(element.second);
+	}
+
+	return resultList;
+}
+
+CSorterShapes::sortList CSorterShapes::GetSortedByAreaList(const sortList & listShapes)
+{
+	std::vector<elementSortList> sortedList;
+	for (const auto &shape : listShapes)
+	{
+		sortedList.push_back({ shape->GetArea(), shape });
 	}
 
 	std::sort(sortedList.begin(), sortedList.end());

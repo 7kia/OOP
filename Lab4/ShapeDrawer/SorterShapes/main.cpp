@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		CheckParametrs(argc);
-		CShapeReader application(argv[1], argv[2]);
+		CShapeReader application(argv[1], argv[2], argv[3]);
 
 		application.Run();
 	}

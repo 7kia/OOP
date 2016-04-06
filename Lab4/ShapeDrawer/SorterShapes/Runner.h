@@ -11,7 +11,7 @@
 class CShapeReader : public CSorterShapes
 {
 public:
-	CShapeReader(std::string nameInputFile, std::string nameOutputFile);
+	CShapeReader(std::string nameInputFile, std::string nameSortByPerimeterFile, std::string nameSortByAreaFile);
 	~CShapeReader();
 
 	void			Run();// TODO
@@ -51,10 +51,13 @@ private:
 	const std::string MESSAGE_INCORRECT_AMOUNT_ARGUMENTS = "Incorrect amount arguments! Must will be ";
 
 	std::string			m_nameInputFile;
-	std::string			m_nameOutputFile;
+	std::string			m_nameSortByPerimeterFile;
+	std::string			m_nameSortByAreaFile;
 
 	std::ifstream		m_inputFile;
-	std::ofstream		m_outputFile;
+	std::ofstream		m_sortByDecreasePerimeterFile;
+	std::ofstream		m_sortByIncreaseAreaFile;
+
 
 private:
 	void				OpenFiles();
