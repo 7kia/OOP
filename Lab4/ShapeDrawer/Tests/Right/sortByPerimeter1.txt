@@ -1,0 +1,41 @@
+Circle:
+	Fill color = #303030
+	Perimeter = 25.1
+	Area = 50.3
+	Outline color = #616161
+	Position center = (1, -1)
+	Radiuse = 4
+Rectangle:
+	Fill color = #333435
+	Perimeter = 10
+	Area = 6
+	Outline color = #616664
+	Left top point = (1, 1)
+	Width = 2
+	Heigth = 3
+Circle:
+	Fill color = #303030
+	Perimeter = 6.28
+	Area = 3.14
+	Outline color = #616161
+	Position center = (1, -1)
+	Radiuse = 1
+Line:
+	Fill color = #313131
+	Perimeter = 5.85
+	Area = 0
+	Position first point = (2, 5.5)
+	Position second point = (0, 0)
+Triangle:
+	Fill color = #313131
+	Perimeter = 3
+	Area = 0.433
+	Outline color = #303030
+	Position first point = (-1, 0)
+	Position second point = (0, 0)
+	Position third point = (0, 0)
+Point:
+	Fill color = #313233
+	Perimeter = 0
+	Area = 0
+	Position = (1, 2)

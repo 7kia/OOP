@@ -9,6 +9,7 @@
 #include "../Shapes/Triangle.h"
 #include <vector>
 #include <memory>
+
 class CSorterShapes
 {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "ShapeReader.h"
 
 static const int AMOUNT_ARGUMENTS = 4;
 static const std::string MESSAGE_INCORRECT_AMOUNT_ARGUMENTS = "Incorrect amount arguments! Must will be ";

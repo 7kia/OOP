@@ -63,6 +63,18 @@
     <ClInclude Include="..\Shapes\Triangle.h">
       <Filter>TestsClasess</Filter>
     </ClInclude>
+    <ClInclude Include="..\SorterShapes\Application.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SorterShapes\ShapeReader.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SorterShapes\SorterShapes.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSorter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -109,6 +121,18 @@
     </ClCompile>
     <ClCompile Include="..\Shapes\Triangle.cpp">
       <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SorterShapes\Application.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SorterShapes\ShapeReader.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SorterShapes\SorterShapes.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSorter.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

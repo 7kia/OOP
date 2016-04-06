@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Runner.h"
+#include "ShapeReader.h"
 
 using namespace std;
 
@@ -17,16 +17,13 @@ CShapeReader::~CShapeReader()
 {
 }
 
-void CShapeReader::Run()
-{
-	vector<std::shared_ptr<IShape>> copy = m_shapes;
-	
-	sortList sortedByPerimeter = GetSortedByDecreasePerimeterList(copy);
+void CShapeReader::SortContent()
+{	
+	sortList sortedByPerimeter = GetSortedByDecreasePerimeterList(m_shapes);
 	PrintListShapes(sortedByPerimeter, m_sortByDecreasePerimeterFile);
 
-	sortList sortedByArea = GetSortedByAreaList(copy);
+	sortList sortedByArea = GetSortedByAreaList(m_shapes);
 	PrintListShapes(sortedByArea, m_sortByIncreaseAreaFile);
-
 }
 
 void CShapeReader::OpenFiles()
@@ -34,7 +31,6 @@ void CShapeReader::OpenFiles()
 	CheckAndOpenFileForReading(m_inputFile, m_nameInputFile);
 	CheckAndOpenFileForWriting(m_sortByDecreasePerimeterFile, m_nameSortByPerimeterFile);
 	CheckAndOpenFileForWriting(m_sortByIncreaseAreaFile, m_nameSortByAreaFile);
-
 }
 
 void CShapeReader::CheckAndOpenFileForReading(ifstream & file, const string& fileName)
@@ -57,7 +53,6 @@ void CShapeReader::CheckAndOpenFileForWriting(ofstream & file, const string& fil
 	}
 }
 
-
 vector<string> CShapeReader::SplitWords(string const& text)
 {
 	std::string trimmed = boost::trim_copy(text);
@@ -66,7 +61,6 @@ vector<string> CShapeReader::SplitWords(string const& text)
 	boost::split(words, trimmed, boost::is_space(), boost::token_compress_on);
 	return words;
 }
-
 
 void CShapeReader::ReadShapes(std::ifstream & file)
 {

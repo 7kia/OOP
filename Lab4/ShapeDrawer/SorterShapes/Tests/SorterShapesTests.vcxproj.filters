@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{f1a971e7-c8eb-4387-a2e5-d9b794ebed9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{29580f8f-b2c8-48f8-8aec-5ddf0525aa1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4f9fa990-339a-4c37-8789-d98e558e7404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestsClasess">
+      <UniqueIdentifier>{d85d9072-6fe5-49db-9eb5-2f22d2262769}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Application.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShapeReader.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SorterShapes.h">
+      <Filter>TestsClasess</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bodies_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Application.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShapeReader.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SorterShapes.cpp">
+      <Filter>TestsClasess</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

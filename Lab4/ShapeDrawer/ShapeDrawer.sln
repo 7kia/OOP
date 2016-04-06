@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShapeDrawer", "ShapeDrawer.vcxproj", "{5A0A21F4-0C4C-4969-841E-87814F107FAB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bodies_tests", "Tests\bodies_tests.vcxproj", "{93656AD3-9342-41E7-A77F-9660AA6F84A8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShapesTests", "Tests\bodies_tests.vcxproj", "{93656AD3-9342-41E7-A77F-9660AA6F84A8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SorterShapes", "SorterShapes\SorterShapes.vcxproj", "{0CBC2815-00A0-43BF-913A-B9F38E37D434}"
 EndProject

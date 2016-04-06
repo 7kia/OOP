@@ -14,7 +14,7 @@ public:
 	CShapeReader(std::string nameInputFile, std::string nameSortByPerimeterFile, std::string nameSortByAreaFile);
 	~CShapeReader();
 
-	void			Run();// TODO
+	void				SortContent();// TODO
 public:
 	typedef typename std::vector<std::string> listArguments;
 
