@@ -18,7 +18,11 @@ CShapeReader::~CShapeReader()
 
 void CShapeReader::Run()
 {
+	vector<std::shared_ptr<IShape>> copy = m_shapes;
 
+	//std::function<bool(elementSortList, elementSortList)> = byIncrease;
+	
+	std::vector<std::shared_ptr<IShape>> sortedByPerimeter = GetSortedByPerimeterList(copy);
 }
 
 void CShapeReader::OpenFiles()

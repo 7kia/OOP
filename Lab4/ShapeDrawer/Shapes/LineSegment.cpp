@@ -3,13 +3,13 @@
 
 
 CLineSegment::CLineSegment()
-	: IShape("Line segment", DEFAULT_COLOR)
+	: IShape("Line", DEFAULT_COLOR)
 {
 }
 
 
 CLineSegment::CLineSegment(sf::Vector2f firstPoint, sf::Vector2f secondPoint, SColor color)
-	: IShape("Line segment", color)
+	: IShape("Line", color)
 	, m_firstPoint(firstPoint, color)
 	, m_secondPoint(secondPoint, color)
 {

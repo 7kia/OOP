@@ -29,7 +29,7 @@ public:
 	const std::vector<std::string> COMMANDS_NAME =
 	{
 		"Point"			,
-		"LineSegment"	,
+		"Line"	,
 		"Triangle"		,
 		"Rectangle"		,
 		"Circle"
