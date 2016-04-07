@@ -65,7 +65,7 @@ void CLineSegment::SetPositionSecondPoint(sf::Vector2f position)
 
 void CLineSegment::SetPositionSecondPoint(float x, float y)
 {
-	m_firstPoint.SetPosition(x, y);
+	m_secondPoint.SetPosition(x, y);
 }
 
 sf::Vector2f CLineSegment::GetPositiionSecondPoint() const

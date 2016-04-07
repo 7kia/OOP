@@ -17,6 +17,8 @@ namespace DefaultParametresShape
 listRenderShapes ConvertDataShapesToRenderShapes(listDataShapes & data);
 std::shared_ptr<sf::CircleShape> ConvertInRenderPoint(const MyCPoint * data);
 std::shared_ptr<sf::RectangleShape> ConvertInRenderLine(const CLineSegment *data);
+std::shared_ptr<sf::RectangleShape> ConvertInRenderRectangle(const CRectangle *data);
 std::shared_ptr<sf::CircleShape> ConvertInRenderCircle(const CCircle *data);
+std::shared_ptr<sf::ConvexShape> ConvertInRenderTriangle(const CTriangle * data);
 
 void Render(sf::RenderWindow & window, listRenderShapes &shapes);

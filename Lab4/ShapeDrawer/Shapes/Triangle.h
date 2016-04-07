@@ -24,6 +24,10 @@ public:
 
 	void				SetPositionThirdPoint(sf::Vector2f position);
 	void				SetPositionThirdPoint(float x, float y);
+
+	sf::Vector2f		GetFirstPoint() const;// for draw
+	sf::Vector2f		GetSecondPoint() const;
+	sf::Vector2f		GetThirdPoint() const;
 private:
 	void				AppendProperties(std::ostream & strm) const;
 private:

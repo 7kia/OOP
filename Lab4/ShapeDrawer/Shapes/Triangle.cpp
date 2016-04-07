@@ -87,6 +87,21 @@ void CTriangle::SetPositionThirdPoint(float x, float y)
 	m_thirdLine.SetPositionFirstPoint(x, y);
 }
 
+sf::Vector2f CTriangle::GetFirstPoint() const
+{
+	return m_firstLine.GetPositiionFirstPoint();
+}
+
+sf::Vector2f CTriangle::GetSecondPoint() const
+{
+	return m_firstLine.GetPositiionSecondPoint();
+}
+
+sf::Vector2f CTriangle::GetThirdPoint() const
+{
+	return m_secondLine.GetPositiionSecondPoint();
+}
+
 void CTriangle::AppendProperties(std::ostream & strm) const
 {
 	strm << "\tPosition first point = (" << m_firstLine.GetPositiionFirstPoint().x << ", "

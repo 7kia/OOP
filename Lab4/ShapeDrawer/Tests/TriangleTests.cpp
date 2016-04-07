@@ -40,7 +40,22 @@ BOOST_AUTO_TEST_CASE(has_color_fill_color)
 	BOOST_CHECK_EQUAL(triangle.GetFillColor(), expectedFillColor);
 }
 
-BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
+BOOST_AUTO_TEST_CASE(has_a_first_point)
+{
+	VerifyVector2f(triangle.GetFirstPoint(), firstPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_second_point)
+{
+	VerifyVector2f(triangle.GetSecondPoint(), secondPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_third_point)
+{
+	VerifyVector2f(triangle.GetThirdPoint(), thirdPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_length)
 {
 	BOOST_CHECK(IsEqual(triangle.GetPerimeter(), expectedLength));
 }
@@ -70,6 +85,9 @@ struct DefaultTriangle_
 {
 	const float expectedLength = 0.f;
 	const float expectedArea = 0.f;
+
+	const sf::Vector2f defaultPosition = { 0.f, 0.f };
+
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
 	const CTriangle triangle;
@@ -89,6 +107,22 @@ BOOST_AUTO_TEST_CASE(has_color)
 {
 	BOOST_CHECK_EQUAL(triangle.GetOutlineColor(), expectedOutlineColor);
 	BOOST_CHECK_EQUAL(triangle.GetFillColor(), expectedFillColor);
+}
+
+
+BOOST_AUTO_TEST_CASE(has_a_first_point)
+{
+	VerifyVector2f(triangle.GetFirstPoint(), defaultPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_second_point)
+{
+	VerifyVector2f(triangle.GetSecondPoint(), defaultPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_a_third_point)
+{
+	VerifyVector2f(triangle.GetThirdPoint(), defaultPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)
