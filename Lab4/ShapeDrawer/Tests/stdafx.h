@@ -20,9 +20,11 @@
 #include <boost/test/unit_test.hpp>
 
 #include <SFML\Graphics.hpp>
+#include "../Shapes/IShape.h"
 
 namespace tt = boost::test_tools;
 static const auto epsilon = tt::tolerance(0.001f);
 bool IsEqual(float a, float b);
 void VerifyVector2f(const sf::Vector2f & vector, const sf::Vector2f & expectedVector);
+void VerifyColor(const sf::Color & color, const SColor & myColor);
 // TODO: reference additional headers your program requires here

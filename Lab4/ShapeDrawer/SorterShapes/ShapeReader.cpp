@@ -3,16 +3,27 @@
 
 using namespace std;
 
-CShapeReader::CShapeReader(std::string nameInputFile)
+CShapeReader::CShapeReader()
 {
-	m_nameInputFile = nameInputFile;
+}
 
-	CheckAndOpenFileForReading(m_inputFile, m_nameInputFile);
-	ReadShapes(m_inputFile);
+CShapeReader::CShapeReader(const std::string &nameInputFile)
+{
+	ReadShapes(nameInputFile);
 }
 
 CShapeReader::~CShapeReader()
 {
+}
+
+void CShapeReader::ReadShapes(const std::string & nameInputFile)
+{
+	m_nameInputFile = nameInputFile;
+
+	std::ifstream inputFile;
+	CheckAndOpenFileForReading(inputFile, m_nameInputFile);
+
+	ReadShapes(inputFile);
 }
 
 listDataShapes CShapeReader::GetShapes() const

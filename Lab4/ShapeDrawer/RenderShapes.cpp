@@ -10,6 +10,10 @@ void Render(sf::RenderWindow & window, listRenderShapes& shapes)
 }
 
 
+CShapeConverter::CShapeConverter()
+{
+}
+
 CShapeConverter::CShapeConverter(const listDataShapes & data)
 {
 	m_renderShapes = ConvertDataShapesToRenderShapes(data);

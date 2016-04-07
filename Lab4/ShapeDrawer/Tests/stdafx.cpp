@@ -20,6 +20,13 @@ bool IsEqual(float a, float b)
 
 void VerifyVector2f(const sf::Vector2f & vector, const sf::Vector2f & expectedVector)
 {
-	BOOST_CHECK_EQUAL(vector.x, expectedVector.x);
-	BOOST_CHECK_EQUAL(vector.y, expectedVector.y);
+	BOOST_CHECK(IsEqual(vector.x, expectedVector.x));
+	BOOST_CHECK(IsEqual(vector.y, expectedVector.y));
+}
+
+void VerifyColor(const sf::Color & color, const SColor & myColor)
+{
+	BOOST_CHECK_EQUAL(color.r, myColor.red);
+	BOOST_CHECK_EQUAL(color.g, myColor.green);
+	BOOST_CHECK_EQUAL(color.b, myColor.blue);
 }

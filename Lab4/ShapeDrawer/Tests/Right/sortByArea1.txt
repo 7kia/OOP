@@ -1,14 +1,14 @@
+Point:
+	Fill color = #103020
+	Perimeter = 0
+	Area = 0
+	Position = (1, 2)
 Line:
 	Fill color = #111111
 	Perimeter = 10.5
 	Area = 0
 	Position first point = (1.4, -5)
 	Position second point = (2, 5.5)
-Point:
-	Fill color = #102030
-	Perimeter = 0
-	Area = 0
-	Position = (1, 2)
 Triangle:
 	Fill color = #101010
 	Perimeter = 4.83
@@ -25,10 +25,10 @@ Circle:
 	Position center = (1, -1)
 	Radiuse = 1
 Rectangle:
-	Fill color = #334455
+	Fill color = #335544
 	Perimeter = 10
 	Area = 6
-	Outline color = #aaffdd
+	Outline color = #aaddff
 	Left top point = (1, 1)
 	Width = 2
 	Heigth = 3

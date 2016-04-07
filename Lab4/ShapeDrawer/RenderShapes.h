@@ -10,6 +10,7 @@ typedef std::vector<std::shared_ptr<sf::Shape>> listRenderShapes;
 class CShapeConverter
 {
 public:
+	CShapeConverter();
 	CShapeConverter(const listDataShapes & data);
 	~CShapeConverter();
 
