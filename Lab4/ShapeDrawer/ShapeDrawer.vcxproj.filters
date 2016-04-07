@@ -48,14 +48,14 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderShapes.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="SorterShapes\ShapeReader.cpp">
       <Filter>ShapeReader</Filter>
     </ClCompile>
     <ClCompile Include="SorterShapes\SorterShapes.cpp">
       <Filter>ShapeReader</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderShapes.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

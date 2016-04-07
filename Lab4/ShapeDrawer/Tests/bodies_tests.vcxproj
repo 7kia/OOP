@@ -166,6 +166,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\RenderShapes.h" />
     <ClInclude Include="..\Shapes\Circle.h" />
     <ClInclude Include="..\Shapes\IShape.h" />
     <ClInclude Include="..\Shapes\ISolidShape.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\SorterShapes\SorterShapes.h" />
     <ClInclude Include="CircleTests.h" />
     <ClInclude Include="RectangleTests.h" />
+    <ClInclude Include="TestDrawer.h" />
     <ClInclude Include="TestSorter.h" />
     <ClInclude Include="TriangleTests.h" />
     <ClInclude Include="LineSegmentTests.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\RenderShapes.cpp" />
     <ClCompile Include="..\Shapes\Circle.cpp" />
     <ClCompile Include="..\Shapes\IShape.cpp" />
     <ClCompile Include="..\Shapes\ISolidShape.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="LineSegmentTests.cpp" />
     <ClCompile Include="MyCPointTests.cpp" />
     <ClCompile Include="RectangleTests.cpp" />
+    <ClCompile Include="TestDrawer.cpp" />
     <ClCompile Include="TestSorter.cpp" />
     <ClCompile Include="TriangleTests.cpp" />
     <ClCompile Include="Tests.cpp" />

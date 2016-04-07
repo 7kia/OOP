@@ -13,8 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="TestsClasess">
+    <Filter Include="TestsShapes">
       <UniqueIdentifier>{bd91a863-51e2-4c60-ac3d-10b01756c5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestApplication">
+      <UniqueIdentifier>{35ee45d1-ddb2-45e0-a12c-c33ba71909b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestDrawer">
+      <UniqueIdentifier>{c4e19713-9b44-42aa-94d9-4b5c508978d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestDrawer\TestClasses">
+      <UniqueIdentifier>{629d7a74-4795-4b55-b452-e9b27ad6bcf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestsShapes\Shapes">
+      <UniqueIdentifier>{1de365e2-6ad3-4036-89ae-e2e94fdd1ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestApplication\TestClasess">
+      <UniqueIdentifier>{75cd2f5d-6378-4b69-823b-2837435453ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,38 +57,44 @@
     <ClInclude Include="CircleTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\RenderShapes.h">
+      <Filter>TestDrawer\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDrawer.h">
+      <Filter>TestDrawer</Filter>
+    </ClInclude>
     <ClInclude Include="..\Shapes\Circle.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\IShape.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\ISolidShape.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\LineSegment.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\MyCPoint.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Rectangle.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\Triangle.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\SorterShapes\Application.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\SorterShapes\ShapeReader.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClInclude>
     <ClInclude Include="..\SorterShapes\SorterShapes.h">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClInclude>
     <ClInclude Include="TestSorter.h">
-      <Filter>Source Files</Filter>
+      <Filter>TestApplication</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,53 +107,59 @@
     <ClCompile Include="Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LineSegmentTests.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\RenderShapes.cpp">
+      <Filter>TestDrawer\TestClasses</Filter>
     </ClCompile>
-    <ClCompile Include="MyCPointTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RectangleTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleTests.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="TestDrawer.cpp">
+      <Filter>TestDrawer</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Circle.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\IShape.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\ISolidShape.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\LineSegment.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\MyCPoint.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Rectangle.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\Triangle.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleTests.cpp">
+      <Filter>TestsShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleTests.cpp">
+      <Filter>TestsShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="MyCPointTests.cpp">
+      <Filter>TestsShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="LineSegmentTests.cpp">
+      <Filter>TestsShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTests.cpp">
+      <Filter>TestsShapes</Filter>
     </ClCompile>
     <ClCompile Include="..\SorterShapes\Application.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\SorterShapes\ShapeReader.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClCompile>
     <ClCompile Include="..\SorterShapes\SorterShapes.cpp">
-      <Filter>TestsClasess</Filter>
+      <Filter>TestApplication\TestClasess</Filter>
     </ClCompile>
     <ClCompile Include="TestSorter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>TestApplication</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

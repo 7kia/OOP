@@ -7,18 +7,30 @@
 
 typedef std::vector<std::shared_ptr<sf::Shape>> listRenderShapes;
 
-namespace DefaultParametresShape
+class CShapeConverter
 {
-	static const float thiknessLine = 5;
-	static const sf::Vector2f originLine = { DefaultParametresShape::thiknessLine / 2.f, 0.f };
-	static const float radiusePoint = 2.f;
+public:
+	CShapeConverter(const listDataShapes & data);
+	~CShapeConverter();
+
+
+	listRenderShapes						GetShapes() const;
+	listRenderShapes						ConvertDataShapesToRenderShapes(const listDataShapes & data);
+
+public:
+	const float THIKNESS_LINE = 5;
+	const sf::Vector2f ORIGIN_LINE = { THIKNESS_LINE / 2.f, 0.f };
+	const float RADIUSE_POINT = 2.f;
+private:
+
+	std::shared_ptr<sf::CircleShape>		ConvertInRenderPoint(const MyCPoint * data);
+	std::shared_ptr<sf::RectangleShape>		ConvertInRenderLine(const CLineSegment *data);
+	std::shared_ptr<sf::RectangleShape>		ConvertInRenderRectangle(const CRectangle *data);
+	std::shared_ptr<sf::CircleShape>		ConvertInRenderCircle(const CCircle *data);
+	std::shared_ptr<sf::ConvexShape>		ConvertInRenderTriangle(const CTriangle * data);
+private:
+	listRenderShapes						m_renderShapes;
 };
 
-listRenderShapes ConvertDataShapesToRenderShapes(listDataShapes & data);
-std::shared_ptr<sf::CircleShape> ConvertInRenderPoint(const MyCPoint * data);
-std::shared_ptr<sf::RectangleShape> ConvertInRenderLine(const CLineSegment *data);
-std::shared_ptr<sf::RectangleShape> ConvertInRenderRectangle(const CRectangle *data);
-std::shared_ptr<sf::CircleShape> ConvertInRenderCircle(const CCircle *data);
-std::shared_ptr<sf::ConvexShape> ConvertInRenderTriangle(const CTriangle * data);
 
 void Render(sf::RenderWindow & window, listRenderShapes &shapes);
