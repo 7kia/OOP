@@ -1,5 +1,5 @@
 Point 1.f 2.f #102030
-Line 250.f 250.f 300.f 300.f #111111
+Line 250.f 250.f 300.f 300.f #FFFFFF
 Triangle 1.f 0.f -1.f 0.f 0.f 1.f #101010 #020202
 Rectangle 1.f 1.f 2.f 3.f #334455 #aaffdd
 Circle 1.f -1.f 4.f #090909 #adadad

@@ -14,4 +14,7 @@ namespace DefaultParametresShape
 };
 
 listRenderShapes ConvertDataShapesToRenderShapes(listDataShapes & data);
+std::shared_ptr<sf::RectangleShape> ConvertDataLineInRenderLine(const CLineSegment *data);
+
+
 void Render(sf::RenderWindow & window, listRenderShapes &shapes);

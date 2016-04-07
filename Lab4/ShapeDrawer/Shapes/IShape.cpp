@@ -57,9 +57,15 @@ SColor::SColor(const std::string & value)
 		std::istringstream valueRed(value.substr(1, 2));
 		std::istringstream valueBlue(value.substr(3, 2));
 		std::istringstream valueGreen(value.substr(5, 2));
-		valueRed >> std::hex >> red;
-		valueBlue >> std::hex >> blue;
-		valueGreen >> std::hex >> green;
+		int value;
+		valueRed >> std::hex >> value;
+		red = static_cast<uint8_t>(value);
+
+		valueBlue >> std::hex >> value;
+		blue = static_cast<uint8_t>(value);
+
+		valueGreen >> std::hex >> value;
+		green = static_cast<uint8_t>(value);
 	}
 	else
 	{
