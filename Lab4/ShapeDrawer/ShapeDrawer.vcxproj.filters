@@ -16,6 +16,9 @@
     <Filter Include="Shapes">
       <UniqueIdentifier>{3a3573b7-e948-4acf-b7d6-8e9414631f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShapeReader">
+      <UniqueIdentifier>{d216874c-a708-45c9-ab12-714f337e63e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="RenderShapes.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SorterShapes\ShapeReader.cpp">
+      <Filter>ShapeReader</Filter>
+    </ClCompile>
+    <ClCompile Include="SorterShapes\SorterShapes.cpp">
+      <Filter>ShapeReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="RenderShapes.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SorterShapes\ShapeReader.h">
+      <Filter>ShapeReader</Filter>
+    </ClInclude>
+    <ClInclude Include="SorterShapes\SorterShapes.h">
+      <Filter>ShapeReader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

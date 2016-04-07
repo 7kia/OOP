@@ -4,7 +4,8 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!", sf::Style::Close);
+	
+	sf::RenderWindow window(sf::VideoMode(960, 600), "SFML works!", sf::Style::Close);
 
 	CShapeReader reader("composition.txt");
 	listRenderShapes renderShapes = ConvertDataShapesToRenderShapes(reader.GetShapes());
@@ -18,10 +19,13 @@ int main()
 				window.close();
 		}
 
+
 		window.clear();
-		window.display();
 
 		Render(window, renderShapes);
+
+		window.display();
+
 	}
 
 	return 0;
