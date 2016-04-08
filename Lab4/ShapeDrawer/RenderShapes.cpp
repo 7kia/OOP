@@ -64,7 +64,7 @@ std::shared_ptr<sf::RectangleShape> CShapeConverter::ConvertInRenderLine(const C
 	std::shared_ptr<sf::RectangleShape> line(new sf::RectangleShape);
 
 	SColor color = data->GetFillColor();
-	line->setFillColor(sf::Color(color.red, color.blue, color.green));
+	line->setFillColor(sf::Color(color.red, color.green, color.blue));
 	line->setSize(sf::Vector2f(THIKNESS_LINE, data->GetPerimeter()));
 	line->setOrigin(ORIGIN_LINE);
 	line->setPosition(data->GetPositiionFirstPoint());
@@ -77,7 +77,7 @@ std::shared_ptr<sf::RectangleShape> CShapeConverter::ConvertInRenderLine(const C
 					* 180.f 
 					/ M_PI;
 	if (angle < 0) {
-		angle += 360;
+		angle += 180;
 	}
 
 	line->setRotation(angle);
