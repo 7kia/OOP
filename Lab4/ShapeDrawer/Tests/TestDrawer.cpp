@@ -18,8 +18,22 @@ struct Drawer_
 	const int indexRectangle = 1;
 	const int indexCircle = 2;
 	const int indexTriangle = 3;
-
 	const int indexLine = 4;
+
+	sf::CircleShape point;
+	sf::CircleShape circle;
+	float expectedRadiuse = 40.f;
+
+	sf::RectangleShape line;
+	sf::Vector2f firstPositionLine = { 250.f, 250.f };
+	sf::Vector2f secondPositionLine = { 300.f, 300.f };
+
+	sf::ConvexShape triangle;
+	sf::Vector2f firstPositionTriangle = { 200.f, 100.f };
+	sf::Vector2f secondPositionTriangle = { 300.f, 200.f };
+	sf::Vector2f thirdPositionTriangle = { 100.f, 200.f };
+
+	sf::RectangleShape rectangle;
 
 	Drawer_()
 	{
@@ -44,71 +58,98 @@ BOOST_AUTO_TEST_CASE(indexes_shape_is_correct)
 	BOOST_CHECK_EQUAL(reader.GetShapes()[indexTriangle]->GetType(), "Triangle");
 }
 
-BOOST_AUTO_TEST_CASE(convert_point)
+
+///////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(ConvertToPointTestModule)
+
+BOOST_AUTO_TEST_CASE(fill_color_is_correct)
 {
 	sf::CircleShape* pPoint = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexPoint]);
-	MyCPoint* pDataPoint = dynamic_cast<MyCPoint*>(&*reader.GetShapes()[indexPoint]);
-
-	sf::CircleShape circle;
 
 	sf::Color expectedFillColor(16, 240, 48);
-	circle.setFillColor(expectedFillColor);
-	VerifyColor(circle.getFillColor(), pDataPoint->GetFillColor());
-
-	sf::Vector2f expectedOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
-	circle.setOrigin(expectedOrigin);
-	VerifyVector2f(circle.getOrigin(), expectedOrigin);
-
-	sf::Vector2f expectedPosition(25.f, 25.f);
-	circle.setPosition(expectedPosition);
-	VerifyVector2f(circle.getPosition(), pDataPoint->GetPosition());
-
-	float expectedRadiuse = RADIUSE_POINT;
-	circle.setRadius(expectedRadiuse);
-	BOOST_CHECK_EQUAL(circle.getRadius(), expectedRadiuse);
+	point.setFillColor(expectedFillColor);
+	VerifyColor(point.getFillColor(), pPoint->getFillColor());
 }
 
-BOOST_AUTO_TEST_CASE(convert_line)
+BOOST_AUTO_TEST_CASE(origin_is_correct)
 {
-	sf::RectangleShape* pPoint = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
-	CLineSegment* pDataLine = dynamic_cast<CLineSegment*>(&*reader.GetShapes()[indexLine]);
+	sf::CircleShape* pPoint = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexPoint]);
 
+	sf::Vector2f expectedOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
+	point.setOrigin(expectedOrigin);
+	VerifyVector2f(point.getOrigin(), expectedOrigin);
+}
 
-	sf::RectangleShape line;
+BOOST_AUTO_TEST_CASE(position_is_correct)
+{
+	sf::CircleShape* pPoint = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexPoint]);
+
+	sf::Vector2f expectedPosition(25.f, 25.f);
+	point.setPosition(expectedPosition);
+	VerifyVector2f(point.getPosition(), pPoint->getPosition());
+}
+
+BOOST_AUTO_TEST_CASE(radiuse_is_correct)
+{
+	float expectedRadiuse = RADIUSE_POINT;
+	point.setRadius(expectedRadiuse);
+	BOOST_CHECK_EQUAL(point.getRadius(), expectedRadiuse);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+/////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(ConvertToLineTestModule)
+
+BOOST_AUTO_TEST_CASE(fill_color_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
+
 	sf::Color expectedFillColor(255, 255, 255);
-	sf::Vector2f expectedOrigin(ORIGIN_LINE);
-
-	sf::Vector2f firstPosition = { 250.f, 250.f };
-	sf::Vector2f secondPosition = { 300.f, 300.f };
-	sf::Vector2f difference = secondPosition - firstPosition;
-
-
-	sf::Vector2f expectedPosition(firstPosition);
-
 	line.setFillColor(expectedFillColor);
-	VerifyColor(line.getFillColor(), pDataLine->GetFillColor());
+	VerifyColor(line.getFillColor(), pRectangle->getFillColor());
+}
 
+BOOST_AUTO_TEST_CASE(size_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
+
+	sf::Vector2f difference = secondPositionLine - firstPositionLine;
 
 	float length = std::sqrt(difference.x * difference.x + difference.y * difference.y);
 	sf::Vector2f expectedSize(THIKNESS_LINE, length);
 
 	line.setSize(expectedSize);
-	VerifyVector2f(line.getSize(), sf::Vector2f(THIKNESS_LINE, pDataLine->GetPerimeter()));
+	VerifyVector2f(line.getSize(), pRectangle->getSize());
+}
 
+BOOST_AUTO_TEST_CASE(origin_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
 
+	sf::Vector2f expectedOrigin(ORIGIN_LINE);
 
 	line.setOrigin(expectedOrigin);
-	VerifyVector2f(line.getOrigin(), expectedOrigin);
+	VerifyVector2f(line.getOrigin(), pRectangle->getOrigin());
+}
 
+BOOST_AUTO_TEST_CASE(position_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
+
+	sf::Vector2f expectedPosition(firstPositionLine);
 	line.setPosition(expectedPosition);
-	VerifyVector2f(line.getPosition(), pDataLine->GetPositiionFirstPoint());
+	VerifyVector2f(line.getPosition(), pRectangle->getPosition());
+}
 
-
+BOOST_AUTO_TEST_CASE(angle_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
 
 	float expectedAngle = 45.f;
 
-	sf::Vector2f coordinateSecondPointInZeroSystemCoordinates = secondPosition;
-	coordinateSecondPointInZeroSystemCoordinates -= firstPosition;
+	sf::Vector2f coordinateSecondPointInZeroSystemCoordinates = secondPositionLine;
+	coordinateSecondPointInZeroSystemCoordinates -= firstPositionLine;
 
 	float angle = (atan2(coordinateSecondPointInZeroSystemCoordinates.x,
 		coordinateSecondPointInZeroSystemCoordinates.y))
@@ -121,109 +162,156 @@ BOOST_AUTO_TEST_CASE(convert_line)
 	BOOST_CHECK(IsEqual(angle, expectedAngle));
 }
 
-BOOST_AUTO_TEST_CASE(convert_triangle)
+BOOST_AUTO_TEST_SUITE_END()
+///////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(ConvertToTriangleTestModule)
+
+BOOST_AUTO_TEST_CASE(positions_points_is_correct)
 {
 	sf::ConvexShape* pTriangle = dynamic_cast<sf::ConvexShape*>(&*renderShapes[indexTriangle]);
-	CTriangle* pDataTriangle = dynamic_cast<CTriangle*>(&*reader.GetShapes()[indexTriangle]);
 
-	sf::Vector2f firstPosition = { 200.f, 100.f };
-	sf::Vector2f secondPosition = { 300.f, 200.f };
-	sf::Vector2f thirdPosition = { 100.f, 200.f };
+	triangle.setPointCount(3);
 
-	pTriangle->setPointCount(3);
+	triangle.setPoint(0, firstPositionTriangle);
+	VerifyVector2f(pTriangle->getPoint(0), triangle.getPoint(0));
 
-	pTriangle->setPoint(0, pDataTriangle->GetFirstPoint());
-	VerifyVector2f(pTriangle->getPoint(0), firstPosition);
+	triangle.setPoint(1, secondPositionTriangle);
+	VerifyVector2f(pTriangle->getPoint(1), triangle.getPoint(1));
 
-	pTriangle->setPoint(1, pDataTriangle->GetSecondPoint());
-	VerifyVector2f(pTriangle->getPoint(1), secondPosition);
+	triangle.setPoint(2, thirdPositionTriangle);
+	VerifyVector2f(pTriangle->getPoint(2), triangle.getPoint(2));
+}
 
-	pTriangle->setPoint(2, pDataTriangle->GetThirdPoint());
-	VerifyVector2f(pTriangle->getPoint(2), thirdPosition);
-
+BOOST_AUTO_TEST_CASE(fill_color_is_correct)
+{
+	sf::ConvexShape* pTriangle = dynamic_cast<sf::ConvexShape*>(&*renderShapes[indexTriangle]);
 
 	sf::Color expectedFillColor(160, 160, 160);
-	sf::Color expectedOutlineColor(192, 2, 2);
-
-	pTriangle->setFillColor(expectedFillColor);
-	VerifyColor(pTriangle->getFillColor(), pDataTriangle->GetFillColor());
-	
-	pTriangle->setFillColor(expectedOutlineColor);
-	VerifyColor(pTriangle->getOutlineColor(), pDataTriangle->GetOutlineColor());
-
-	float expectedThikness = THIKNESS_LINE;
-	pTriangle->setOutlineThickness(expectedThikness);
-	BOOST_CHECK_EQUAL(pTriangle->getOutlineThickness(), THIKNESS_LINE);
-
+	triangle.setFillColor(expectedFillColor);
+	VerifyColor(triangle.getFillColor(), pTriangle->getFillColor());
 }
 
-BOOST_AUTO_TEST_CASE(convert_rectangle)
+BOOST_AUTO_TEST_CASE(outline_color_is_correct)
+{
+	sf::ConvexShape* pTriangle = dynamic_cast<sf::ConvexShape*>(&*renderShapes[indexTriangle]);
+
+	sf::Color expectedOutlineColor(192, 2, 2);
+	triangle.setOutlineColor(expectedOutlineColor);
+	VerifyColor(triangle.getOutlineColor(), pTriangle->getOutlineColor());
+}
+
+BOOST_AUTO_TEST_CASE(thikness_is_correct)
+{
+	float expectedThikness = THIKNESS_LINE;
+	triangle.setOutlineThickness(expectedThikness);
+	BOOST_CHECK_EQUAL(triangle.getOutlineThickness(), expectedThikness);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+///////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(ConvertToRectangleTestModule)
+
+BOOST_AUTO_TEST_CASE(fill_color_is_correct)
 {
 	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexRectangle]);
-	CRectangle* pDataRectangle = dynamic_cast<CRectangle*>(&*reader.GetShapes()[indexRectangle]);
 
 	sf::Color expectedFillColor(51, 68, 85);
+	rectangle.setFillColor(expectedFillColor);
+	VerifyColor(rectangle.getFillColor(), pRectangle->getFillColor());
+}
+
+BOOST_AUTO_TEST_CASE(outline_color_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexRectangle]);
+
 	sf::Color expectedOutlineColor(170, 255, 221);
+	rectangle.setOutlineColor(expectedOutlineColor);
+	VerifyColor(rectangle.getOutlineColor(), pRectangle->getOutlineColor());
+}
 
-	pRectangle->setFillColor(expectedFillColor);
-	VerifyColor(pRectangle->getFillColor(), pDataRectangle->GetFillColor());
-
-	pRectangle->setOutlineColor(expectedOutlineColor);
-	VerifyColor(pRectangle->getOutlineColor(), pDataRectangle->GetOutlineColor());
-
+BOOST_AUTO_TEST_CASE(size_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexRectangle]);
 
 	sf::Vector2f expectedSize(200.f, 300.f);
-	pRectangle->setSize(sf::Vector2f(pDataRectangle->GetWidth(), pDataRectangle->GetHeight()));
-	VerifyVector2f(pRectangle->getSize(), expectedSize);
+	rectangle.setSize(expectedSize);
+	VerifyVector2f(pRectangle->getSize(), rectangle.getSize());
+}
+
+BOOST_AUTO_TEST_CASE(origin_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexRectangle]);
 
 	sf::Vector2f expectedOrigin(0.f, 0.f);
-	pRectangle->setOrigin(expectedOrigin);
-	VerifyVector2f(pRectangle->getOrigin(), expectedOrigin);
+	rectangle.setOrigin(expectedOrigin);
+	VerifyVector2f(pRectangle->getOrigin(), rectangle.getOrigin());
+}
+
+BOOST_AUTO_TEST_CASE(position_is_correct)
+{
+	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexRectangle]);
 
 	sf::Vector2f expectedPosition(100.f, 100.f);
-	pRectangle->setPosition(expectedPosition);
-	VerifyVector2f(pRectangle->getPosition(), pDataRectangle->GetLeftTopPoint());
-
+	rectangle.setPosition(expectedPosition);
+	VerifyVector2f(pRectangle->getPosition(), rectangle.getPosition());
 }
 
-BOOST_AUTO_TEST_CASE(convert_circle)
+BOOST_AUTO_TEST_SUITE_END()
+///////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(ConvertToCircleTestModule)
+
+BOOST_AUTO_TEST_CASE(fill_color_is_correct)
 {
-	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexPoint]);
-	CCircle* pDataPoint = dynamic_cast<CCircle*>(&*reader.GetShapes()[indexPoint]);
+	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
 
+	sf::Color expectedFillColor(170, 9, 144);
+	circle.setFillColor(expectedFillColor);
+	VerifyColor(circle.getFillColor(), pCircle->getFillColor());
+}
 
-	sf::CircleShape circle;
-
-	sf::Color expectedFillColor(160, 9, 144);
-	pCircle->setFillColor(expectedFillColor);
-	VerifyColor(pCircle->getFillColor(), pDataPoint->GetFillColor());
+BOOST_AUTO_TEST_CASE(outline_color_is_correct)
+{
+	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
 
 	sf::Color expectedOutlineColor(173, 173, 173);
-	pCircle->setOutlineColor(expectedOutlineColor);
-	VerifyColor(pCircle->getOutlineColor(), pDataPoint->GetOutlineColor());
+	circle.setOutlineColor(expectedOutlineColor);
+	VerifyColor(circle.getOutlineColor(), pCircle->getOutlineColor());
+}
 
-
-
-	float expectedThikness = THIKNESS_LINE;
-	pCircle->setOutlineThickness(expectedThikness);
-	BOOST_CHECK_EQUAL(pCircle->getOutlineThickness(), THIKNESS_LINE);
-
-
-
-	float expectedRadiuse = 40.f;
-
-	sf::Vector2f expectedOrigin(expectedRadiuse / 2, expectedRadiuse / 2);
-	pCircle->setOrigin(expectedOrigin);
-	VerifyVector2f(pCircle->getOrigin(), expectedOrigin);
-
-	pCircle->setRadius(expectedRadiuse);
-	BOOST_CHECK_EQUAL(pCircle->getRadius(), expectedRadiuse);
-
+BOOST_AUTO_TEST_CASE(position_is_correct)
+{
+	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
 
 	sf::Vector2f expectedPosition(450.f, 450.f);
-	pCircle->setPosition(expectedPosition);
-	VerifyVector2f(pCircle->getPosition(), pDataPoint->GetPosition());
-
+	circle.setPosition(expectedPosition);
+	VerifyVector2f(pCircle->getPosition(), circle.getPosition());
 }
+
+BOOST_AUTO_TEST_CASE(radiuse_is_correct)
+{
+	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
+
+	circle.setRadius(expectedRadiuse);
+	BOOST_CHECK_EQUAL(circle.getRadius(), pCircle->getRadius());
+}
+
+BOOST_AUTO_TEST_CASE(origin_is_correct)
+{
+	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
+
+	sf::Vector2f expectedOrigin(expectedRadiuse / 2, expectedRadiuse / 2);
+	circle.setOrigin(expectedOrigin);
+	VerifyVector2f(circle.getOrigin(), pCircle->getOrigin());
+}
+
+BOOST_AUTO_TEST_CASE(thikness_is_correct)
+{
+	float expectedThikness = THIKNESS_LINE;
+	circle.setOutlineThickness(expectedThikness);
+	BOOST_CHECK_EQUAL(circle.getOutlineThickness(), expectedThikness);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+///////////////////////////////////////////
 
 BOOST_AUTO_TEST_SUITE_END()

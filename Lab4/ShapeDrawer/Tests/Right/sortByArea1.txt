@@ -1,5 +1,5 @@
 Point:
-	Fill color = #103020
+	Fill color = #102030
 	Perimeter = 0
 	Area = 0
 	Position = (1, 2)
@@ -25,10 +25,10 @@ Circle:
 	Position center = (1, -1)
 	Radiuse = 1
 Rectangle:
-	Fill color = #335544
+	Fill color = #334455
 	Perimeter = 10
 	Area = 6
-	Outline color = #aaddff
+	Outline color = #aaffdd
 	Left top point = (1, 1)
 	Width = 2
 	Heigth = 3

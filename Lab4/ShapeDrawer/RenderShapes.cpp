@@ -91,10 +91,10 @@ std::shared_ptr<sf::RectangleShape> CShapeConverter::ConvertInRenderRectangle(co
 	std::shared_ptr<sf::RectangleShape> rectangle(new sf::RectangleShape);
 
 	SColor fillColor = data->GetFillColor();
-	rectangle->setFillColor(sf::Color(fillColor.red, fillColor.blue, fillColor.green));
+	rectangle->setFillColor(sf::Color(fillColor.red, fillColor.green, fillColor.blue));
 	
 	SColor outlineColor = data->GetOutlineColor();
-	rectangle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.blue, outlineColor.green));
+	rectangle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.green, outlineColor.blue));
 	rectangle->setOutlineThickness(THIKNESS_LINE);
 
 	rectangle->setSize(sf::Vector2f(data->GetWidth(), data->GetHeight()));
@@ -110,7 +110,7 @@ std::shared_ptr<sf::CircleShape> CShapeConverter::ConvertInRenderPoint(const MyC
 	std::shared_ptr<sf::CircleShape> circle(new sf::CircleShape);
 
 	SColor fillColor = data->GetFillColor();
-	circle->setFillColor(sf::Color(fillColor.red, fillColor.blue, fillColor.green));
+	circle->setFillColor(sf::Color(fillColor.red, fillColor.green, fillColor.blue));
 
 	circle->setOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
 	circle->setPosition(data->GetPosition());
@@ -126,12 +126,12 @@ std::shared_ptr<sf::CircleShape> CShapeConverter::ConvertInRenderCircle(const CC
 	std::shared_ptr<sf::CircleShape> circle(new sf::CircleShape);
 
 	SColor fillColor = data->GetFillColor();
-	circle->setFillColor(sf::Color(fillColor.red, fillColor.blue, fillColor.green));
+	circle->setFillColor(sf::Color(fillColor.red, fillColor.green, fillColor.blue));
 
 	SColor outlineColor = data->GetOutlineColor();
-	circle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.blue, outlineColor.green));
+	circle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.green, outlineColor.blue));
 	circle->setOutlineThickness(THIKNESS_LINE);
-	circle->setOrigin(data->GetRadiuse(), data->GetRadiuse());
+	circle->setOrigin(data->GetRadiuse() / 2.f, data->GetRadiuse() / 2.f);
 	circle->setPosition(data->GetPosition());
 
 	circle->setRadius(data->GetRadiuse());
@@ -151,10 +151,10 @@ std::shared_ptr<sf::ConvexShape> CShapeConverter::ConvertInRenderTriangle(const 
 	triangle->setPoint(2, data->GetThirdPoint());
 
 	SColor fillColor = data->GetFillColor();
-	triangle->setFillColor(sf::Color(fillColor.red, fillColor.blue, fillColor.green));
+	triangle->setFillColor(sf::Color(fillColor.red, fillColor.green, fillColor.blue));
 
 	SColor outlineColor = data->GetOutlineColor();
-	triangle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.blue, outlineColor.green));
+	triangle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.green, outlineColor.blue));
 	triangle->setOutlineThickness(THIKNESS_LINE);
 
 	return triangle;

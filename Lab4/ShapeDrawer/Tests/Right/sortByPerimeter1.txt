@@ -12,10 +12,10 @@ Line:
 	Position first point = (1.4, -5)
 	Position second point = (2, 5.5)
 Rectangle:
-	Fill color = #335544
+	Fill color = #334455
 	Perimeter = 10
 	Area = 6
-	Outline color = #aaddff
+	Outline color = #aaffdd
 	Left top point = (1, 1)
 	Width = 2
 	Heigth = 3
@@ -35,7 +35,7 @@ Triangle:
 	Position second point = (-1, 0)
 	Position third point = (0, 1)
 Point:
-	Fill color = #103020
+	Fill color = #102030
 	Perimeter = 0
 	Area = 0
 	Position = (1, 2)

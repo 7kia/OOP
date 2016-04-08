@@ -14,10 +14,11 @@ struct SColor
 	SColor(uint8_t r, uint8_t g, uint8_t b);
 	SColor(const std::string &value);
 	uint8_t red = 0;
-	uint8_t blue = 0;
 	uint8_t green = 0;
+	uint8_t blue = 0;
 	
-	bool operator==(SColor const& other) const;
+	bool operator==(const SColor & other) const;
+	bool operator==(const sf::Color & other);
 };
 std::ostream& operator<<(std::ostream& stream, SColor const& color);
 

@@ -15,8 +15,8 @@ ISolidShape::~ISolidShape()
 void ISolidShape::SetOutlineColor(uint8_t r, uint8_t g, uint8_t b)
 {
 	m_outlineColor.red = r;
-	m_outlineColor.blue = b;
 	m_outlineColor.green = g;
+	m_outlineColor.blue = b;
 }
 
 void ISolidShape::SetOutlineColor(SColor color)

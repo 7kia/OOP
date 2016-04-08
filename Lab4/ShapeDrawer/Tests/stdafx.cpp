@@ -24,9 +24,9 @@ void VerifyVector2f(const sf::Vector2f & vector, const sf::Vector2f & expectedVe
 	BOOST_CHECK(IsEqual(vector.y, expectedVector.y));
 }
 
-void VerifyColor(const sf::Color & color, const SColor & myColor)
+void VerifyColor(const sf::Color & color, const sf::Color & myColor)
 {
-	BOOST_CHECK_EQUAL(color.r, myColor.red);
-	BOOST_CHECK_EQUAL(color.g, myColor.green);
-	BOOST_CHECK_EQUAL(color.b, myColor.blue);
+	BOOST_CHECK_EQUAL(color.r, myColor.r);
+	BOOST_CHECK_EQUAL(color.g, myColor.g);
+	BOOST_CHECK_EQUAL(color.b, myColor.b);
 }
