@@ -78,7 +78,12 @@ CRational const CRational::operator-()	const
 // TODO: 4. Реализовать бинарный -
 //////////////////////////////////////////////////////////////////////////
 
-
+CRational const operator+(CRational const &rational1, CRational const &rational2)
+{
+	return (CRational((rational1.GetNumerator() * rational2.GetDenominator())
+						+ (rational2.GetNumerator() * rational1.GetDenominator()),
+						rational1.GetDenominator() * rational2.GetDenominator()));
+}
 
 
 //////////////////////////////////////////////////////////////////////////

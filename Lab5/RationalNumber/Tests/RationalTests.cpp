@@ -117,6 +117,13 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Unary_operations)
 
+struct unary_operations_
+{
+	CRational rational = CRational(1, 2);
+};
+
+BOOST_FIXTURE_TEST_SUITE(unary_operations, unary_operations_)
+
 BOOST_AUTO_TEST_CASE(unary_minus)
 {
 	CRational first(3, 5);
@@ -136,6 +143,8 @@ BOOST_AUTO_TEST_CASE(unary_plus)
 
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_AUTO_TEST_SUITE_END()
+
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 3. Реализовать бинарный +
@@ -146,7 +155,36 @@ BOOST_AUTO_TEST_SUITE_END()
 //	1 + (1/2)     = (3/2)
 //////////////////////////////////////////////////////////////////////////
 
+BOOST_AUTO_TEST_SUITE(Operator_binary_plus)
 
+struct binary_addition_
+{
+	CRational rational = CRational(1, 2);
+};
+
+BOOST_FIXTURE_TEST_SUITE(binary_addition, binary_addition_)
+
+BOOST_AUTO_TEST_CASE(addition_of_two_floating_point_numbers)
+{
+	CRational answer = rational + CRational(5, 6);
+	VerifyRational(answer, 4, 3);
+}
+
+BOOST_AUTO_TEST_CASE(addition_of_fractional_and_integer)
+{
+	CRational answer = rational + 1;
+	VerifyRational(answer, 3, 2);
+}
+
+BOOST_AUTO_TEST_CASE(addition_of_whole_and_fractional_numbers)
+{
+	CRational answer = 1 + rational;
+	VerifyRational(answer, 3, 2);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
