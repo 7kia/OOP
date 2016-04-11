@@ -73,6 +73,27 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //////////////////////////////////////////////////////////////////////////
 
 
+BOOST_AUTO_TEST_SUITE(Ratio_numerator_to_denominator)
+
+BOOST_AUTO_TEST_CASE(no_big_differecnce_for_computing_simple_fraction)
+{
+	CRational r(3, 5);
+	BOOST_CHECK_CLOSE(r.ToDouble(), 0.6, 1e-10);
+}
+
+BOOST_AUTO_TEST_CASE(zero_divide_on_not_zero_equal_zero)
+{
+	CRational r(0, 4);
+	BOOST_CHECK_CLOSE(r.ToDouble(), 0, 1e-10);
+}
+
+BOOST_AUTO_TEST_CASE(check_rational_number_on_rationality)
+{
+	CRational r(1, 3);
+	BOOST_CHECK_CLOSE(r.ToDouble(), 0.333333, 1e-2);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,6 +114,9 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	+someRational = someOtherRational;
 //////////////////////////////////////////////////////////////////////////
 
+
+BOOST_AUTO_TEST_SUITE(Unary_operations)
+
 BOOST_AUTO_TEST_CASE(unary_minus)
 {
 	CRational first(3, 5);
@@ -109,6 +133,9 @@ BOOST_AUTO_TEST_CASE(unary_plus)
 	BOOST_CHECK_EQUAL(third.GetNumerator(), -3);
 	BOOST_CHECK_EQUAL(third.GetDenominator(), 5);
 }
+
+BOOST_AUTO_TEST_SUITE_END()
+
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 3. Реализовать бинарный +
@@ -142,6 +169,9 @@ BOOST_AUTO_TEST_CASE(unary_plus)
 //	(1/2) += 1      → (3/2)
 //////////////////////////////////////////////////////////////////////////
 
+
+BOOST_AUTO_TEST_SUITE(Operator_plus_equal)
+
 BOOST_AUTO_TEST_CASE(can_increase_other_rational_number)
 {
 	CRational first(1, 2);
@@ -158,7 +188,13 @@ BOOST_AUTO_TEST_CASE(can_increase_other_integer_number)
 
 	first += second;
 	VerifyRational(first, 3, 2);
+
+	first += 2;
+	VerifyRational(first, 7, 2);
 }
+
+BOOST_AUTO_TEST_SUITE_END()
+
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 6. Реализовать оператор -=
@@ -180,15 +216,31 @@ BOOST_AUTO_TEST_CASE(can_increase_other_integer_number)
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_CASE(multiplication)
+BOOST_AUTO_TEST_SUITE(Operator_plus_equal)
+
+BOOST_AUTO_TEST_CASE(multiplication_on_zero_equal_zero)
 {
 	CRational x(1, 2);
 	VerifyRational(x * 0, 0, 0);
+}
+
+BOOST_AUTO_TEST_CASE(multiplication_rational_numbers)
+{
 	VerifyRational(CRational(-2, 4) * CRational(-1, 3), 1, 6);
 	VerifyRational(CRational(1, 2) * CRational(2, 3), 1, 3);
+
+}
+
+BOOST_AUTO_TEST_CASE(multiplication_on_number)
+{
 	VerifyRational(CRational(1, 2) * -3, -3, 2);
 	VerifyRational(CRational(7 * 2, 3), 14, 3);
+
+	VerifyRational(7 * CRational(2, 3), 14, 3);
+	VerifyRational(CRational(2, 3) * 7 , 14, 3);
 }
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -201,25 +253,27 @@ BOOST_AUTO_TEST_CASE(multiplication)
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_CASE(can_divided_on_other_rational_number)
+BOOST_AUTO_TEST_SUITE(Multiplacation)
+
+BOOST_AUTO_TEST_CASE(divided_on_other_rational_number)
 {
 	CRational first(1, 2);
 	CRational second(2, 3);
 
 	first = first / second;
 	VerifyRational(first, 3, 4);
-	}
+}
 
-BOOST_AUTO_TEST_CASE(can_divided_on_other_integer_number)
+BOOST_AUTO_TEST_CASE(divided_on_other_integer_number)
 {
 	CRational first(1, 2);
 	CRational second(5, 1);
-	
-first = first / second;
-	VerifyRational(first, 1, 10);
-	}
 
-BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
+	first = first / second;
+	VerifyRational(first, 1, 10);
+}
+
+BOOST_AUTO_TEST_CASE(integer_number_divided_on_rational)
 {
 	CRational first(7, 1);
 	CRational second(2, 3);
@@ -227,6 +281,8 @@ BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
 	first = first / second;
 	VerifyRational(first, 21, 2);
 }
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -238,15 +294,30 @@ BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_CASE(task9)
+BOOST_AUTO_TEST_SUITE(Operator_multiply_equal)
+
+struct operator_multiply_equal_
 {
-	CRational r1(1, 2);
-	CRational r2(2, 3);
-	CRational r3 = r1 *= r2;
-	BOOST_CHECK_EQUAL(r1.GetNumerator(), 1);
-	BOOST_CHECK_EQUAL(r1.GetDenominator(), 3);
+	CRational rational = CRational(1, 2);
+};
+
+BOOST_FIXTURE_TEST_SUITE(operator_multiply_equal, operator_multiply_equal_)
+
+BOOST_AUTO_TEST_CASE(multiply_on_rational)
+{
+	rational *= CRational(2, 3);
+	VerifyRational(rational, 1, 3);
 }
 
+BOOST_AUTO_TEST_CASE(multiply_on_integer)
+{
+	rational *= 3;
+	VerifyRational(rational, 3, 2);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -257,25 +328,29 @@ BOOST_AUTO_TEST_CASE(task9)
 //	(1/2) /= 3     → (1/6)
 //////////////////////////////////////////////////////////////////////////
 
+
+BOOST_AUTO_TEST_SUITE(Operator_multiply_equal)
+
 struct binary_addition_
-	 {
+{
 	CRational rational = CRational(1, 2);
-	};
+};
 
 BOOST_FIXTURE_TEST_SUITE(binary_addition, binary_addition_)
 
-BOOST_AUTO_TEST_CASE(division_of_two_floating_point_numbers)
- {
+BOOST_AUTO_TEST_CASE(division_on_rational)
+{
 	rational /= CRational(2, 3);
 	VerifyRational(rational, 3, 4);
-	}
+}
 
-BOOST_AUTO_TEST_CASE(division_of_fractional_and_integer)
- {
+BOOST_AUTO_TEST_CASE(division_on_integer)
+{
 	rational /= 3;
 	VerifyRational(rational, 1, 6);
-	}
+}
 
+BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -316,6 +391,9 @@ BOOST_AUTO_TEST_SUITE_END()
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
 
+
+BOOST_AUTO_TEST_SUITE(Print_rational)
+
 struct rational_to_ostream_
 {
 	output_test_stream output;
@@ -334,6 +412,8 @@ BOOST_AUTO_TEST_CASE(whole_rational_number_to_ostream)
 	output << CRational(3);
 	BOOST_CHECK(output.is_equal("3/1"));
 }
+
+BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
 

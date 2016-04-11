@@ -47,7 +47,10 @@ unsigned GCD(unsigned a, unsigned b)
 //////////////////////////////////////////////////////////////////////////
 
 
-
+double CRational::ToDouble()
+{
+	return double(m_numerator) / double(m_denominator);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 2. Реализовать унарный + и унарный -
@@ -105,10 +108,10 @@ CRational & CRational::operator+=(CRational const & other)
 //////////////////////////////////////////////////////////////////////////
 
 
-CRational const CRational::operator*(CRational const & right) const
+CRational const operator*(CRational const & left, CRational const & right) 
 {
-	CRational result(m_numerator * right.m_numerator, 
-					(m_numerator * right.m_numerator != 0) ? m_denominator * right.m_denominator : 0);
+	CRational result(left.m_numerator * right.m_numerator,
+					(left.m_numerator * right.m_numerator != 0) ? left.m_denominator * right.m_denominator : 0);
 	result.Normalize();
 
 	return result;
