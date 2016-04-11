@@ -458,7 +458,21 @@ BOOST_AUTO_TEST_SUITE_END()
 //	3 != (2/3)     → true
 //////////////////////////////////////////////////////////////////////////
 
+BOOST_AUTO_TEST_SUITE(Equal_operations)
 
+BOOST_AUTO_TEST_CASE(right_expressions)
+{
+	BOOST_CHECK(CRational(1, 2) != CRational(1, 3));
+	BOOST_CHECK(CRational(3, 1) == CRational(6, 2));
+}
+
+BOOST_AUTO_TEST_CASE(not_right_expressions)
+{
+	BOOST_CHECK(!(CRational(1, 2) != CRational(1, 2)));
+	BOOST_CHECK(!(CRational(3, 1) == CRational(4, 2)));
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 12. Реализовать операторы <, >, <=, >=
@@ -530,6 +544,37 @@ BOOST_AUTO_TEST_SUITE_END()
 //	std::istream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
+
+
+BOOST_AUTO_TEST_SUITE(Write_rational)
+
+struct rational_from_istream_
+{
+	std::ifstream inputFile;
+	CRational inputNumber;
+
+	rational_from_istream_()
+	{
+		inputFile.open("input.txt");
+	};
+};
+
+BOOST_FIXTURE_TEST_SUITE(rational_from_istream, rational_from_istream_)
+
+BOOST_AUTO_TEST_CASE(rational_number_from_istream)
+{
+	inputFile >> inputNumber;
+	VerifyRational(inputNumber, 1, 2);
+
+	inputFile >> inputNumber;
+	VerifyRational(inputNumber, 3, 4);
+}
+
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE_END()
+
 
 
 

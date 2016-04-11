@@ -179,6 +179,16 @@ CRational& CRational::operator/=(CRational const & other)
 //////////////////////////////////////////////////////////////////////////
 
 
+bool const operator==(CRational const& first, CRational const& second)
+{
+	return (first.GetNumerator() == second.GetNumerator() &&
+			first.GetDenominator() == second.GetDenominator());
+}
+
+bool const operator!=(CRational const& first, CRational const& second)
+{
+	return !(first == second);
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -249,3 +259,22 @@ std::ostream & operator<<(std::ostream & strm, CRational const & rationalNum)
 //////////////////////////////////////////////////////////////////////////
 
 
+
+std::istream& operator>>(std::istream &in, CRational &num)
+{
+	std::streamoff const startPos = in.tellg();
+
+	int numerator;
+	int denominator;
+	if ((in >> numerator) && (in.get() == '/') && (in >> denominator))
+	{
+		num = CRational(numerator, denominator);
+	}
+	else
+	{
+		in.seekg(startPos);
+		in.setstate(in.rdstate() | std::ios_base::failbit);
+	}
+
+	return in;
+}

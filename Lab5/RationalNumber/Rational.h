@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <iostream>
+#include <fstream>
 
 /*
 Класс, моделирующий рациональное число
@@ -160,6 +162,9 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 
+	friend bool const operator ==(CRational const& first, CRational const& second);
+	friend bool const operator !=(CRational const& first, CRational const& second);
+
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -187,12 +192,16 @@ public:
 	//	например: 7/15
 	//////////////////////////////////////////////////////////////////////////
 
+	friend std::ostream & operator<<(std::ostream & strm, CRational const & rationalNum);
 
 	//////////////////////////////////////////////////////////////////////////
 	// TODO: 14. Реализовать оператор ввода рационального числа из входного потока 
 	//	std::istream в формате <числитель>/<знаменатель>, 
 	//	например: 7/15
 	//////////////////////////////////////////////////////////////////////////
+
+	friend std::istream& operator>>(std::istream &in, CRational &num);
+
 private:
 	int m_numerator;
 	int m_denominator;
