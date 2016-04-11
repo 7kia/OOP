@@ -164,19 +164,19 @@ struct binary_addition_
 
 BOOST_FIXTURE_TEST_SUITE(binary_addition, binary_addition_)
 
-BOOST_AUTO_TEST_CASE(addition_of_two_floating_point_numbers)
+BOOST_AUTO_TEST_CASE(addition_two_rational_numbers)
 {
 	CRational answer = rational + CRational(5, 6);
 	VerifyRational(answer, 4, 3);
 }
 
-BOOST_AUTO_TEST_CASE(addition_of_fractional_and_integer)
+BOOST_AUTO_TEST_CASE(addition_rational_and_integer)
 {
 	CRational answer = rational + 1;
 	VerifyRational(answer, 3, 2);
 }
 
-BOOST_AUTO_TEST_CASE(addition_of_whole_and_fractional_numbers)
+BOOST_AUTO_TEST_CASE(addition_integer_and_rational)
 {
 	CRational answer = 1 + rational;
 	VerifyRational(answer, 3, 2);
@@ -197,6 +197,36 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
+BOOST_AUTO_TEST_SUITE(Operator_binary_minus)
+
+struct binary_subtraction_
+{
+	CRational rational = CRational(1, 2);
+};
+
+BOOST_FIXTURE_TEST_SUITE(binary_subtraction, binary_subtraction_)
+
+BOOST_AUTO_TEST_CASE(subtraction_two_rational_numbers)
+{
+	CRational answer = rational - CRational(5, 6);
+	VerifyRational(answer, -1, 3);
+}
+
+BOOST_AUTO_TEST_CASE(subtraction_rational_and_integer)
+{
+	CRational answer = rational - 1;
+	VerifyRational(answer, -1, 2);
+}
+
+BOOST_AUTO_TEST_CASE(subtraction_integer_and_rational)
+{
+	CRational answer = 1 - rational;
+	VerifyRational(answer, 1, 2);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
