@@ -113,6 +113,14 @@ CRational & CRational::operator+=(CRational const & other)
 //////////////////////////////////////////////////////////////////////////
 
 
+CRational & CRational::operator-=(CRational const & other)
+{
+	m_numerator = GetNumerator() * other.GetDenominator() - other.GetNumerator() * GetDenominator();
+	m_denominator = other.GetDenominator() * GetDenominator();
+
+	Normalize();
+	return *this;
+}
 
 
 //////////////////////////////////////////////////////////////////////////

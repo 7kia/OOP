@@ -272,7 +272,30 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
+BOOST_AUTO_TEST_SUITE(Operator_minus_equal)
 
+BOOST_AUTO_TEST_CASE(can_decrease_other_rational_number)
+{
+	CRational first(1, 2);
+	CRational second(1, 6);
+
+	first -= second;
+	VerifyRational(first, 1, 3);
+}
+
+BOOST_AUTO_TEST_CASE(can_decrease_other_integer_number)
+{
+	CRational first(1, 2);
+	CRational second(1, 1);
+
+	first -= second;
+	VerifyRational(first, -1, 2);
+
+	first -= 2;
+	VerifyRational(first, -5, 2);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 7. Реализовать оператор *
@@ -437,7 +460,6 @@ BOOST_AUTO_TEST_SUITE_END()
 
 
 
-
 //////////////////////////////////////////////////////////////////////////
 // TODO: 12. Реализовать операторы <, >, <=, >=
 // Сравнивают два рациональных числа, рациональное с целым, 
@@ -451,6 +473,23 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
+BOOST_AUTO_TEST_SUITE(Compare_operations)
+
+BOOST_AUTO_TEST_CASE(right_expressions)
+{
+	BOOST_CHECK(CRational(1, 2) >= CRational(1, 3));
+	BOOST_CHECK(CRational(3, 1) > CRational(2));
+	BOOST_CHECK(CRational(1, 2) < CRational(7));
+	BOOST_CHECK(CRational(3) <= CRational(7, 2));
+}
+
+BOOST_AUTO_TEST_CASE(not_right_expressions)
+{
+	BOOST_CHECK(!(CRational(1, 2) >= CRational(8, 2)));
+	BOOST_CHECK(!(CRational(1, 2) <= CRational(1, 3)));
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
