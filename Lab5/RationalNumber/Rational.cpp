@@ -53,7 +53,15 @@ unsigned GCD(unsigned a, unsigned b)
 // TODO: 2. Реализовать унарный + и унарный -
 //////////////////////////////////////////////////////////////////////////
 
+CRational const CRational::operator+() const
+{
+	return *this;
+}
 
+CRational const CRational::operator-()	const
+{
+	return CRational((-1)*m_numerator, m_denominator);
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,7 +105,14 @@ CRational & CRational::operator+=(CRational const & other)
 //////////////////////////////////////////////////////////////////////////
 
 
+CRational const CRational::operator*(CRational const & right) const
+{
+	CRational result(m_numerator * right.m_numerator, 
+					(m_numerator * right.m_numerator != 0) ? m_denominator * right.m_denominator : 0);
+	result.Normalize();
 
+	return result;
+}
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 8. Реализовать оператор /
@@ -112,18 +127,28 @@ CRational & CRational::operator/(CRational const & other)
 }
 
 
+
 //////////////////////////////////////////////////////////////////////////
 // TODO: 9. Реализовать оператор *=
 //////////////////////////////////////////////////////////////////////////
 
 
-
+CRational& CRational::operator*=(const CRational & num2)
+{
+	m_numerator *= num2.GetNumerator();
+	m_denominator *= num2.GetDenominator();
+	Normalize();
+	return *this;
+}
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 10. Реализовать оператор /=
 //////////////////////////////////////////////////////////////////////////
 
-
+CRational& CRational::operator/=(CRational const & other)
+{
+	return *this / other;
+}
 
 
 //////////////////////////////////////////////////////////////////////////

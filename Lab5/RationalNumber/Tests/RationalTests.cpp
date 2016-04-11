@@ -93,8 +93,22 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	+someRational = someOtherRational;
 //////////////////////////////////////////////////////////////////////////
 
+BOOST_AUTO_TEST_CASE(unary_minus)
+{
+	CRational first(3, 5);
+	CRational second = -first;
+	BOOST_CHECK_EQUAL(second.GetNumerator(), -3);
+	BOOST_CHECK_EQUAL(second.GetDenominator(), 5);
+}
 
-
+BOOST_AUTO_TEST_CASE(unary_plus)
+{
+	CRational first(3, 5);
+	CRational second = -first;
+	CRational third = +second;
+	BOOST_CHECK_EQUAL(third.GetNumerator(), -3);
+	BOOST_CHECK_EQUAL(third.GetDenominator(), 5);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 3. Реализовать бинарный +
@@ -166,7 +180,15 @@ BOOST_AUTO_TEST_CASE(can_increase_other_integer_number)
 //////////////////////////////////////////////////////////////////////////
 
 
-
+BOOST_AUTO_TEST_CASE(multiplication)
+{
+	CRational x(1, 2);
+	VerifyRational(x * 0, 0, 0);
+	VerifyRational(CRational(-2, 4) * CRational(-1, 3), 1, 6);
+	VerifyRational(CRational(1, 2) * CRational(2, 3), 1, 3);
+	VerifyRational(CRational(1, 2) * -3, -3, 2);
+	VerifyRational(CRational(7 * 2, 3), 14, 3);
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -216,6 +238,14 @@ BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
 //////////////////////////////////////////////////////////////////////////
 
 
+BOOST_AUTO_TEST_CASE(task9)
+{
+	CRational r1(1, 2);
+	CRational r2(2, 3);
+	CRational r3 = r1 *= r2;
+	BOOST_CHECK_EQUAL(r1.GetNumerator(), 1);
+	BOOST_CHECK_EQUAL(r1.GetDenominator(), 3);
+}
 
 
 
@@ -227,7 +257,27 @@ BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
 //	(1/2) /= 3     → (1/6)
 //////////////////////////////////////////////////////////////////////////
 
+struct binary_addition_
+	 {
+	CRational rational = CRational(1, 2);
+	};
 
+BOOST_FIXTURE_TEST_SUITE(binary_addition, binary_addition_)
+
+BOOST_AUTO_TEST_CASE(division_of_two_floating_point_numbers)
+ {
+	rational /= CRational(2, 3);
+	VerifyRational(rational, 3, 4);
+	}
+
+BOOST_AUTO_TEST_CASE(division_of_fractional_and_integer)
+ {
+	rational /= 3;
+	VerifyRational(rational, 1, 6);
+	}
+
+
+BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -267,24 +317,23 @@ BOOST_AUTO_TEST_CASE(can_integer_number_divided_on_rational)
 //////////////////////////////////////////////////////////////////////////
 
 struct rational_to_ostream_
-	 {
+{
 	output_test_stream output;
-	};
+};
 
 BOOST_FIXTURE_TEST_SUITE(rational_to_ostream, rational_to_ostream_)
 
 BOOST_AUTO_TEST_CASE(rational_number_to_ostream)
- {
+{
 	output << CRational(1, 2);
 	BOOST_CHECK(output.is_equal("1/2"));
-	}
+}
 
 BOOST_AUTO_TEST_CASE(whole_rational_number_to_ostream)
- {
+{
 	output << CRational(3);
 	BOOST_CHECK(output.is_equal("3/1"));
-	}
-
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 
