@@ -1,7 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Rational.h"
-#include <utility>
-
 
 CRational::CRational(int numerator, int denominator)
 	: m_numerator(numerator)
@@ -49,7 +47,7 @@ unsigned GCD(unsigned a, unsigned b)
 
 double CRational::ToDouble()
 {
-	return double(m_numerator) / double(m_denominator);
+	return static_cast<double>(m_numerator) / static_cast<double>(m_denominator);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,9 +85,7 @@ CRational const operator+(CRational const &rational1, CRational const &rational2
 
 CRational const operator-(CRational const &rational1, CRational const &rational2)
 {
-	return (CRational((rational1.GetNumerator() * rational2.GetDenominator())
-		- (rational2.GetNumerator() * rational1.GetDenominator()),
-		rational1.GetDenominator() * rational2.GetDenominator()));
+	return rational1 + -rational2;
 }
 
 
@@ -100,10 +96,8 @@ CRational const operator-(CRational const &rational1, CRational const &rational2
 
 CRational & CRational::operator+=(CRational const & other)
 {
-	m_numerator = GetNumerator() * other.GetDenominator() + other.GetNumerator() * GetDenominator();
-	m_denominator = other.GetDenominator() * GetDenominator();
+	*this = *this + other;
 
-	Normalize();
 	return *this;
 }
 
@@ -115,10 +109,8 @@ CRational & CRational::operator+=(CRational const & other)
 
 CRational & CRational::operator-=(CRational const & other)
 {
-	m_numerator = GetNumerator() * other.GetDenominator() - other.GetNumerator() * GetDenominator();
-	m_denominator = other.GetDenominator() * GetDenominator();
+	*this = *this - other;
 
-	Normalize();
 	return *this;
 }
 
@@ -170,7 +162,8 @@ CRational& CRational::operator*=(const CRational & num2)
 
 CRational& CRational::operator/=(CRational const & other)
 {
-	return *this / other;
+	*this = *this / other;
+	return *this;
 }
 
 
@@ -181,8 +174,8 @@ CRational& CRational::operator/=(CRational const & other)
 
 bool const operator==(CRational const& first, CRational const& second)
 {
-	return (first.GetNumerator() == second.GetNumerator() &&
-			first.GetDenominator() == second.GetDenominator());
+	return ((first.GetNumerator() == second.GetNumerator()) &&
+			(first.GetDenominator() == second.GetDenominator()));
 }
 
 bool const operator!=(CRational const& first, CRational const& second)
@@ -247,10 +240,10 @@ bool const CRational::operator >=(CRational const &rat) const
 
 
 
-std::ostream & operator<<(std::ostream & strm, CRational const & rationalNum)
+std::ostream & operator<<(std::ostream & stream, CRational const & number)
 {
-	strm << rationalNum.GetNumerator() << "/" << rationalNum.GetDenominator();
-	return strm;
+	stream << number.GetNumerator() << "/" << number.GetDenominator();
+	return stream;
 }
 
 
@@ -260,21 +253,21 @@ std::ostream & operator<<(std::ostream & strm, CRational const & rationalNum)
 
 
 
-std::istream& operator>>(std::istream &in, CRational &num)
+std::istream& operator>>(std::istream &stream, CRational &number)
 {
-	std::streamoff const startPos = in.tellg();
+	std::streamoff const startPosistion = stream.tellg();
 
 	int numerator;
 	int denominator;
-	if ((in >> numerator) && (in.get() == '/') && (in >> denominator))
+	if ((stream >> numerator) && (stream.get() == '/') && (stream >> denominator))
 	{
-		num = CRational(numerator, denominator);
+		number = CRational(numerator, denominator);
 	}
 	else
 	{
-		in.seekg(startPos);
-		in.setstate(in.rdstate() | std::ios_base::failbit);
+		stream.seekg(startPosistion);
+		stream.setstate(stream.rdstate() | std::ios_base::failbit);
 	}
 
-	return in;
+	return stream;
 }

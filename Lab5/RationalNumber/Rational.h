@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 /*
 Класс, моделирующий рациональное число
@@ -96,7 +97,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 
-	CRational& operator-=(CRational const& rational);
+	CRational& operator -=(CRational const& rational);
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -192,7 +193,7 @@ public:
 	//	например: 7/15
 	//////////////////////////////////////////////////////////////////////////
 
-	friend std::ostream & operator<<(std::ostream & strm, CRational const & rationalNum);
+	friend std::ostream & operator<<(std::ostream & stream, CRational const & number);
 
 	//////////////////////////////////////////////////////////////////////////
 	// TODO: 14. Реализовать оператор ввода рационального числа из входного потока 
@@ -200,7 +201,7 @@ public:
 	//	например: 7/15
 	//////////////////////////////////////////////////////////////////////////
 
-	friend std::istream& operator>>(std::istream &in, CRational &num);
+	friend std::istream& operator>>(std::istream &stream, CRational &number);
 
 private:
 	int m_numerator;

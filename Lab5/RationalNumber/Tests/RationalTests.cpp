@@ -77,14 +77,14 @@ BOOST_AUTO_TEST_SUITE(Ratio_numerator_to_denominator)
 
 BOOST_AUTO_TEST_CASE(no_big_differecnce_for_computing_simple_fraction)
 {
-	CRational r(3, 5);
-	BOOST_CHECK_CLOSE(r.ToDouble(), 0.6, 1e-10);
+	CRational number(3, 5);
+	BOOST_CHECK_CLOSE(number.ToDouble(), 0.6, 1e-10);
 }
 
 BOOST_AUTO_TEST_CASE(zero_divide_on_not_zero_equal_zero)
 {
-	CRational r(0, 4);
-	BOOST_CHECK_CLOSE(r.ToDouble(), 0, 1e-10);
+	CRational number(0, 4);
+	BOOST_CHECK_CLOSE(number.ToDouble(), 0, 1e-10);
 }
 
 BOOST_AUTO_TEST_CASE(check_rational_number_on_rationality)
@@ -119,26 +119,22 @@ BOOST_AUTO_TEST_SUITE(Unary_operations)
 
 struct unary_operations_
 {
-	CRational rational = CRational(1, 2);
+	CRational rational = CRational(3, 5);
 };
 
 BOOST_FIXTURE_TEST_SUITE(unary_operations, unary_operations_)
 
 BOOST_AUTO_TEST_CASE(unary_minus)
 {
-	CRational first(3, 5);
-	CRational second = -first;
-	BOOST_CHECK_EQUAL(second.GetNumerator(), -3);
-	BOOST_CHECK_EQUAL(second.GetDenominator(), 5);
+	CRational second = -rational;
+	VerifyRational(second, -3, 5);
 }
 
 BOOST_AUTO_TEST_CASE(unary_plus)
 {
-	CRational first(3, 5);
-	CRational second = -first;
+	CRational second = -rational;
 	CRational third = +second;
-	BOOST_CHECK_EQUAL(third.GetNumerator(), -3);
-	BOOST_CHECK_EQUAL(third.GetDenominator(), 5);
+	VerifyRational(third, -3, 5);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -240,7 +236,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Operator_plus_equal)
 
-BOOST_AUTO_TEST_CASE(can_increase_other_rational_number)
+BOOST_AUTO_TEST_CASE(increase_other_rational_number)
 {
 	CRational first(1, 2);
 	CRational second(1, 6);
@@ -249,7 +245,7 @@ BOOST_AUTO_TEST_CASE(can_increase_other_rational_number)
 	VerifyRational(first, 2, 3);
 }
 
-BOOST_AUTO_TEST_CASE(can_increase_other_integer_number)
+BOOST_AUTO_TEST_CASE(increase_other_integer_number)
 {
 	CRational first(1, 2);
 	CRational second(1, 1);
@@ -274,7 +270,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Operator_minus_equal)
 
-BOOST_AUTO_TEST_CASE(can_decrease_other_rational_number)
+BOOST_AUTO_TEST_CASE(decrease_other_rational_number)
 {
 	CRational first(1, 2);
 	CRational second(1, 6);
@@ -283,7 +279,7 @@ BOOST_AUTO_TEST_CASE(can_decrease_other_rational_number)
 	VerifyRational(first, 1, 3);
 }
 
-BOOST_AUTO_TEST_CASE(can_decrease_other_integer_number)
+BOOST_AUTO_TEST_CASE(decrease_other_integer_number)
 {
 	CRational first(1, 2);
 	CRational second(1, 1);
@@ -307,7 +303,7 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_SUITE(Operator_plus_equal)
+BOOST_AUTO_TEST_SUITE(Multiplication)
 
 BOOST_AUTO_TEST_CASE(multiplication_on_zero_equal_zero)
 {
@@ -344,7 +340,7 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_SUITE(Multiplacation)
+BOOST_AUTO_TEST_SUITE(Division)
 
 BOOST_AUTO_TEST_CASE(divided_on_other_rational_number)
 {
@@ -385,14 +381,14 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_SUITE(Operator_multiply_equal)
+BOOST_AUTO_TEST_SUITE(Operator_multiply_assigned)
 
-struct operator_multiply_equal_
+struct operator_multiply_assigned_
 {
 	CRational rational = CRational(1, 2);
 };
 
-BOOST_FIXTURE_TEST_SUITE(operator_multiply_equal, operator_multiply_equal_)
+BOOST_FIXTURE_TEST_SUITE(operator_multiply_assigned, operator_multiply_assigned_)
 
 BOOST_AUTO_TEST_CASE(multiply_on_rational)
 {
@@ -420,14 +416,14 @@ BOOST_AUTO_TEST_SUITE_END()
 //////////////////////////////////////////////////////////////////////////
 
 
-BOOST_AUTO_TEST_SUITE(Operator_multiply_equal)
+BOOST_AUTO_TEST_SUITE(Operator_divide_assigned)
 
-struct binary_addition_
+struct operator_divide_assigned_
 {
 	CRational rational = CRational(1, 2);
 };
 
-BOOST_FIXTURE_TEST_SUITE(binary_addition, binary_addition_)
+BOOST_FIXTURE_TEST_SUITE(operator_divide_assigned, operator_divide_assigned_)
 
 BOOST_AUTO_TEST_CASE(division_on_rational)
 {
@@ -528,7 +524,7 @@ BOOST_AUTO_TEST_CASE(rational_number_to_ostream)
 	BOOST_CHECK(output.is_equal("1/2"));
 }
 
-BOOST_AUTO_TEST_CASE(whole_rational_number_to_ostream)
+BOOST_AUTO_TEST_CASE(convert_integer_to_rational_and_write_to_ostream)
 {
 	output << CRational(3);
 	BOOST_CHECK(output.is_equal("3/1"));
@@ -566,10 +562,9 @@ BOOST_AUTO_TEST_CASE(rational_number_from_istream)
 	inputFile >> inputNumber;
 	VerifyRational(inputNumber, 1, 2);
 
-	inputFile >> inputNumber;
-	VerifyRational(inputNumber, 3, 4);
+	inputFile >> inputNumber;// next incorrect record rational number
+	VerifyRational(inputNumber, 1, 2);
 }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 
