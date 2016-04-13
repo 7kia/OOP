@@ -1,10 +1,10 @@
 #pragma once
 
-struct Vector2I
+struct Vector2i
 {
-	Vector2I();
-	Vector2I(int firstNumber, int secondNumber);
-	bool operator==(const Vector2I &right) const;
+	explicit Vector2i();
+	explicit Vector2i(int x, int y);
+	bool operator==(const Vector2i &right) const;
 
 	int x;
 	int y;

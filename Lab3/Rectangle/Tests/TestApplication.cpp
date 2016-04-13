@@ -3,11 +3,11 @@
 
 BOOST_AUTO_TEST_SUITE(ApplicationTestModule)
 
-bool TestApplictation(int argc, char *argv[])
+bool TestApplictation(const listArguments &namesFiles)
 {
 	try
 	{
-		CApplication application(argc, argv);
+		CRunner application(namesFiles);
 
 		application.Run();
 	}
@@ -32,38 +32,50 @@ void CompareFiles(const std::string & first, const std::string & second)
 	BOOST_CHECK_EQUAL_COLLECTIONS(iterResultFile, endIter, iterRightRsultFile, endIter);
 };
 
-BOOST_AUTO_TEST_CASE(Check_empty_rectangle)
+BOOST_AUTO_TEST_CASE(throw_Exception_on_empty_rectangle_or_rectangles)
 {
-	char *arguments[] = { "Test.exe", "empty1.txt", "empty2.txt", "resultEmpty.txt", "intersectionEmpty.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments) == false);
+	const listArguments arguments = { "empty1.txt", "rect1-2.txt", "result1.txt", "intersection1.txt" };
+	BOOST_CHECK(TestApplictation(arguments) == false);
+
+	const listArguments arguments2 = { "rect1-1.txt", "empty2.txt", "result1.txt", "intersection1.txt" };
+	BOOST_CHECK(TestApplictation(arguments) == false);
+
+	const listArguments arguments3 = { "empty1.txt", "empty2.txt", "result1.txt", "intersection1.txt" };
+	BOOST_CHECK(TestApplictation(arguments) == false);
+
 }
 
 BOOST_AUTO_TEST_CASE(Check_correct_rectangles_without_transformation)
 {
-	char *arguments[] = { "Test.exe", "rect1-1.txt", "rect1-2.txt", "result1.txt", "intersection1.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments));
+	const listArguments arguments = { "rect1-1.txt", "rect1-2.txt", "result2.txt", "intersection2.txt" };
+	BOOST_CHECK(TestApplictation(arguments));
 
+	CompareFiles(arguments[2], PATH_RIGHT_DATA + arguments[2]);
 	CompareFiles(arguments[3], PATH_RIGHT_DATA + arguments[3]);
 }
 
 BOOST_AUTO_TEST_CASE(Check_correct_rectangles_with_transformation)
 {
-	char *arguments[] = { "Test.exe", "rect2-1.txt", "rect2-2.txt", "result1.txt", "intersection1.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments));
+	const listArguments arguments = { "rect2-1.txt", "rect2-2.txt", "result3.txt", "intersection3.txt" };
+	BOOST_CHECK(TestApplictation(arguments));
+
+	CompareFiles(arguments[2], PATH_RIGHT_DATA + arguments[2]);
 	CompareFiles(arguments[3], PATH_RIGHT_DATA + arguments[3]);
 
-	char *arguments2[] = { "Test.exe", "rect2-1.txt", "rect2-3.txt", "result2.txt", "intersection2.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments2));
-	CompareFiles(arguments2[3], PATH_RIGHT_DATA + arguments2[3]);
+	const listArguments arguments2 = { "rect2-1.txt", "rect2-3.txt", "result4.txt", "intersection4.txt" };
+	BOOST_CHECK(TestApplictation(arguments2));
+	CompareFiles(arguments[2], PATH_RIGHT_DATA + arguments[2]);
+	CompareFiles(arguments[3], PATH_RIGHT_DATA + arguments[3]);
 
-	char *arguments3[] = { "Test.exe", "rect2-1.txt", "rect2-4.txt", "result3.txt", "intersection3.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments3));
-	CompareFiles(arguments3[3], PATH_RIGHT_DATA + arguments3[3]);
+	const listArguments arguments3 = { "rect2-1.txt", "rect2-4.txt", "result5.txt", "intersection5.txt" };
+	BOOST_CHECK(TestApplictation(arguments3));
+	CompareFiles(arguments[2], PATH_RIGHT_DATA + arguments[2]);
+	CompareFiles(arguments[3], PATH_RIGHT_DATA + arguments[3]);
 
-	char *arguments4[] = { "Test.exe", "rect2-1.txt", "rect2-5.txt", "result4.txt", "intersection4.txt" };
-	BOOST_CHECK(TestApplictation(5, arguments4));
-	CompareFiles(arguments4[3], PATH_RIGHT_DATA + arguments4[3]);
-
+	const listArguments arguments4 = { "rect2-1.txt", "rect2-5.txt", "result6.txt", "intersection6.txt" };
+	BOOST_CHECK(TestApplictation(arguments4));
+	CompareFiles(arguments[2], PATH_RIGHT_DATA + arguments[2]);
+	CompareFiles(arguments[3], PATH_RIGHT_DATA + arguments[3]);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

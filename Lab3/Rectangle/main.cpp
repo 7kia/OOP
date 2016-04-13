@@ -2,17 +2,29 @@
 //
 
 #include "stdafx.h"
-#include "CApplication.h"
+#include "main.h"
+#include "Runner.h"
 
 using namespace std;
+
+void CheckArguments(int argc)
+{
+	if (argc != AMOUNT_ARGUMENTS)
+	{
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS));
+	}
+}
 
 int main(int argc, char *argv[])
 {
 	try
 	{
-		CApplication application(argc, argv);
+		CheckArguments(argc);
 
-		application.Run();
+		const listArguments namesFiles = { argv[1], argv[2], argv[3], argv[4] };
+		CRunner runner(namesFiles);
+
+		runner.Run();
 	}
 	catch (const std::exception& e)
 	{

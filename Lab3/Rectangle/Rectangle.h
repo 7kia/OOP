@@ -1,16 +1,20 @@
 #pragma once
 
-#include "Vector2I.h"
+#include <string>
+#include <algorithm> 
+#include <iostream>
+#include "Vector2i.h"
 
 class CRectangle
 {
 public:
 	CRectangle();
-	CRectangle(Vector2I leftTopPoint, int width, int height);
+	// TODO: keep width, height as Vector2i
+	CRectangle(Vector2i leftTopPoint, Vector2i size);
 	~CRectangle();
 
-	void			SetLeftTopPoint(Vector2I leftTopPoint);
-	Vector2I	GetLeftTopPoint() const;
+	void			SetLeftTopPoint(Vector2i leftTopPoint);
+	Vector2i		GetLeftTopPoint() const;
 
 	void			SetWidth(int width);
 	int				GetWidth() const;
@@ -37,7 +41,7 @@ public:
 	void			Scale(int sx, int sy);
 	bool			Intersect(CRectangle const& other);
 private:
-	Vector2I m_leftTopPoint;
+	Vector2i m_leftTopPoint;
 	int			 m_width;
 	int			 m_height;
 };

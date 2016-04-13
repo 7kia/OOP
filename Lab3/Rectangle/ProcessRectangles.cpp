@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "CApplication.h"
+#include "ProcessRectangles.h"
 
 using namespace std;
 
@@ -12,76 +12,7 @@ vector<string> SplitWords(string const& text)
 	return words;
 }
 
-CApplication::CApplication(int argc , char * argv[])
-{
-	CheckParametrs(argc, argv);
-	
-	m_nameFirstCommandFile = argv[1];
-	m_nameSecondCommandFile = argv[2];
-	m_nameOutputFile = argv[3];	
-	m_nameInserectFile = argv[4];
-}
-
-CApplication::~CApplication()
-{
-}
-
-void CApplication::Run()
-{
-	OpenFiles();
-
-	vector<CRectangle> rectangles = { CRectangle(), CRectangle() };
-	ApplyCommandOnRectangle(rectangles[0], m_firstCommandFile);
-
-	ApplyCommandOnRectangle(rectangles[1], m_secondCommandFile);
-
-	rectangles.push_back(rectangles[0]);
-	rectangles[2].Intersect(rectangles[1]);
-	WriteResultTransformationsInFile(rectangles, m_outputFile);
-
-	WriteResultIntersectionInFile(rectangles, m_inserectFile);
-
-//	outputFile << secondMaxCost;
-}
-
-void CApplication::CheckParametrs(int argc , char *argv[])
-{
-	if (argc != AMOUNT_ARGUMENTS)
-	{
-		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS + to_string(AMOUNT_ARGUMENTS));
-	}
-}
-
-void CApplication::OpenFiles()
-{
-	CheckAndOpenFileForReading(m_firstCommandFile, m_nameFirstCommandFile);
-	CheckAndOpenFileForReading(m_secondCommandFile, m_nameSecondCommandFile);
-	CheckAndOpenFileForWriting(m_outputFile, m_nameOutputFile);
-	CheckAndOpenFileForWriting(m_inserectFile, m_nameInserectFile);
-
-}
-
-void CApplication::CheckAndOpenFileForReading(ifstream & file, const string& fileName)
-{
-	file.open(fileName);
-	file.exceptions(ifstream::badbit);
-	if (!file.is_open())
-	{
-		throw ifstream::failure(MESSAGE_FAILED_OPEN + fileName + MESSAGE_FAILED_OPEN_FOR_READING);
-	}
-}
-
-void CApplication::CheckAndOpenFileForWriting(ofstream & file, const string& fileName)
-{
-	file.open(fileName);
-	file.exceptions(ofstream::badbit);
-	if (!file.is_open())
-	{
-		throw ofstream::failure(MESSAGE_FAILED_OPEN + fileName + MESSAGE_FAILED_OPEN_FOR_WRITING);
-	}
-}
-
-void CApplication::ApplyCommandOnRectangle(CRectangle & rectangle, std::ifstream & file)
+void CProcessRectangles::ApplyCommandOnRectangle(CRectangle & rectangle, std::ifstream & file)
 {
 	string stringFromFile;
 	getline(file, stringFromFile);
@@ -118,7 +49,7 @@ void CApplication::ApplyCommandOnRectangle(CRectangle & rectangle, std::ifstream
 
 }
 
-void CApplication::ProcessRectangleCommand(const listArguments & arguments, CRectangle & rectangle)
+void CProcessRectangles::ProcessRectangleCommand(const listArguments & arguments, CRectangle & rectangle)
 {
 	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Rectangle)])
 	{
@@ -132,18 +63,18 @@ void CApplication::ProcessRectangleCommand(const listArguments & arguments, CRec
 	rectangle.SetHeight(stoi(arguments[4]));
 }
 
-void CApplication::ProcessMoveCommand(const listArguments & arguments, CRectangle & rectangle)
+void CProcessRectangles::ProcessMoveCommand(const listArguments & arguments, CRectangle & rectangle)
 {
 	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Move)])
 	{
-		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS 
+		throw invalid_argument(MESSAGE_INCORRECT_AMOUNT_ARGUMENTS
 			+ to_string(AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Move)]));
 	}
 
 	rectangle.Move(stoi(arguments[1]), stoi(arguments[2]));
 }
 
-void CApplication::ProcessScaleCommand(const listArguments & arguments, CRectangle & rectangle)
+void CProcessRectangles::ProcessScaleCommand(const listArguments & arguments, CRectangle & rectangle)
 {
 	if (arguments.size() != AMOUNT_ARGUMENTS_FOR_COMMAND[static_cast<int>(IdCommand::Scale)])
 	{
@@ -154,14 +85,13 @@ void CApplication::ProcessScaleCommand(const listArguments & arguments, CRectang
 	rectangle.Scale(stoi(arguments[1]), stoi(arguments[2]));
 }
 
-bool CApplication::IsCommand(const std::string & word)
+bool CProcessRectangles::IsCommand(const std::string & word)
 {
 	return find(COMMANDS_NAME.begin(), COMMANDS_NAME.end(), word) != COMMANDS_NAME.end();
 }
 
-void CApplication::WriteResultTransformationsInFile(vector<CRectangle> & rectangles, ofstream & file)
+void CProcessRectangles::WriteResultTransformationsInFile(vector<CRectangle> & rectangles, ofstream & file)
 {
-	
 	for (size_t index = 0; index < 2; index++)
 	{
 		file << "Rectangle " << index + 1 << ":\n";
@@ -180,7 +110,7 @@ void CApplication::WriteResultTransformationsInFile(vector<CRectangle> & rectang
 	file << "\t" << "Perimeter :" << rectangles[2].GetPerimeter() << "\n";
 }
 
-void CApplication::WriteResultIntersectionInFile(vector<CRectangle> & rectangles, ofstream & file)
+void CProcessRectangles::WriteResultIntersectionInFile(vector<CRectangle> & rectangles, ofstream & file)
 {
 	CCanvas canvas(30, 30);
 	canvas.FillRectangle(rectangles[0], '0', canvas);

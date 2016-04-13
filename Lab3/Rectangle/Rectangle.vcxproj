@@ -146,7 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
-    <ClInclude Include="CApplication.h" />
+    <ClInclude Include="ProcessRectangles.h" />
+    <ClInclude Include="Runner.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Vector2I.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="stdafx.h" />
@@ -154,7 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
-    <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="ProcessRectangles.cpp" />
+    <ClCompile Include="Runner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Vector2I.cpp" />

@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include <algorithm> 
+
 #include "Rectangle.h"
 
 template <typename T>
@@ -13,23 +15,23 @@ CRectangle::CRectangle()
 {
 }
 
-CRectangle::CRectangle(Vector2I leftTopPoint, int width, int height)
+CRectangle::CRectangle(Vector2i leftTopPoint, Vector2i size)
 	:m_leftTopPoint(leftTopPoint)
 {
-	SetWidth(width);
-	SetHeight(height);
+	SetWidth(size.x);
+	SetHeight(size.y);
 }
 
 CRectangle::~CRectangle()
 {
 }
 
-void CRectangle::SetLeftTopPoint(Vector2I leftTopPoint)
+void CRectangle::SetLeftTopPoint(Vector2i leftTopPoint)
 {
 	m_leftTopPoint = leftTopPoint;
 }
 
-Vector2I CRectangle::GetLeftTopPoint() const
+Vector2i CRectangle::GetLeftTopPoint() const
 {
 	return m_leftTopPoint;
 }
@@ -133,43 +135,36 @@ void CRectangle::Scale(int sx, int sy)
 	}
 }
 
+// TODO: use min/max to calculate new bounds
 bool CRectangle::Intersect(CRectangle const & other)
 {
-	bool leftIsIntersect = IsBetween(GetLeft(), other.GetLeft(), other.GetRight());
-	bool rightIsIntersect = IsBetween(GetRight(), other.GetLeft(), other.GetRight());
-	bool topIsIntersect = IsBetween(GetTop(), other.GetTop(), other.GetBottom());
-	bool bottomIsIntersect = IsBetween(GetBottom(), other.GetTop(), other.GetBottom());
+	
+	int leftThis = GetLeft();
+	int leftOther = other.GetLeft();
 
+	int rightThis = GetRight();
+	int rightOther = other.GetRight();
 
-	if (leftIsIntersect && topIsIntersect)
+	int topThis = GetTop();
+	int topOther = other.GetTop();
+
+	int bottomThis = GetBottom();
+	int bottomOther = other.GetBottom();
+
+	int leftIntersect = std::max(leftThis, leftOther);
+	int topIntersect = std::max(topThis, topOther);
+	int rightIntersect = std::min(rightThis, rightOther);
+	int bottomIntersect = std::min(bottomThis, bottomOther);
+	
+
+	int widthIntersect = rightIntersect - leftIntersect;
+	int heightIntersect = bottomIntersect - topIntersect;
+
+	if (widthIntersect && heightIntersect)
 	{
-		SetWidth(other.GetRight() - GetLeft());
-		SetHeight(other.GetBottom() - GetTop());
-		SetLeftTopPoint(Vector2I(GetLeft(), GetTop()));
-
-		return true;
-	}
-	else if (rightIsIntersect && topIsIntersect)
-	{
-		SetWidth(GetRight() - other.GetLeft());
-		SetHeight(other.GetBottom() - GetTop());
-		SetLeftTopPoint(Vector2I(other.GetLeft(), GetTop()));
-
-		return true;
-	}
-	else if (rightIsIntersect && bottomIsIntersect)
-	{
-		SetWidth(GetRight() - other.GetLeft());
-		SetHeight(GetBottom() - other.GetTop());
-		SetLeftTopPoint(Vector2I(other.GetLeft(), other.GetTop()));
-
-		return true;
-	}
-	else if (leftIsIntersect && bottomIsIntersect)
-	{
-		SetWidth(other.GetRight() - GetLeft());
-		SetHeight(GetBottom() - other.GetTop());
-		SetLeftTopPoint(Vector2I(GetLeft(), other.GetTop()));
+		SetWidth(widthIntersect);
+		SetHeight(heightIntersect);
+		SetLeftTopPoint(Vector2i(leftIntersect, topIntersect));
 
 		return true;
 	}

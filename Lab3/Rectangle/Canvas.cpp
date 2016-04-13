@@ -4,15 +4,11 @@
 using namespace std;
 
 CCanvas::CCanvas(size_t width, size_t height)
-	:m_width(width),
-	m_height(height)
+	:m_width(width)
+	,m_height(height)
 {
-	m_matrix = std::vector<std::string>(width);
-	for (size_t i = 0; i < width; i++)
-	{
-		m_matrix[i].resize(height);
-	}
-	Clear(' ');
+	std::string column(height, ' ');
+	m_matrix = std::vector<std::string>(width, column);
 }
 
 CCanvas::~CCanvas()
@@ -33,11 +29,11 @@ void CCanvas::Clear(char code)
 {
 	if (CheckCorrectnessChar(code))
 	{
-		for (auto & y : m_matrix)
+		for (auto & column : m_matrix)
 		{
-			for (auto & x : y)
+			for (auto & cell : column)
 			{
-				x = code;
+				cell = code;
 			}
 		}
 	}
@@ -45,11 +41,10 @@ void CCanvas::Clear(char code)
 
 void CCanvas::SetPixel(int x, int y, char code)
 {
+	// todo: invert condition.
 	if (CheckCorrectnessChar(code)
-		||
-		(x < 0) || (static_cast<size_t>(x) >= m_width)
-		||
-		(y < 0) || (static_cast<size_t>(y) >= m_height))
+		|| (static_cast<size_t>(x) >= m_width)
+		|| (static_cast<size_t>(y) >= m_height))
 	{
 		//throw invalid_argument(MESSAGE_INCORRECT_ARGUMENT);
 		return;
@@ -59,6 +54,7 @@ void CCanvas::SetPixel(int x, int y, char code)
 
 char CCanvas::GetPixel(int x, int y) const
 {
+	// TODO: no need to check x<0
 	if ((x < 0) || (static_cast<size_t>(x) >= m_width)
 		||
 		(y < 0) || (static_cast<size_t>(y) >= m_height))
@@ -77,8 +73,10 @@ void CCanvas::Write(std::ostream & ostream) const
 	}
 }
 
+// TODO: rename to CheckCharCorrectness
 bool CCanvas::CheckCorrectnessChar(char code)
 {
+	// TODO: use std::is_print or isprint
 	return (code > 0) && (code < (' ' - 1));
 }
 

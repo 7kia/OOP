@@ -5,14 +5,14 @@ Rectangle 1:
 	Area :6
 	Perimeter :10
 Rectangle 2:
-	Left top :(2;2)
+	Left top :(0;0)
 	Size :(2*3)
-	Right bottom :(4;5)
+	Right bottom :(2;3)
 	Area :6
 	Perimeter :10
 Intersection :
-	Left top :(2;2)
+	Left top :(1;1)
 	Size :(1*2)
-	Right bottom :(3;4)
+	Right bottom :(2;3)
 	Area :2
 	Perimeter :6
