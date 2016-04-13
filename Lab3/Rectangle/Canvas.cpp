@@ -42,22 +42,21 @@ void CCanvas::Clear(char code)
 void CCanvas::SetPixel(int x, int y, char code)
 {
 	// todo: invert condition.
-	if (CheckCorrectnessChar(code)
+	if (!(isprint(code)
 		|| (static_cast<size_t>(x) >= m_width)
 		|| (static_cast<size_t>(y) >= m_height))
+		)
 	{
-		//throw invalid_argument(MESSAGE_INCORRECT_ARGUMENT);
-		return;
+		m_matrix[x][y] = code;
 	}
-	m_matrix[x][y] = code;
 }
 
 char CCanvas::GetPixel(int x, int y) const
 {
 	// TODO: no need to check x<0
-	if ((x < 0) || (static_cast<size_t>(x) >= m_width)
+	if ((static_cast<size_t>(x) >= m_width)
 		||
-		(y < 0) || (static_cast<size_t>(y) >= m_height))
+		(static_cast<size_t>(y) >= m_height))
 	{
 		return ' ';
 	}

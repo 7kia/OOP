@@ -13,6 +13,8 @@
 */
 #include <vector>
 #include <iterator>
+#include <ctype.h>
+
 #include "Rectangle.h"
 
 class CCanvas
