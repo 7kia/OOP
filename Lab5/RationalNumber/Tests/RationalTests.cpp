@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_CASE(divided_on_other_integer_number)
 	CRational first(1, 2);
 	CRational second(5, 1);
 
-	first = first / second;
+	first = first / 5;
 	VerifyRational(first, 1, 10);
 }
 
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_CASE(integer_number_divided_on_rational)
 	CRational first(7, 1);
 	CRational second(2, 3);
 
-	first = first / second;
+	first = 7 / second;
 	VerifyRational(first, 21, 2);
 }
 
