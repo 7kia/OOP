@@ -6,18 +6,34 @@ struct Rectangle_
 {
 	const float expectedLength = 10.f;
 	const float expectedArea = 6.f;
+
 	const sf::Vector2f expectedPosition = { 1.f, 2.f };
+
 	const float expectedWidth = 2.f;
 	const float expectedHeight = 3.f;
+
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
-	const CRectangle rectangle;
+	const SColor expectedColorForSetVectorMethod;
+
+	CRectangle rectangle;
+
+	const uint8_t expectedRed;
+	const uint8_t expectedGreen;
+	const uint8_t expectedBlue;
+
+
 	Rectangle_()
 		: expectedOutlineColor(160, 160, 160)
 		, expectedFillColor(10, 10, 10)
+		, expectedColorForSetVectorMethod(1, 2, 3)
+		, expectedRed(4)
+		, expectedGreen(5)
+		, expectedBlue(6)
 		, rectangle(expectedPosition, expectedWidth, expectedHeight,
 					expectedFillColor, expectedOutlineColor)
-	{}
+	{
+	}
 };
 
 BOOST_FIXTURE_TEST_SUITE(Rectangle, Rectangle_)
@@ -26,10 +42,27 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 	BOOST_CHECK(static_cast<const CShape*>(&rectangle));
 }
 
-BOOST_AUTO_TEST_CASE(has_color)
+BOOST_AUTO_TEST_CASE(has_color_outline_color)
 {
 	BOOST_CHECK_EQUAL(rectangle.GetOutlineColor(), expectedOutlineColor);
+
+	rectangle.SetOutlineColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(rectangle.GetOutlineColor(), expectedColorForSetVectorMethod);
+
+	rectangle.SetOutlineColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(rectangle.GetOutlineColor(), SColor(expectedRed, expectedGreen, expectedBlue));
+
+}
+
+BOOST_AUTO_TEST_CASE(has_color_fill_color)
+{
 	BOOST_CHECK_EQUAL(rectangle.GetFillColor(), expectedFillColor);
+
+	rectangle.SetFillColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(rectangle.GetFillColor(), expectedColorForSetVectorMethod);
+
+	rectangle.SetFillColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(rectangle.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)

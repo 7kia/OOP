@@ -6,14 +6,30 @@ struct Circle_
 {
 	const float expectedLength = 18.849f;
 	const float expectedArea = 28.274f;
+
 	const float expectedRadiuse = 3.f;
+	const float expectedRadiusAfterAssigment = 5.f;
+
 	const sf::Vector2f expectedPosition = { 1.f, 0.f };
+	const sf::Vector2f expectedPositionAfterAssigment = { -1.f, 0.f };
+
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
-	const CCircle circle;
+	const SColor expectedColorForSetVectorMethod;
+
+	const uint8_t expectedRed;
+	const uint8_t expectedGreen;
+	const uint8_t expectedBlue;
+
+	CCircle circle;
+
 	Circle_()
 		: expectedOutlineColor(10, 10, 10)
 		, expectedFillColor(160, 160, 160)
+		, expectedColorForSetVectorMethod(1, 2, 3)
+		, expectedRed(4)
+		, expectedGreen(5)
+		, expectedBlue(6)
 		, circle(expectedPosition, expectedRadiuse,
 			expectedFillColor, expectedOutlineColor)
 	{}
@@ -28,21 +44,40 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 BOOST_AUTO_TEST_CASE(has_color_outline_color)
 {
 	BOOST_CHECK_EQUAL(circle.GetOutlineColor(), expectedOutlineColor);
+
+	circle.SetOutlineColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(circle.GetOutlineColor(), expectedColorForSetVectorMethod);
+
+	circle.SetOutlineColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(circle.GetOutlineColor(), SColor(expectedRed, expectedGreen, expectedBlue));
+
 }
 
 BOOST_AUTO_TEST_CASE(has_color_fill_color)
 {
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedFillColor);
+
+	circle.SetFillColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedColorForSetVectorMethod);
+
+	circle.SetFillColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(circle.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_radiuse)
 {
-	BOOST_CHECK(circle.GetRadiuse() == expectedRadiuse);
+	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiuse);
+
+	circle.SetRadiuse(expectedRadiusAfterAssigment);
+	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiusAfterAssigment);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_position)
 {
-	BOOST_CHECK(circle.GetPosition() == expectedPosition);
+	VerifyVector2f(circle.GetPosition(), expectedPosition);
+
+	circle.SetPositionCenter(expectedPositionAfterAssigment);
+	VerifyVector2f(circle.GetPosition(), expectedPositionAfterAssigment);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)
@@ -99,12 +134,12 @@ BOOST_AUTO_TEST_CASE(has_color)
 
 BOOST_AUTO_TEST_CASE(has_a_radiuse)
 {
-	BOOST_CHECK(circle.GetRadiuse() == expectedRadiuse);
+	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiuse);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_position)
 {
-	BOOST_CHECK(circle.GetPosition() == expectedPosition);
+	VerifyVector2f(circle.GetPosition(), expectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)

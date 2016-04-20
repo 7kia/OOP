@@ -10,15 +10,25 @@ struct Triangle_
 	const sf::Vector2f firstPosition = { 1.f, 0.f };
 	const sf::Vector2f secondPosition = { -1.f, 0.f };
 	const sf::Vector2f thirdPosition = { 0.f, 1.f };
+	const sf::Vector2f excpectedPosition = { 2.f, 9.f };
 
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
+	const SColor expectedColorForSetVectorMethod;
 
-	const CTriangle triangle;
+	const uint8_t expectedRed;
+	const uint8_t expectedGreen;
+	const uint8_t expectedBlue;
+
+	CTriangle triangle;
 
 	Triangle_()
 		: expectedOutlineColor(10, 10, 10)
 		, expectedFillColor(160, 160, 160)
+		, expectedColorForSetVectorMethod(1, 2, 3)
+		, expectedRed(4)
+		, expectedGreen(5)
+		, expectedBlue(6)
 		, triangle(firstPosition, secondPosition, thirdPosition,
 			expectedFillColor, expectedOutlineColor)
 	{}
@@ -33,26 +43,49 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 BOOST_AUTO_TEST_CASE(has_color_outline_color)
 {
 	BOOST_CHECK_EQUAL(triangle.GetOutlineColor(), expectedOutlineColor);
+
+	triangle.SetOutlineColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(triangle.GetOutlineColor(), expectedColorForSetVectorMethod);
+
+	triangle.SetOutlineColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(triangle.GetOutlineColor(), SColor(expectedRed, expectedGreen, expectedBlue));
+
 }
 
 BOOST_AUTO_TEST_CASE(has_color_fill_color)
 {
 	BOOST_CHECK_EQUAL(triangle.GetFillColor(), expectedFillColor);
+
+	triangle.SetFillColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(triangle.GetFillColor(), expectedColorForSetVectorMethod);
+
+	triangle.SetFillColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(triangle.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
+
 }
 
 BOOST_AUTO_TEST_CASE(has_a_first_point)
 {
 	VerifyVector2f(triangle.GetFirstPoint(), firstPosition);
+
+	triangle.SetPositionFirstPoint(excpectedPosition);
+	VerifyVector2f(triangle.GetFirstPoint(), excpectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_second_point)
 {
 	VerifyVector2f(triangle.GetSecondPoint(), secondPosition);
+
+	triangle.SetPositionSecondPoint(excpectedPosition);
+	VerifyVector2f(triangle.GetSecondPoint(), excpectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_third_point)
 {
 	VerifyVector2f(triangle.GetThirdPoint(), thirdPosition);
+
+	triangle.SetPositionThirdPoint(excpectedPosition);
+	VerifyVector2f(triangle.GetThirdPoint(), excpectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)
