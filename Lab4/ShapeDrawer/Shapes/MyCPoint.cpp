@@ -4,13 +4,13 @@
 
 
 MyCPoint::MyCPoint()
-	: IShape("Point", DEFAULT_COLOR)
+	: CShape("Point", DEFAULT_COLOR)
 {
 }
 
 
 MyCPoint::MyCPoint(sf::Vector2f position, SColor color)
-	: IShape("Point", color)
+	: CShape("Point", color)
 	, m_position(position)
 {
 }
@@ -36,7 +36,7 @@ std::string MyCPoint::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	IShape::AppendProperties(strm);
+	CShape::AppendProperties(strm);
 	MyCPoint::AppendProperties(strm);
 
 	return strm.str();

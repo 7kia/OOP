@@ -168,6 +168,8 @@
   <ItemGroup>
     <ClInclude Include="..\RenderShapes.h" />
     <ClInclude Include="..\Shapes\Circle.h" />
+    <ClInclude Include="..\Shapes\CShape.h" />
+    <ClInclude Include="..\Shapes\CSolidShape.h" />
     <ClInclude Include="..\Shapes\IShape.h" />
     <ClInclude Include="..\Shapes\ISolidShape.h" />
     <ClInclude Include="..\Shapes\LineSegment.h" />
@@ -190,6 +192,8 @@
   <ItemGroup>
     <ClCompile Include="..\RenderShapes.cpp" />
     <ClCompile Include="..\Shapes\Circle.cpp" />
+    <ClCompile Include="..\Shapes\CShape.cpp" />
+    <ClCompile Include="..\Shapes\CSolidShape.cpp" />
     <ClCompile Include="..\Shapes\IShape.cpp" />
     <ClCompile Include="..\Shapes\ISolidShape.cpp" />
     <ClCompile Include="..\Shapes\LineSegment.cpp" />

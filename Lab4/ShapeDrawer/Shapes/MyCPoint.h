@@ -1,9 +1,9 @@
 #pragma once
 
-#include "IShape.h"
+#include "CShape.h"
 
 class MyCPoint final:
-	public IShape
+	public CShape
 {
 public:
 	MyCPoint();

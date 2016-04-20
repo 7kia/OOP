@@ -96,6 +96,12 @@
     <ClInclude Include="TestSorter.h">
       <Filter>TestApplication</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shapes\CShape.h">
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\CSolidShape.h">
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -160,6 +166,12 @@
     </ClCompile>
     <ClCompile Include="TestSorter.cpp">
       <Filter>TestApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\CShape.cpp">
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\CSolidShape.cpp">
+      <Filter>TestsShapes\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

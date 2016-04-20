@@ -22,7 +22,7 @@ struct Circle_
 BOOST_FIXTURE_TEST_SUITE(Circle, Circle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&circle));
+	BOOST_CHECK(static_cast<const CShape*>(&circle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color_outline_color)
@@ -88,7 +88,7 @@ struct DefaultCircle_
 BOOST_FIXTURE_TEST_SUITE(DefaultCircle, DefaultCircle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&circle));
+	BOOST_CHECK(static_cast<const CShape*>(&circle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color)

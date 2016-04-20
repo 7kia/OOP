@@ -16,7 +16,7 @@ struct MyCPoint_
 BOOST_FIXTURE_TEST_SUITE(MyCPoint1, MyCPoint_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&point));
+	BOOST_CHECK(static_cast<const CShape*>(&point));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
@@ -56,7 +56,7 @@ struct DefaultMyCPoint_
 BOOST_FIXTURE_TEST_SUITE(DefaultMyCPoint, DefaultMyCPoint_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&point));
+	BOOST_CHECK(static_cast<const CShape*>(&point));
 }
 
 BOOST_AUTO_TEST_CASE(not_has_a_length)//"$(TargetPath)" --log_level=test_suite

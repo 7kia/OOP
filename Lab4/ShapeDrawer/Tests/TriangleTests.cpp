@@ -27,7 +27,7 @@ struct Triangle_
 BOOST_FIXTURE_TEST_SUITE(Triangle, Triangle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&triangle));
+	BOOST_CHECK(static_cast<const CShape*>(&triangle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color_outline_color)
@@ -100,7 +100,7 @@ struct DefaultTriangle_
 BOOST_FIXTURE_TEST_SUITE(DefaultTriangle, DefaultTriangle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&triangle));
+	BOOST_CHECK(static_cast<const CShape*>(&triangle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color)

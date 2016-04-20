@@ -26,7 +26,7 @@ void CShapeReader::ReadShapes(const std::string & nameInputFile)
 	ReadShapes(inputFile);
 }
 
-listDataShapes CShapeReader::GetShapes() const
+ListDataShapes CShapeReader::GetShapes() const
 {
 	return m_shapes;
 }
@@ -40,10 +40,28 @@ void CShapeReader::SortContent(const std::string & nameSortByPerimeterFile,
 	CheckAndOpenFileForWriting(m_sortByDecreasePerimeterFile, nameSortByPerimeterFile);
 	CheckAndOpenFileForWriting(m_sortByIncreaseAreaFile, nameSortByAreaFile);
 
-	listDataShapes sortedByPerimeter = GetSortedByDecreasePerimeterList(m_shapes);
-	PrintListShapes(sortedByPerimeter, m_sortByDecreasePerimeterFile);
 
-	listDataShapes sortedByArea = GetSortedByAreaList(m_shapes);
+	ConditionSwap sortByDecreasePerimeter = [](const std::shared_ptr<CShape> &first, const std::shared_ptr<CShape> & second)
+	{
+		if (first->GetPerimeter() > second->GetPerimeter())
+		{
+			return true;
+		}
+		return false;
+	};
+	ListDataShapes sortedByDecreasePerimeter = GetSortedList(m_shapes, sortByDecreasePerimeter);
+	PrintListShapes(sortedByDecreasePerimeter, m_sortByDecreasePerimeterFile);
+
+	ConditionSwap sortByIncreaseArea = [](const std::shared_ptr<CShape> & first, const std::shared_ptr<CShape> & second)
+	{
+		if (first->GetArea() < second->GetArea())
+		{
+			return true;
+		}
+		return false;
+	};
+
+	ListDataShapes sortedByArea = GetSortedList(m_shapes, sortByIncreaseArea);
 	PrintListShapes(sortedByArea, m_sortByIncreaseAreaFile);
 }
 

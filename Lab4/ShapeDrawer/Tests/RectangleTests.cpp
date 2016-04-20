@@ -23,7 +23,7 @@ struct Rectangle_
 BOOST_FIXTURE_TEST_SUITE(Rectangle, Rectangle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&rectangle));
+	BOOST_CHECK(static_cast<const CShape*>(&rectangle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color)
@@ -80,7 +80,7 @@ struct DefaultRectangle_
 BOOST_FIXTURE_TEST_SUITE(DefaultRectangle, DefaultRectangle_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&rectangle));
+	BOOST_CHECK(static_cast<const CShape*>(&rectangle));
 }
 
 BOOST_AUTO_TEST_CASE(has_color_outline_color)

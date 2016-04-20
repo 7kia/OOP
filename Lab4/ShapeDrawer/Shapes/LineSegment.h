@@ -3,7 +3,7 @@
 #include "MyCPoint.h"
 
 class CLineSegment final :
-	public IShape
+	public CShape
 {
 public:
 	CLineSegment();

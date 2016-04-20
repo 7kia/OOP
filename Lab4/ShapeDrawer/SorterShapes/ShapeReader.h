@@ -16,7 +16,7 @@ public:
 	~CShapeReader();
 
 	void				ReadShapes(const std::string &nameInputFile);
-	listDataShapes		GetShapes() const;
+	ListDataShapes		GetShapes() const;
 	void				SortContent(const std::string & nameSortByPerimeterFile,
 									const std::string & nameSortByAreaFile);
 public:
@@ -71,5 +71,5 @@ private:
 	listArguments		SplitWords(std::string const & text);
 	bool				IsCommand(const std::string & word);
 private:
-	std::vector<std::shared_ptr<IShape>> m_shapes;
+	std::vector<std::shared_ptr<CShape>> m_shapes;
 };

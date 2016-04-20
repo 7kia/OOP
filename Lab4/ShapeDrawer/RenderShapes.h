@@ -5,18 +5,18 @@
 
 #include "SorterShapes\ShapeReader.h"
 
-typedef std::vector<std::shared_ptr<sf::Shape>> listRenderShapes;
+typedef std::vector<std::shared_ptr<sf::Shape>> ListRenderShapes;
 
 class CShapeConverter
 {
 public:
 	CShapeConverter();
-	CShapeConverter(const listDataShapes & data);
+	CShapeConverter(const ListDataShapes & data);
 	~CShapeConverter();
 
 
-	listRenderShapes						GetShapes() const;
-	listRenderShapes						ConvertDataShapesToRenderShapes(const listDataShapes & data);
+	ListRenderShapes						GetShapes() const;
+	ListRenderShapes						ConvertDataShapesToRenderShapes(const ListDataShapes & data);
 
 public:
 	const float THIKNESS_LINE = 5;
@@ -30,8 +30,8 @@ private:
 	std::shared_ptr<sf::CircleShape>		ConvertInRenderCircle(const CCircle *data);
 	std::shared_ptr<sf::ConvexShape>		ConvertInRenderTriangle(const CTriangle * data);
 private:
-	listRenderShapes						m_renderShapes;
+	ListRenderShapes						m_renderShapes;
 };
 
 
-void Render(sf::RenderWindow & window, listRenderShapes &shapes);
+void Render(sf::RenderWindow & window, ListRenderShapes &shapes);

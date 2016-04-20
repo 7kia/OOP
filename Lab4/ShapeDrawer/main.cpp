@@ -9,7 +9,7 @@ int main()
 
 	CShapeReader reader("composition.txt");
 	CShapeConverter converter(reader.GetShapes());
-	listRenderShapes renderShapes = converter.GetShapes();
+	ListRenderShapes renderShapes = converter.GetShapes();
 
 	while (window.isOpen())
 	{

@@ -8,7 +8,7 @@ struct Drawer_
 	CShapeReader reader;
 	CShapeConverter converter;
 
-	listRenderShapes renderShapes;
+	ListRenderShapes renderShapes;
 	const float THIKNESS_LINE = 5;
 	const sf::Vector2f ORIGIN_LINE = { THIKNESS_LINE / 2.f, 0.f };
 	const float RADIUSE_POINT = 2.f;
@@ -73,8 +73,6 @@ BOOST_AUTO_TEST_CASE(fill_color_is_correct)
 
 BOOST_AUTO_TEST_CASE(origin_is_correct)
 {
-	sf::CircleShape* pPoint = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexPoint]);
-
 	sf::Vector2f expectedOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
 	point.setOrigin(expectedOrigin);
 	VerifyVector2f(point.getOrigin(), expectedOrigin);
@@ -91,7 +89,7 @@ BOOST_AUTO_TEST_CASE(position_is_correct)
 
 BOOST_AUTO_TEST_CASE(radiuse_is_correct)
 {
-	float expectedRadiuse = RADIUSE_POINT;
+	float expectedRadiuse = Drawer_::RADIUSE_POINT;
 	point.setRadius(expectedRadiuse);
 	BOOST_CHECK_EQUAL(point.getRadius(), expectedRadiuse);
 }
@@ -144,8 +142,6 @@ BOOST_AUTO_TEST_CASE(position_is_correct)
 
 BOOST_AUTO_TEST_CASE(angle_is_correct)
 {
-	sf::RectangleShape* pRectangle = dynamic_cast<sf::RectangleShape*>(&*renderShapes[indexLine]);
-
 	float expectedAngle = 45.f;
 
 	sf::Vector2f coordinateSecondPointInZeroSystemCoordinates = secondPositionLine;
@@ -154,7 +150,7 @@ BOOST_AUTO_TEST_CASE(angle_is_correct)
 	float angle = (atan2(coordinateSecondPointInZeroSystemCoordinates.x,
 		coordinateSecondPointInZeroSystemCoordinates.y))
 		* 180.f
-		/ M_PI;
+		/ static_cast<float>(M_PI);
 	if (angle < 0) {
 		angle += 360;
 	}

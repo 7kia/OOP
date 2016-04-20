@@ -60,6 +60,9 @@
     <ClInclude Include="Application.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shapes\CShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\CShape.cpp">
+      <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

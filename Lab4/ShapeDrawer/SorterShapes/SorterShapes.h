@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shapes/IShape.h"
+#include "../Shapes/CShape.h"
 #include "../Shapes/ISolidShape.h"
 #include "../Shapes/Circle.h"
 #include "../Shapes/LineSegment.h"
@@ -9,16 +9,13 @@
 #include "../Shapes/Triangle.h"
 #include <vector>
 #include <memory>
+#include <boost/range/algorithm/transform.hpp>
 
-typedef std::pair<float, std::shared_ptr<IShape>> elementSortList;
-typedef std::vector<std::shared_ptr<IShape>> listDataShapes;
+typedef std::pair<float, std::shared_ptr<CShape>> elementSortList;
+typedef std::vector<std::shared_ptr<CShape>> ListDataShapes;
+typedef std::function<bool(const std::shared_ptr<CShape> &, const std::shared_ptr<CShape> &)> ConditionSwap;
 
-void		PrintListShapes(const listDataShapes &listShapes, std::ostream &strm);
+void		PrintListShapes(const ListDataShapes &listShapes, std::ostream &strm);
 
-listDataShapes	GetSortedByDecreasePerimeterList(const listDataShapes& listShapes);
-listDataShapes	GetSortedByAreaList(const listDataShapes& listShapes);
-
-// TODO : delete if will not neccessary
-listDataShapes	GetSortedList(const std::vector<std::shared_ptr<IShape>>& listShapes,
-							std::function<float()> getMethod, 
-							std::function<bool(float, float)> conditionSorting);
+ListDataShapes GetSortedList(const ListDataShapes& listShapes,
+							ConditionSwap conditionSwap);

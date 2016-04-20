@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RenderShapes.h"
 
-void Render(sf::RenderWindow & window, listRenderShapes& shapes)
+void Render(sf::RenderWindow & window, ListRenderShapes& shapes)
 {
 	for (auto& shape : shapes)
 	{
@@ -14,7 +14,7 @@ CShapeConverter::CShapeConverter()
 {
 }
 
-CShapeConverter::CShapeConverter(const listDataShapes & data)
+CShapeConverter::CShapeConverter(const ListDataShapes & data)
 {
 	m_renderShapes = ConvertDataShapesToRenderShapes(data);
 }
@@ -23,13 +23,13 @@ CShapeConverter::~CShapeConverter()
 {
 }
 
-listRenderShapes CShapeConverter::GetShapes() const
+ListRenderShapes CShapeConverter::GetShapes() const
 {
 	return m_renderShapes;
 };
 
 
-listRenderShapes CShapeConverter::ConvertDataShapesToRenderShapes(const listDataShapes & data)
+ListRenderShapes CShapeConverter::ConvertDataShapesToRenderShapes(const ListDataShapes & data)
 {
 	std::string type;
 	for (const auto& shape : data)
@@ -75,7 +75,7 @@ std::shared_ptr<sf::RectangleShape> CShapeConverter::ConvertInRenderLine(const C
 	float angle = (atan2(coordinateSecondPointInZeroSystemCoordinates.x,
 						coordinateSecondPointInZeroSystemCoordinates.y)) 
 					* 180.f 
-					/ M_PI;
+					/ static_cast<float>(M_PI);
 	if (angle < 0) {
 		angle += 180;
 	}

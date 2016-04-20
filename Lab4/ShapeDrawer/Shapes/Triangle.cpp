@@ -3,13 +3,13 @@
 
 
 CTriangle::CTriangle()
-	: ISolidShape("Triangle", DEFAULT_COLOR, DEFAULT_COLOR)
+	: CSolidShape("Triangle", DEFAULT_COLOR, DEFAULT_COLOR)
 {
 }
 
 CTriangle::CTriangle(sf::Vector2f firstPoint, sf::Vector2f secondPoint, sf::Vector2f thirdPoint,
 					SColor fillColor, SColor outlineColor)
-	: ISolidShape("Triangle", fillColor, outlineColor)
+	: CSolidShape("Triangle", fillColor, outlineColor)
 	, m_firstLine(firstPoint, secondPoint, outlineColor)
 	, m_secondLine(secondPoint, thirdPoint, outlineColor)
 	, m_thirdLine(thirdPoint, firstPoint, outlineColor)
@@ -43,8 +43,8 @@ std::string CTriangle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	IShape::AppendProperties(strm);
-	ISolidShape::AppendProperties(strm);
+	CShape::AppendProperties(strm);
+	CSolidShape::AppendProperties(strm);
 	CTriangle::AppendProperties(strm);
 
 	return strm.str();

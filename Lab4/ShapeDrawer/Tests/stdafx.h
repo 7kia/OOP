@@ -20,7 +20,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <SFML\Graphics.hpp>
-#include "../Shapes/IShape.h"
+#include "../Shapes/CShape.h"
 
 namespace tt = boost::test_tools;
 static const auto epsilon = tt::tolerance(0.001f);

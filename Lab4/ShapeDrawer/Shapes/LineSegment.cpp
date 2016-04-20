@@ -3,13 +3,13 @@
 
 
 CLineSegment::CLineSegment()
-	: IShape("Line", DEFAULT_COLOR)
+	: CShape("Line", DEFAULT_COLOR)
 {
 }
 
 
 CLineSegment::CLineSegment(sf::Vector2f firstPoint, sf::Vector2f secondPoint, SColor color)
-	: IShape("Line", color)
+	: CShape("Line", color)
 	, m_firstPoint(firstPoint, color)
 	, m_secondPoint(secondPoint, color)
 {
@@ -37,7 +37,7 @@ std::string CLineSegment::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	IShape::AppendProperties(strm);
+	CShape::AppendProperties(strm);
 	CLineSegment::AppendProperties(strm);
 
 	return strm.str();

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "LineSegment.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 
 class CTriangle final:
-	public ISolidShape
+	public CSolidShape
 {
 public:
 	CTriangle();

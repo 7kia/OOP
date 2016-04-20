@@ -1,10 +1,10 @@
 #pragma once
 
 #include "LineSegment.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 
 class CRectangle final :// was exported from lab 3 Rectangle
-	public ISolidShape
+	public CSolidShape
 {
 public:
 	CRectangle();

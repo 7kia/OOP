@@ -4,13 +4,13 @@
 
 
 CCircle::CCircle()
-	: ISolidShape("Circle", DEFAULT_COLOR, DEFAULT_COLOR)
+	: CSolidShape("Circle", DEFAULT_COLOR, DEFAULT_COLOR)
 {
 }
 
 CCircle::CCircle(sf::Vector2f center, float radiuse,
 				SColor fillColor, SColor outlineColor)
-	: ISolidShape("Circle", fillColor, outlineColor)
+	: CSolidShape("Circle", fillColor, outlineColor)
 	, m_positionCenter(center)
 	, m_radiuse(radiuse)
 {
@@ -36,8 +36,8 @@ std::string CCircle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	IShape::AppendProperties(strm);
-	ISolidShape::AppendProperties(strm);
+	CShape::AppendProperties(strm);
+	CSolidShape::AppendProperties(strm);
 	CCircle::AppendProperties(strm);
 
 	return strm.str();

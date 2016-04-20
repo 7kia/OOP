@@ -8,7 +8,7 @@ bool IsBetween(const T& value, const T& lowerBound, const T& upperBound)
 }
 
 CRectangle::CRectangle()
-	: ISolidShape("Rectangle", DEFAULT_COLOR, DEFAULT_COLOR)
+	: CSolidShape("Rectangle", DEFAULT_COLOR, DEFAULT_COLOR)
 	, m_width(0)
 	, m_height(0)
 {
@@ -16,7 +16,7 @@ CRectangle::CRectangle()
 
 CRectangle::CRectangle(sf::Vector2f leftTopPoint, float width, float height,
 						SColor fillColor, SColor outlineColor)
-	: ISolidShape("Rectangle", fillColor, outlineColor)
+	: CSolidShape("Rectangle", fillColor, outlineColor)
 	, m_leftTopPoint(leftTopPoint)
 {
 	SetWidth(width);
@@ -131,8 +131,8 @@ std::string CRectangle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	IShape::AppendProperties(strm);
-	ISolidShape::AppendProperties(strm);
+	CShape::AppendProperties(strm);
+	CSolidShape::AppendProperties(strm);
 	CRectangle::AppendProperties(strm);
 
 	return strm.str();

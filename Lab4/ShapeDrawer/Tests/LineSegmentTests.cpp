@@ -16,7 +16,7 @@ struct LineSegment_
 BOOST_FIXTURE_TEST_SUITE(LineSegment, LineSegment_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&line));
+	BOOST_CHECK(static_cast<const CShape*>(&line));
 }
 
 BOOST_AUTO_TEST_CASE(has_color)
@@ -62,7 +62,7 @@ struct DefaultLineSegment_
 BOOST_FIXTURE_TEST_SUITE(DefaultLineSegment, DefaultLineSegment_)
 BOOST_AUTO_TEST_CASE(is_a_shape)
 {
-	BOOST_CHECK(static_cast<const IShape*>(&line));
+	BOOST_CHECK(static_cast<const CShape*>(&line));
 }
 
 BOOST_AUTO_TEST_CASE(has_color)
