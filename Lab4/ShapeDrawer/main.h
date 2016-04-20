@@ -1,3 +1,5 @@
 #pragma once
 
-#include "RenderShapes.h"
+#include "ConvertShape.h"
+
+void Render(sf::RenderWindow & window, ListRenderShapes &shapes);

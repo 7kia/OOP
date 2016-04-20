@@ -80,3 +80,8 @@ void CLineSegment::AppendProperties(std::ostream & strm) const
 		<< "\tPosition second point = (" << m_secondPoint.GetPosition().x << ", " 
 										<< m_secondPoint.GetPosition().y << ")" << std::endl;
 }
+
+void CLineSegment::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
+}

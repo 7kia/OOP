@@ -2,14 +2,25 @@
 #include "stdafx.h"
 #include "main.h"
 
+
+void Render(sf::RenderWindow & window, ListRenderShapes& shapes)
+{
+	window.clear();
+
+	for (auto& shape : shapes)
+	{
+		window.draw(*shape);
+	}
+
+	window.display();
+}
+
 int main()
 {
-	
 	sf::RenderWindow window(sf::VideoMode(960, 600), "SFML works!", sf::Style::Close);
 
 	CShapeReader reader("composition.txt");
-	CShapeConverter converter(reader.GetShapes());
-	ListRenderShapes renderShapes = converter.GetShapes();
+	ListRenderShapes renderShapes = ConvertDataShapesToRenderShapes(reader.GetShapes());
 
 	while (window.isOpen())
 	{
@@ -20,13 +31,7 @@ int main()
 				window.close();
 		}
 
-
-		window.clear();
-
 		Render(window, renderShapes);
-
-		window.display();
-
 	}
 
 	return 0;

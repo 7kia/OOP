@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IAccepter.h"
 #include "MyCPoint.h"
 
 class CLineSegment final :
@@ -23,6 +24,8 @@ public:
 	sf::Vector2f		GetPositiionSecondPoint() const;
 private:
 	void				AppendProperties(std::ostream & strm) const;
+
+	void				Accept(IVisitor & visitor) override;
 private:
 	MyCPoint			m_firstPoint;
 	MyCPoint			m_secondPoint;

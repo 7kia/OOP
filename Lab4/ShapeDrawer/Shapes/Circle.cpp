@@ -81,3 +81,8 @@ void CCircle::AppendProperties(std::ostream & strm) const
 									<< m_positionCenter.y << ")" << std::endl
 		<< "\tRadiuse = " << GetRadiuse() << std::endl;
 }
+
+void CCircle::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
+}

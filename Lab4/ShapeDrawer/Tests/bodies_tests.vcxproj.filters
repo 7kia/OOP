@@ -57,9 +57,6 @@
     <ClInclude Include="CircleTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\RenderShapes.h">
-      <Filter>TestDrawer\TestClasses</Filter>
-    </ClInclude>
     <ClInclude Include="TestDrawer.h">
       <Filter>TestDrawer</Filter>
     </ClInclude>
@@ -102,6 +99,18 @@
     <ClInclude Include="..\Shapes\CSolidShape.h">
       <Filter>TestsShapes\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shapes\IAccepter.h">
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\IVisitor.h">
+      <Filter>TestsShapes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShapeVisitor.h">
+      <Filter>TestDrawer\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ConvertShape.h">
+      <Filter>TestDrawer\TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -112,9 +121,6 @@
     </ClCompile>
     <ClCompile Include="Tests.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RenderShapes.cpp">
-      <Filter>TestDrawer\TestClasses</Filter>
     </ClCompile>
     <ClCompile Include="TestDrawer.cpp">
       <Filter>TestDrawer</Filter>
@@ -172,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="..\Shapes\CSolidShape.cpp">
       <Filter>TestsShapes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShapeVisitor.cpp">
+      <Filter>TestDrawer\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ConvertShape.cpp">
+      <Filter>TestDrawer\TestClasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -63,6 +63,15 @@
     <ClInclude Include="..\Shapes\CShape.h">
       <Filter>Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shapes\CSolidShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\IAccepter.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\IVisitor.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +111,9 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="..\Shapes\CShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\CSolidShape.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>

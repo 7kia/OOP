@@ -166,16 +166,19 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\RenderShapes.h" />
+    <ClInclude Include="..\ConvertShape.h" />
     <ClInclude Include="..\Shapes\Circle.h" />
     <ClInclude Include="..\Shapes\CShape.h" />
     <ClInclude Include="..\Shapes\CSolidShape.h" />
+    <ClInclude Include="..\Shapes\IAccepter.h" />
     <ClInclude Include="..\Shapes\IShape.h" />
     <ClInclude Include="..\Shapes\ISolidShape.h" />
+    <ClInclude Include="..\Shapes\IVisitor.h" />
     <ClInclude Include="..\Shapes\LineSegment.h" />
     <ClInclude Include="..\Shapes\MyCPoint.h" />
     <ClInclude Include="..\Shapes\Rectangle.h" />
     <ClInclude Include="..\Shapes\Triangle.h" />
+    <ClInclude Include="..\ShapeVisitor.h" />
     <ClInclude Include="..\SorterShapes\Application.h" />
     <ClInclude Include="..\SorterShapes\ShapeReader.h" />
     <ClInclude Include="..\SorterShapes\SorterShapes.h" />
@@ -190,7 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\RenderShapes.cpp" />
+    <ClCompile Include="..\ConvertShape.cpp" />
     <ClCompile Include="..\Shapes\Circle.cpp" />
     <ClCompile Include="..\Shapes\CShape.cpp" />
     <ClCompile Include="..\Shapes\CSolidShape.cpp" />
@@ -200,6 +203,7 @@
     <ClCompile Include="..\Shapes\MyCPoint.cpp" />
     <ClCompile Include="..\Shapes\Rectangle.cpp" />
     <ClCompile Include="..\Shapes\Triangle.cpp" />
+    <ClCompile Include="..\ShapeVisitor.cpp" />
     <ClCompile Include="..\SorterShapes\Application.cpp" />
     <ClCompile Include="..\SorterShapes\ShapeReader.cpp" />
     <ClCompile Include="..\SorterShapes\SorterShapes.cpp" />

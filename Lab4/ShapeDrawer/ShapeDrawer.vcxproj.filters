@@ -54,8 +54,17 @@
     <ClCompile Include="SorterShapes\SorterShapes.cpp">
       <Filter>ShapeReader</Filter>
     </ClCompile>
-    <ClCompile Include="RenderShapes.cpp">
+    <ClCompile Include="ShapeVisitor.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvertShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\CShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\CSolidShape.cpp">
+      <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,14 +98,29 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderShapes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SorterShapes\ShapeReader.h">
       <Filter>ShapeReader</Filter>
     </ClInclude>
     <ClInclude Include="SorterShapes\SorterShapes.h">
       <Filter>ShapeReader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\IAccepter.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\IVisitor.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\CShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\CSolidShape.h">
+      <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

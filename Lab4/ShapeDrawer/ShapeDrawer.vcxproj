@@ -155,8 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConvertShape.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RenderShapes.cpp" />
+    <ClCompile Include="Shapes\CShape.cpp" />
+    <ClCompile Include="Shapes\CSolidShape.cpp" />
+    <ClCompile Include="ShapeVisitor.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\IShape.cpp" />
     <ClCompile Include="Shapes\ISolidShape.cpp" />
@@ -169,8 +172,13 @@
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConvertShape.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="RenderShapes.h" />
+    <ClInclude Include="Shapes\CShape.h" />
+    <ClInclude Include="Shapes\CSolidShape.h" />
+    <ClInclude Include="Shapes\IAccepter.h" />
+    <ClInclude Include="Shapes\IVisitor.h" />
+    <ClInclude Include="ShapeVisitor.h" />
     <ClInclude Include="Shapes\Circle.h" />
     <ClInclude Include="Shapes\IShape.h" />
     <ClInclude Include="Shapes\ISolidShape.h" />

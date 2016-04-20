@@ -150,8 +150,11 @@
   <ItemGroup>
     <ClInclude Include="..\Shapes\Circle.h" />
     <ClInclude Include="..\Shapes\CShape.h" />
+    <ClInclude Include="..\Shapes\CSolidShape.h" />
+    <ClInclude Include="..\Shapes\IAccepter.h" />
     <ClInclude Include="..\Shapes\IShape.h" />
     <ClInclude Include="..\Shapes\ISolidShape.h" />
+    <ClInclude Include="..\Shapes\IVisitor.h" />
     <ClInclude Include="..\Shapes\LineSegment.h" />
     <ClInclude Include="..\Shapes\MyCPoint.h" />
     <ClInclude Include="..\Shapes\Rectangle.h" />
@@ -166,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="..\Shapes\Circle.cpp" />
     <ClCompile Include="..\Shapes\CShape.cpp" />
+    <ClCompile Include="..\Shapes\CSolidShape.cpp" />
     <ClCompile Include="..\Shapes\IShape.cpp" />
     <ClCompile Include="..\Shapes\ISolidShape.cpp" />
     <ClCompile Include="..\Shapes\LineSegment.cpp" />

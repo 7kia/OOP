@@ -62,3 +62,8 @@ void MyCPoint::AppendProperties(std::ostream & strm) const
 	strm << "\tPosition = (" << m_position.x << ", " << m_position.y << ")" << std::endl;
 }
 
+void MyCPoint::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
+}
+

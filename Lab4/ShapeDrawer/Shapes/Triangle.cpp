@@ -112,3 +112,8 @@ void CTriangle::AppendProperties(std::ostream & strm) const
 										<< m_secondLine.GetPositiionSecondPoint().y << ")" << std::endl;
 }
 
+void CTriangle::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
+}
+

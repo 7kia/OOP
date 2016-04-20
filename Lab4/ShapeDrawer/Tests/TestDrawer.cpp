@@ -6,7 +6,6 @@
 struct Drawer_
 {
 	CShapeReader reader;
-	CShapeConverter converter;
 
 	ListRenderShapes renderShapes;
 	const float THIKNESS_LINE = 5;
@@ -38,7 +37,7 @@ struct Drawer_
 	Drawer_()
 	{
 		reader.ReadShapes("renderShapes.txt");
-		renderShapes = converter.ConvertDataShapesToRenderShapes(reader.GetShapes());
+		renderShapes = ConvertDataShapesToRenderShapes(reader.GetShapes());
 	}
 };
 
@@ -89,9 +88,8 @@ BOOST_AUTO_TEST_CASE(position_is_correct)
 
 BOOST_AUTO_TEST_CASE(radiuse_is_correct)
 {
-	float expectedRadiuse = Drawer_::RADIUSE_POINT;
-	point.setRadius(expectedRadiuse);
-	BOOST_CHECK_EQUAL(point.getRadius(), expectedRadiuse);
+	point.setRadius(RADIUSE_POINT);
+	BOOST_CHECK_EQUAL(point.getRadius(), RADIUSE_POINT);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

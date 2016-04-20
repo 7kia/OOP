@@ -11,7 +11,6 @@
 #include <memory>
 #include <boost/range/algorithm/transform.hpp>
 
-typedef std::pair<float, std::shared_ptr<CShape>> elementSortList;
 typedef std::vector<std::shared_ptr<CShape>> ListDataShapes;
 typedef std::function<bool(const std::shared_ptr<CShape> &, const std::shared_ptr<CShape> &)> ConditionSwap;
 

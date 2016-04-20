@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IAccepter.h"
 #include "CSolidShape.h"
 
 class CCircle final :
@@ -23,6 +24,8 @@ public:
 	sf::Vector2f		GetPosition() const;
 private:
 	void				AppendProperties(std::ostream & strm) const;
+
+	void				Accept(IVisitor & visitor) override;
 private:
 	sf::Vector2f		m_positionCenter;
 	float				m_radiuse = 0.f;

@@ -19,6 +19,8 @@ public:
 	sf::Vector2f		GetPosition() const;
 private:
 	void				AppendProperties(std::ostream & strm) const;
+
+	void				Accept(IVisitor & visitor) override;
 private:
 	sf::Vector2f		m_position;
 };

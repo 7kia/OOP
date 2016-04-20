@@ -207,3 +207,8 @@ void CRectangle::AppendProperties(std::ostream & strm) const
 		<< "\tHeigth = " << GetHeight() << std::endl;
 
 }
+
+void CRectangle::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
+}

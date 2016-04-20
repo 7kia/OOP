@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include "IAccepter.h"
 #include "LineSegment.h"
 #include "CSolidShape.h"
 
@@ -43,6 +45,8 @@ public:
 	bool				Intersect(CRectangle const& other);
 private:
 	void				AppendProperties(std::ostream & strm) const;
+
+	void				Accept(IVisitor & visitor) override;
 private:
 	sf::Vector2f		m_leftTopPoint;
 	float				m_width;

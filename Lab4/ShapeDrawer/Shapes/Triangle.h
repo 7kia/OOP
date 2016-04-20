@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include "IAccepter.h"
 #include "LineSegment.h"
 #include "CSolidShape.h"
 
@@ -30,6 +32,8 @@ public:
 	sf::Vector2f		GetThirdPoint() const;
 private:
 	void				AppendProperties(std::ostream & strm) const;
+
+	void				Accept(IVisitor & visitor) override;
 private:
 	CLineSegment		m_firstLine;
 	CLineSegment		m_secondLine;
