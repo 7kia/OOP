@@ -13,6 +13,10 @@ struct LineSegment_
 	const uint8_t expectedGreen;
 	const uint8_t expectedBlue;
 
+	const sf::Vector2f firstPosition = { 0.f, 0.f };
+	const sf::Vector2f secondPosition = { 1.f, 1.f };
+	const sf::Vector2f expectedPosition = { 2.f, -4.f };
+
 	CLineSegment line;
 	LineSegment_()
 		: expectedFillColor(16, 16, 16)
@@ -20,7 +24,7 @@ struct LineSegment_
 		, expectedRed(4)
 		, expectedGreen(5)
 		, expectedBlue(6)
-		, line(sf::Vector2f(0.f, 0.f), sf::Vector2f(1.f, 1.f), expectedFillColor)
+		, line(firstPosition, secondPosition, expectedFillColor)
 	{}
 };
 
@@ -39,6 +43,22 @@ BOOST_AUTO_TEST_CASE(has_color_fill_color)
 
 	line.SetFillColor(expectedRed, expectedGreen, expectedBlue);
 	BOOST_CHECK_EQUAL(line.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
+}
+
+BOOST_AUTO_TEST_CASE(has_first_point)
+{
+	VerifyVector2f(line.GetPositiionFirstPoint(), firstPosition);
+
+	line.SetPositionFirstPoint(expectedPosition);
+	VerifyVector2f(line.GetPositiionFirstPoint(), expectedPosition);
+}
+
+BOOST_AUTO_TEST_CASE(has_second_point)
+{
+	VerifyVector2f(line.GetPositiionSecondPoint(), secondPosition);
+
+	line.SetPositionSecondPoint(expectedPosition);
+	VerifyVector2f(line.GetPositiionSecondPoint(), expectedPosition);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
