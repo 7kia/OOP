@@ -5,11 +5,15 @@ struct MyCPoint_
 {
 	const float expectedLength = 0.f;
 	const float expectedArea = 0.f;
+
+	const sf::Vector2f expectedPosition = { 1.f, 2.f };
+	const sf::Vector2f expectedPositionAfterAssigment = { -1.f, 20.f };
+
 	const SColor expectedColor;
-	const MyCPoint point;// TODO
+	MyCPoint point;// TODO
 	MyCPoint_()
 		: expectedColor(16, 16, 16)
-		, point(sf::Vector2f(1.f, 2.f), expectedColor)
+		, point(expectedPosition, expectedColor)
 	{}
 };
 
@@ -27,6 +31,17 @@ BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
 BOOST_AUTO_TEST_CASE(not_has_a_area)
 {
 	BOOST_CHECK(IsEqual(point.GetArea(), expectedArea));
+}
+
+BOOST_AUTO_TEST_CASE(has_a_position)
+{
+	VerifyVector2f(point.GetPosition(), expectedPosition);
+
+	point.SetPosition(expectedPositionAfterAssigment);
+	VerifyVector2f(point.GetPosition(), expectedPositionAfterAssigment);
+
+	point.SetPosition(expectedPositionAfterAssigment.x, expectedPositionAfterAssigment.y);
+	VerifyVector2f(point.GetPosition(), expectedPositionAfterAssigment);
 }
 
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)

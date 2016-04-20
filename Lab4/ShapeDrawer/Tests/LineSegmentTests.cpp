@@ -5,10 +5,21 @@ struct LineSegment_
 {
 	const float expectedLength = 1.414f;
 	const float expectedArea = 0.f;
+
 	const SColor expectedFillColor;
-	const CLineSegment line;
+	const SColor expectedColorForSetVectorMethod;
+
+	const uint8_t expectedRed;
+	const uint8_t expectedGreen;
+	const uint8_t expectedBlue;
+
+	CLineSegment line;
 	LineSegment_()
 		: expectedFillColor(16, 16, 16)
+		, expectedColorForSetVectorMethod(1, 2, 3)
+		, expectedRed(4)
+		, expectedGreen(5)
+		, expectedBlue(6)
 		, line(sf::Vector2f(0.f, 0.f), sf::Vector2f(1.f, 1.f), expectedFillColor)
 	{}
 };
@@ -19,9 +30,15 @@ BOOST_AUTO_TEST_CASE(is_a_shape)
 	BOOST_CHECK(static_cast<const CShape*>(&line));
 }
 
-BOOST_AUTO_TEST_CASE(has_color)
+BOOST_AUTO_TEST_CASE(has_color_fill_color)
 {
 	BOOST_CHECK_EQUAL(line.GetFillColor(), expectedFillColor);
+
+	line.SetFillColor(expectedColorForSetVectorMethod);
+	BOOST_CHECK_EQUAL(line.GetFillColor(), expectedColorForSetVectorMethod);
+
+	line.SetFillColor(expectedRed, expectedGreen, expectedBlue);
+	BOOST_CHECK_EQUAL(line.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_length)//"$(TargetPath)" --log_level=test_suite
