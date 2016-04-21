@@ -60,7 +60,7 @@ private:
 	void				CheckAndOpenFileForReading(std::ifstream &file, const std::string& fileName);
 	void				CheckAndOpenFileForWriting(std::ofstream &file, const std::string& fileName);
 
-	void				ReadShapes(std::ifstream & file);
+	void				ReadShapes(std::istream & file);
 	void				CheckAmountArguments(const listArguments & arguments, IdCommand id);
 	void				AddPoint(const listArguments & arguments);
 	void				AddLineSegment(const listArguments & arguments);

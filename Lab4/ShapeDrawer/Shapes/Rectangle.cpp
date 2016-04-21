@@ -131,9 +131,7 @@ std::string CRectangle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	CShape::AppendProperties(strm);
-	CSolidShape::AppendProperties(strm);
-	CRectangle::AppendProperties(strm);
+	AppendProperties(strm);
 
 	return strm.str();
 }
@@ -201,6 +199,7 @@ bool CRectangle::Intersect(CRectangle const & other)
 
 void CRectangle::AppendProperties(std::ostream & strm) const
 {
+	CSolidShape::AppendProperties(strm);
 	strm << "\tLeft top point = (" << m_leftTopPoint.x << ", "
 		<< m_leftTopPoint.y << ")" << std::endl
 		<< "\tWidth = " << GetWidth() << std::endl

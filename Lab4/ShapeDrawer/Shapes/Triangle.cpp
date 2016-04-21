@@ -43,9 +43,7 @@ std::string CTriangle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	CShape::AppendProperties(strm);
-	CSolidShape::AppendProperties(strm);
-	CTriangle::AppendProperties(strm);
+	AppendProperties(strm);
 
 	return strm.str();
 }
@@ -104,6 +102,7 @@ sf::Vector2f CTriangle::GetThirdPoint() const
 
 void CTriangle::AppendProperties(std::ostream & strm) const
 {
+	CSolidShape::AppendProperties(strm);
 	strm << "\tPosition first point = (" << m_firstLine.GetPositiionFirstPoint().x << ", "
 										<< m_firstLine.GetPositiionFirstPoint().y << ")" << std::endl
 		<< "\tPosition second point = (" << m_firstLine.GetPositiionSecondPoint().x << ", " 

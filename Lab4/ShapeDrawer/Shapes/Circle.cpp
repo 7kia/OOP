@@ -36,9 +36,7 @@ std::string CCircle::GetStringPresentation() const
 	std::ostringstream strm;
 	strm << std::setprecision(3);
 
-	CShape::AppendProperties(strm);
-	CSolidShape::AppendProperties(strm);
-	CCircle::AppendProperties(strm);
+	AppendProperties(strm);
 
 	return strm.str();
 }
@@ -77,6 +75,7 @@ sf::Vector2f CCircle::GetPosition() const
 
 void CCircle::AppendProperties(std::ostream & strm) const
 {
+	CSolidShape::AppendProperties(strm);
 	strm << "\tPosition center = (" << m_positionCenter.x << ", " 
 									<< m_positionCenter.y << ")" << std::endl
 		<< "\tRadiuse = " << GetRadiuse() << std::endl;

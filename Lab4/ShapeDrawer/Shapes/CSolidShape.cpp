@@ -32,6 +32,7 @@ SColor CSolidShape::GetOutlineColor() const
 
 void CSolidShape::AppendProperties(std::ostream & strm) const
 {
+	CShape::AppendProperties(strm);
 	strm << "\tOutline color = " << GetOutlineColor() << std::endl;
 }
 

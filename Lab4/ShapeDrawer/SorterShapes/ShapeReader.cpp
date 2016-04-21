@@ -94,7 +94,7 @@ vector<string> CShapeReader::SplitWords(string const& text)
 	return words;
 }
 
-void CShapeReader::ReadShapes(std::ifstream & file)
+void CShapeReader::ReadShapes(std::istream & file)
 {
 	string stringFromFile;
 	listArguments argumnents;

@@ -27,6 +27,6 @@ private:
 
 	void				Accept(IVisitor & visitor) override;
 private:
-	MyCPoint			m_firstPoint;
-	MyCPoint			m_secondPoint;
+	sf::Vector2f		m_firstPoint;
+	sf::Vector2f		m_secondPoint;
 };
