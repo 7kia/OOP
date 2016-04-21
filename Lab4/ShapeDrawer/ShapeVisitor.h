@@ -13,7 +13,7 @@ class CShapeVisitor : public IVisitor
 public:
 	const float					THIKNESS_LINE = 5;
 	const sf::Vector2f			ORIGIN_LINE = { THIKNESS_LINE / 2.f, 0.f };
-	const float					RADIUSE_POINT = 2.f;
+	const float					RADIUS_POINT = 2.f;
 public:
 	void						Visit(const CLineSegment & line) override;
 	void						Visit(const CTriangle & triangle) override;

@@ -8,7 +8,7 @@ class CCircle final :
 {
 public:
 	CCircle();
-	CCircle(sf::Vector2f center, float radiuse,
+	CCircle(sf::Vector2f center, float radius,
 			SColor fillColor, SColor outlineColor);
 	~CCircle();
 
@@ -16,8 +16,8 @@ public:
 	float				GetArea() const override;
 	std::string			GetStringPresentation() const override;
 
-	void				SetRadiuse(float radiuse);
-	float				GetRadiuse() const;
+	void				SetRadius(float radius);
+	float				GetRadius() const;
 
 	void				SetPositionCenter(float x, float y);
 	void				SetPositionCenter(sf::Vector2f position);
@@ -28,6 +28,6 @@ private:
 	void				Accept(IVisitor & visitor) override;
 private:
 	sf::Vector2f		m_positionCenter;
-	float				m_radiuse = 0.f;
+	float				m_radius = 0.f;
 };
 

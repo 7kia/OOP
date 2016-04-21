@@ -54,10 +54,10 @@ void CShapeVisitor::Visit(const MyCPoint & data)
 	SColor fillColor = data.GetFillColor();
 	circle->setFillColor(sf::Color(fillColor.red, fillColor.green, fillColor.blue));
 
-	circle->setOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
+	circle->setOrigin(RADIUS_POINT / 2, RADIUS_POINT / 2);
 	circle->setPosition(data.GetPosition());
 
-	circle->setRadius(RADIUSE_POINT);
+	circle->setRadius(RADIUS_POINT);
 
 	m_acceptShape = std::move(circle);
 }
@@ -73,10 +73,10 @@ void CShapeVisitor::Visit(const CCircle & data)
 	SColor outlineColor = data.GetOutlineColor();
 	circle->setOutlineColor(sf::Color(outlineColor.red, outlineColor.green, outlineColor.blue));
 	circle->setOutlineThickness(THIKNESS_LINE);
-	circle->setOrigin(data.GetRadiuse() / 2.f, data.GetRadiuse() / 2.f);
+	circle->setOrigin(data.GetRadius() / 2.f, data.GetRadius() / 2.f);
 	circle->setPosition(data.GetPosition());
 
-	circle->setRadius(data.GetRadiuse());
+	circle->setRadius(data.GetRadius());
 
 	m_acceptShape = std::move(circle);
 }

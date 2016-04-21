@@ -23,7 +23,7 @@ Circle:
 	Area = 3.14
 	Outline color = #adadad
 	Position center = (1, -1)
-	Radiuse = 1
+	Radius = 1
 Rectangle:
 	Fill color = #334455
 	Perimeter = 10
@@ -38,4 +38,4 @@ Circle:
 	Area = 50.3
 	Outline color = #adadad
 	Position center = (1, -1)
-	Radiuse = 4
+	Radius = 4

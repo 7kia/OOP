@@ -7,7 +7,7 @@ struct Circle_
 	const float expectedLength = 18.849f;
 	const float expectedArea = 28.274f;
 
-	const float expectedRadiuse = 3.f;
+	const float expectedRadius = 3.f;
 	const float expectedRadiusAfterAssigment = 5.f;
 
 	const sf::Vector2f expectedPosition = { 1.f, 0.f };
@@ -30,7 +30,7 @@ struct Circle_
 		, expectedRed(4)
 		, expectedGreen(5)
 		, expectedBlue(6)
-		, circle(expectedPosition, expectedRadiuse,
+		, circle(expectedPosition, expectedRadius,
 			expectedFillColor, expectedOutlineColor)
 	{}
 };
@@ -64,12 +64,12 @@ BOOST_AUTO_TEST_CASE(has_color_fill_color)
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), SColor(expectedRed, expectedGreen, expectedBlue));
 }
 
-BOOST_AUTO_TEST_CASE(has_a_radiuse)
+BOOST_AUTO_TEST_CASE(has_a_Radius)
 {
-	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiuse);
+	BOOST_CHECK_EQUAL(circle.GetRadius(), expectedRadius);
 
-	circle.SetRadiuse(expectedRadiusAfterAssigment);
-	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiusAfterAssigment);
+	circle.SetRadius(expectedRadiusAfterAssigment);
+	BOOST_CHECK_EQUAL(circle.GetRadius(), expectedRadiusAfterAssigment);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_position)
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	Area = 28.3
 	Outline color = #0a0a0a
 	Position center = (1, 0)
-	Radiuse = 3
+	Radius = 3
 )";
 	BOOST_CHECK_EQUAL(circle.GetStringPresentation(), expectedString);
 }
@@ -109,7 +109,7 @@ struct DefaultCircle_
 {
 	const float expectedLength = 0.f;
 	const float expectedArea = 0.f;
-	const float expectedRadiuse = 0.f;
+	const float expectedRadius = 0.f;
 	const sf::Vector2f expectedPosition = { 0.f, 0.f };
 	const SColor expectedOutlineColor;
 	const SColor expectedFillColor;
@@ -132,9 +132,9 @@ BOOST_AUTO_TEST_CASE(has_color)
 	BOOST_CHECK_EQUAL(circle.GetFillColor(), expectedFillColor);
 }
 
-BOOST_AUTO_TEST_CASE(has_a_radiuse)
+BOOST_AUTO_TEST_CASE(has_a_Radius)
 {
-	BOOST_CHECK_EQUAL(circle.GetRadiuse(), expectedRadiuse);
+	BOOST_CHECK_EQUAL(circle.GetRadius(), expectedRadius);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_position)
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	Area = 0
 	Outline color = #000000
 	Position center = (0, 0)
-	Radiuse = 0
+	Radius = 0
 )";
 	BOOST_CHECK_EQUAL(circle.GetStringPresentation(), expectedString);
 }

@@ -10,7 +10,7 @@ struct Drawer_
 	ListRenderShapes renderShapes;
 	const float THIKNESS_LINE = 5;
 	const sf::Vector2f ORIGIN_LINE = { THIKNESS_LINE / 2.f, 0.f };
-	const float RADIUSE_POINT = 2.f;
+	const float RADIUS_POINT = 2.f;
 
 	const int amountShapes = 5;
 	const int indexPoint = 0;
@@ -21,7 +21,7 @@ struct Drawer_
 
 	sf::CircleShape point;
 	sf::CircleShape circle;
-	float expectedRadiuse = 40.f;
+	float expectedRadius = 40.f;
 
 	sf::RectangleShape line;
 	sf::Vector2f firstPositionLine = { 250.f, 250.f };
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(fill_color_is_correct)
 
 BOOST_AUTO_TEST_CASE(origin_is_correct)
 {
-	sf::Vector2f expectedOrigin(RADIUSE_POINT / 2, RADIUSE_POINT / 2);
+	sf::Vector2f expectedOrigin(RADIUS_POINT / 2, RADIUS_POINT / 2);
 	point.setOrigin(expectedOrigin);
 	VerifyVector2f(point.getOrigin(), expectedOrigin);
 }
@@ -86,10 +86,10 @@ BOOST_AUTO_TEST_CASE(position_is_correct)
 	VerifyVector2f(point.getPosition(), pPoint->getPosition());
 }
 
-BOOST_AUTO_TEST_CASE(radiuse_is_correct)
+BOOST_AUTO_TEST_CASE(radius_is_correct)
 {
-	point.setRadius(RADIUSE_POINT);
-	BOOST_CHECK_EQUAL(point.getRadius(), RADIUSE_POINT);
+	point.setRadius(RADIUS_POINT);
+	BOOST_CHECK_EQUAL(point.getRadius(), RADIUS_POINT);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -281,11 +281,11 @@ BOOST_AUTO_TEST_CASE(position_is_correct)
 	VerifyVector2f(pCircle->getPosition(), circle.getPosition());
 }
 
-BOOST_AUTO_TEST_CASE(radiuse_is_correct)
+BOOST_AUTO_TEST_CASE(Radius_is_correct)
 {
 	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
 
-	circle.setRadius(expectedRadiuse);
+	circle.setRadius(expectedRadius);
 	BOOST_CHECK_EQUAL(circle.getRadius(), pCircle->getRadius());
 }
 
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE(origin_is_correct)
 {
 	sf::CircleShape* pCircle = dynamic_cast<sf::CircleShape*>(&*renderShapes[indexCircle]);
 
-	sf::Vector2f expectedOrigin(expectedRadiuse / 2, expectedRadiuse / 2);
+	sf::Vector2f expectedOrigin(expectedRadius / 2, expectedRadius / 2);
 	circle.setOrigin(expectedOrigin);
 	VerifyVector2f(circle.getOrigin(), pCircle->getOrigin());
 }

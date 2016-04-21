@@ -197,7 +197,7 @@ void CShapeReader::AddCircle(const listArguments & arguments)
 
 	std::shared_ptr<CCircle> addCircle(new CCircle);
 	addCircle->SetPositionCenter(stof(arguments[1]), stof(arguments[2]));
-	addCircle->SetRadiuse(stof(arguments[3]));
+	addCircle->SetRadius(stof(arguments[3]));
 	addCircle->SetFillColor(arguments[4]);
 	addCircle->SetOutlineColor(arguments[5]);
 
