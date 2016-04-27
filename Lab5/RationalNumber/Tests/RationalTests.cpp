@@ -327,9 +327,10 @@ BOOST_AUTO_TEST_CASE(multiplication_on_number)
 	VerifyRational(CRational(2, 3) * 7 , 14, 3);
 }
 
-BOOST_AUTO_TEST_CASE(multiplication_2)
+BOOST_AUTO_TEST_CASE(multiplication_on_zero)
 {
 	VerifyRational(CRational(0, 7) * CRational(15, 25), 0, 1);
+	VerifyRational(CRational(7, 0) * CRational(-7, 0), -1, 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -373,6 +374,14 @@ BOOST_AUTO_TEST_CASE(integer_number_divided_on_rational)
 	first = 7 / second;
 	VerifyRational(first, 21, 2);
 }
+
+BOOST_AUTO_TEST_CASE(divided_on_zero)
+{
+	VerifyRational(CRational(7, 2) / 0, 0, 1);
+	VerifyRational(CRational(2, 3) / CRational(0, 1), 0, 1);
+	VerifyRational(CRational(5, 9) / CRational(1, 0), 0, 1);
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 

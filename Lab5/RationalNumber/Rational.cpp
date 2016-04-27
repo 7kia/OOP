@@ -132,6 +132,11 @@ CRational const operator*(CRational const & left, CRational const & right)
 	CRational result(left.m_numerator * right.m_numerator, left.m_denominator * right.m_denominator);
 	result.Normalize();
 
+	if (result.m_denominator == 0)
+	{
+		result.m_denominator = 1;
+	}
+
 	return result;
 }
 
@@ -147,6 +152,12 @@ CRational const operator/(CRational const & left, CRational const & right)
 	copyLeft.m_numerator *= right.GetDenominator();
 	copyLeft.m_denominator *= right.GetNumerator();
 	copyLeft.Normalize();
+
+	if (copyLeft.m_denominator == 0)
+	{
+		copyLeft.m_denominator = 1;
+		copyLeft.m_numerator = 0;
+	}
 
 	return copyLeft;
 }
