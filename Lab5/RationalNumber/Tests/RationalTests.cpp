@@ -382,6 +382,19 @@ BOOST_AUTO_TEST_CASE(divided_on_zero)
 	VerifyRational(CRational(5, 9) / CRational(1, 0), 0, 1);
 }
 
+BOOST_AUTO_TEST_CASE(divided_maximum_on_minus_one)
+{
+	VerifyRational(CRational(std::numeric_limits<int>::max(), 1) / -1, -std::numeric_limits<int>::max(), 1);
+	// abs(min) > abs(max)
+	VerifyRational(CRational(std::numeric_limits<int>::min(), 1) / -1, -std::numeric_limits<int>::min(), 1);
+}
+
+
+BOOST_AUTO_TEST_CASE(divided_one_on_maximum)
+{
+	//VerifyRational(CRational(1, 1) / std::numeric_limits<int>::max(), 0, 1);
+	//VerifyRational(CRational(1, 1) / std::numeric_limits<int>::min(), 0, 1);
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 

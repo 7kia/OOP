@@ -28,6 +28,12 @@ void CRational::Normalize()
 	const int gcd = GCD(abs(m_numerator), m_denominator);
 	m_numerator /= gcd;
 	m_denominator /= gcd;
+	
+	if (m_denominator < 0)
+	{
+		m_numerator = -m_numerator;
+		m_denominator = -m_denominator;
+	}
 }
 
 unsigned GCD(unsigned a, unsigned b)
