@@ -61,7 +61,7 @@ CRational const CRational::operator+() const
 
 CRational const CRational::operator-()	const
 {
-	return CRational((-1)*m_numerator, m_denominator);
+	return CRational(-m_numerator, m_denominator);
 }
 
 
@@ -72,9 +72,16 @@ CRational const CRational::operator-()	const
 
 CRational const operator+(CRational const &rational1, CRational const &rational2)
 {
-	return (CRational((rational1.GetNumerator() * rational2.GetDenominator())
-						+ (rational2.GetNumerator() * rational1.GetDenominator()),
-						rational1.GetDenominator() * rational2.GetDenominator()));
+	// TODO : normalize
+	const int numerator = (rational1.GetNumerator() * rational2.GetDenominator())
+							+ (rational2.GetNumerator() * rational1.GetDenominator());
+	const int denominator = rational1.GetDenominator() * rational2.GetDenominator();
+
+	CRational result(numerator, denominator);
+
+	result.Normalize();
+
+	return result;
 }
 
 
@@ -122,8 +129,7 @@ CRational & CRational::operator-=(CRational const & other)
 
 CRational const operator*(CRational const & left, CRational const & right) 
 {
-	CRational result(left.m_numerator * right.m_numerator,
-					(left.m_numerator * right.m_numerator != 0) ? left.m_denominator * right.m_denominator : 0);
+	CRational result(left.m_numerator * right.m_numerator, left.m_denominator * right.m_denominator);
 	result.Normalize();
 
 	return result;
@@ -152,10 +158,9 @@ CRational const operator/(CRational const & left, CRational const & right)
 //////////////////////////////////////////////////////////////////////////
 
 
-CRational& CRational::operator*=(const CRational & num2)
+CRational& CRational::operator*=(const CRational & other)
 {
-	m_numerator *= num2.GetNumerator();
-	m_denominator *= num2.GetDenominator();
+	*this = *this * other;
 
 	Normalize();
 
@@ -195,58 +200,48 @@ bool const operator!=(CRational const& first, CRational const& second)
 //////////////////////////////////////////////////////////////////////////
 
 
-bool const CRational::operator <(CRational const &rat) const
+bool const CRational::operator <(CRational const &other) const
 {
-	auto copyRightVal = rat;
+	// TODO : do not divide denominator  
+	auto copyRightVal = other;
 	auto copyLeftVal = *this;
 
 	copyRightVal.m_numerator *= m_denominator;
-	copyRightVal.m_denominator *= m_denominator;
-
-	copyLeftVal.m_numerator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
-	copyLeftVal.m_denominator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
+	copyLeftVal.m_numerator *= other.m_denominator;
 
 	return copyLeftVal.m_numerator < copyRightVal.m_numerator;
 }
 
-bool const CRational::operator >(CRational const &rat) const
+bool const CRational::operator >(CRational const &other) const
 {
-	auto copyRightVal = rat;
+	auto copyRightVal = other;
 	auto copyLeftVal = *this;
 
 	copyRightVal.m_numerator *= m_denominator;
-	copyRightVal.m_denominator *= m_denominator;
-
-	copyLeftVal.m_numerator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
-	copyLeftVal.m_denominator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
+	copyLeftVal.m_numerator *= other.m_denominator;
 
 	return copyLeftVal.m_numerator > copyRightVal.m_numerator;
 }
 
-bool const CRational::operator <=(CRational const &rat) const
+bool const CRational::operator <=(CRational const &other) const
 {
-	auto copyRightVal = rat;
+	auto copyRightVal = other;
 	auto copyLeftVal = *this;
 
 	copyRightVal.m_numerator *= m_denominator;
-	copyRightVal.m_denominator *= m_denominator;
-
-	copyLeftVal.m_numerator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
-	copyLeftVal.m_denominator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
+	copyLeftVal.m_numerator *= other.m_denominator;
 
 	return copyLeftVal.m_numerator <= copyRightVal.m_numerator;
 }
 
-bool const CRational::operator >=(CRational const &rat) const
+bool const CRational::operator >=(CRational const &other) const
 {
-	auto copyRightVal = rat;
+	auto copyRightVal = other;
 	auto copyLeftVal = *this;
 
 	copyRightVal.m_numerator *= m_denominator;
-	copyRightVal.m_denominator *= m_denominator;
-
-	copyLeftVal.m_numerator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
-	copyLeftVal.m_denominator *= copyRightVal.m_denominator / copyLeftVal.m_denominator;
+	copyLeftVal.m_numerator *= other.m_denominator;
+	// TODO : not divide denominator  
 
 	return copyLeftVal.m_numerator >= copyRightVal.m_numerator;
 }

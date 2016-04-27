@@ -308,7 +308,7 @@ BOOST_AUTO_TEST_SUITE(Multiplication)
 BOOST_AUTO_TEST_CASE(multiplication_on_zero_equal_zero)
 {
 	CRational x(1, 2);
-	VerifyRational(x * 0, 0, 0);
+	VerifyRational(x * 0, 0, 1);
 }
 
 BOOST_AUTO_TEST_CASE(multiplication_rational_numbers)
@@ -325,6 +325,11 @@ BOOST_AUTO_TEST_CASE(multiplication_on_number)
 
 	VerifyRational(7 * CRational(2, 3), 14, 3);
 	VerifyRational(CRational(2, 3) * 7 , 14, 3);
+}
+
+BOOST_AUTO_TEST_CASE(multiplication_2)
+{
+	VerifyRational(CRational(0, 7) * CRational(15, 25), 0, 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

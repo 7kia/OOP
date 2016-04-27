@@ -135,7 +135,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 
-	CRational& operator *=(const CRational & num2);
+	CRational& operator *=(const CRational & other);
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -181,10 +181,10 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 
-	bool const operator <(CRational const &rat) const;
-	bool const operator >(CRational const &rat) const;
-	bool const operator <=(CRational const &rat) const;
-	bool const operator >=(CRational const &rat) const;
+	bool const operator <(CRational const &other) const;
+	bool const operator >(CRational const &other) const;
+	bool const operator <=(CRational const &other) const;
+	bool const operator >=(CRational const &other) const;
 
 
 	//////////////////////////////////////////////////////////////////////////
