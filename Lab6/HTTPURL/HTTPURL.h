@@ -5,6 +5,7 @@
 #include <utility>
 #include <vector>
 #include <boost/algorithm/string.hpp>
+#include <boost/regex.hpp>
 
 /*
 Класс, моделирующий рациональное число
@@ -21,8 +22,9 @@ class CHttpUrl
 public:
 	enum class Protocol
 	{
-			HTTP = 0
-		,	HTTPS
+			HTTP = 80
+		,	HTTPS = 443
+		,	FTP = 21
 	};
 public:
 
@@ -63,8 +65,15 @@ public:
 	// возвращает номер порта
 	unsigned short				GetPort() const;
 private:
-	const std::string			HTTP_STRING_PRSENTATION = "HTTP";
-	const std::string			HTTPS_STRING_PRSENTATION = "HTTPS";
+	const std::string			HTTP_STRING_PRSENTATION = "http";
+	const std::string			HTTPS_STRING_PRSENTATION = "https";
+
+	const std::string			PROTOCOL_RULE = "(http|https|ftp)";
+	const std::string			PROTOCOL_DIVIDER = "://";
+
+	const std::string			DOCUMENT_RULE = "/([^ ]*)";
+
+
 
 	const size_t				AMOUNT_PARTS_URL = 3;
 private:
@@ -73,6 +82,8 @@ private:
 	std::string RecogniteProtocol(const std::string & text
 								, size_t & position);
 
+	void						RecogniteDivederProtocol(const std::string & text, size_t & position);
+
 	void						SetData(const std::string & protocol
 										, std::string const& domain
 										, std::string const& document
@@ -80,6 +91,6 @@ private:
 private:
 	std::string					m_domain;
 	std::string					m_document;
-	Protocol					m_protocol;
-	unsigned short				m_port;
+	Protocol					m_protocol = Protocol::HTTP;
+	unsigned short				m_port = 80;
 };
