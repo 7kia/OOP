@@ -33,6 +33,9 @@
     <ClInclude Include="Tests.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="..\UrlParsingError.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="..\HTTPURL.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UrlParsingError.cpp">
       <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>

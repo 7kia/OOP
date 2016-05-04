@@ -3,52 +3,15 @@
 
 using namespace std;
 
-vector<string> CHttpUrl::GetPartsUrl(string const& text)
-{
-	std::string trimmed = boost::trim_copy(text);
-
-	vector<string> parts;
-
-	size_t positionForRecognition = 0;
-	parts.push_back(RecogniteProtocol(text, positionForRecognition));
-	RecogniteDivederProtocol(text, positionForRecognition);
-	//parts.push_back(RecogniteDivederProtocol(text, positionForRecognition));
-
-	//boost::split(parts, trimmed, boost::is_space(), boost::token_compress_on);
-	return parts;
-}
-
-string CHttpUrl::RecogniteProtocol(const string & text, size_t & position)
-{
-	std::string partProtocol = text.substr(position, HTTP_STRING_PRSENTATION.size());
-	std::transform(partProtocol.begin(), partProtocol.end(), partProtocol.begin(), ::tolower);
-
-	if (partProtocol == HTTP_STRING_PRSENTATION)
-	{
-		if (text[HTTPS_STRING_PRSENTATION.size() - 1] == HTTPS_STRING_PRSENTATION.back())
-		{
-			position += HTTPS_STRING_PRSENTATION.size();
-			return HTTPS_STRING_PRSENTATION;
-		}
-		position += partProtocol.size();
-		return partProtocol;
-	}
-	else
-	{
-		// TODO : exception
-		//throw CUrlParsingError();
-	}
-
-	return string();
-}
-
 void CHttpUrl::RecogniteDivederProtocol(const string & text, size_t & position)
 {
 
 }
 
 
-CHttpUrl::CHttpUrl(std::string const & url)
+
+
+CHttpUrl::CHttpUrl(const std::string  & url)
 {
 	/*
 	vector<string> partsUrl = GetPartsUrl(url);
@@ -68,38 +31,93 @@ CHttpUrl::CHttpUrl(std::string const & url)
 	*/
 	
 	// TODO 3-4
-	boost::regex rules(PROTOCOL_RULE + PROTOCOL_DIVIDER + "([^/ :]+):?([^/ ]*)" + DOCUMENT_RULE);
+	boost::regex rules(PROTOCOL_RULE + PROTOCOL_DIVIDER + DOMAIN_RULE + PORT_RULE + DOCUMENT_RULE);
 	boost::cmatch result;
 
-	auto checkingUrl = url;
+	string checkingUrl = url;
 	boost::algorithm::to_lower(checkingUrl);
 
 	if (regex_match(checkingUrl.c_str(), result, rules))
 	{
-		checkingUrl = url;
-		auto protocolStr = string(result[1].first, result[1].second);
-		boost::algorithm::to_lower(protocolStr);
-		SetProtocol(protocolStr);
+		RecordProtocol(result);
+		RecordDomain(result);
+		RecordPort(result);
+		RecordDocument(result);
+	}
+	else
+	{
+		throw CUrlParsingError(MESSAGE_INCORRECT_URL);
+	}
+}
 
-		string host = string(result[2].first, result[2].second);
 
-		string portStr = string(result[3].first, result[3].second);
-		m_port = atoi(portStr.c_str());
+void CHttpUrl::RecordProtocol(const boost::cmatch & recogniteUrl)
+{
+	// TODO : exception for recogniteUrl[1]
+	string protocolStr = string(recogniteUrl[1].first, recogniteUrl[1].second);
+	boost::algorithm::to_lower(protocolStr);
+	SetProtocol(protocolStr);
+}
+
+
+void CHttpUrl::RecordDomain(const boost::cmatch & recogniteUrl)
+{
+	// TODO : exception for recogniteUrl[2]
+	m_domain = string(recogniteUrl[2].first, recogniteUrl[2].second);
+}
+
+
+void CHttpUrl::RecordPort(const boost::cmatch & recogniteUrl)
+{
+	try
+	{
+		// TODO : exception  for recogniteUrl[1]
+		string portStr = string(recogniteUrl[3].first, recogniteUrl[3].second);
+		if (portStr.size() > 0)
+		{
+			m_port = stoi(portStr);
+		}
+		
 		if (m_port == 0)
 		{
 			m_port = static_cast<int>(m_protocol);
 		}
+	}
+	catch (const std::invalid_argument & exception)
+	{
+		cout << MESSAGE_INCORRECT_PORT << endl;
+	}
+	catch (const std::out_of_range & exception)
+	{
+		cout << MESSAGE_INCORRECT_RANGE_VALUE_PORT << endl;
+	}
+}
 
-		m_document = string(result[4].first, result[4].second);
 
+void CHttpUrl::RecordDocument(const boost::cmatch & recogniteUrl)
+{
+	// TODO : exception for recogniteUrl[4]
+	m_document = string(recogniteUrl[4].first, recogniteUrl[4].second);
+
+	if (m_document.size() > 0)
+	{
+		if (m_document[0] != '/')
+		{
+			JoinSlashToDomain();
+		}
 	}
 	else
 	{
-		// TODO : exception
-		//throw CUrlParsingError();
-
+		JoinSlashToDomain();
 	}
 }
+
+
+void CHttpUrl::JoinSlashToDomain()
+{
+	m_document.insert(m_document.begin(), '/');
+}
+
 
 CHttpUrl::CHttpUrl(std::string const& domain
 					, std::string const& document
@@ -112,6 +130,7 @@ CHttpUrl::CHttpUrl(std::string const& domain
 {
 }
 
+
 std::string CHttpUrl::GetURL() const
 {
 	switch (m_protocol)
@@ -123,12 +142,12 @@ std::string CHttpUrl::GetURL() const
 		return HTTPS_STRING_PRSENTATION;
 		break;
 	default:
-		// TODO : exception
-		//throw CUrlParsingError();
+		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
 		break;
 	}
-	return std::string();
+	return std::string();// TODO delete
 }
+
 
 void CHttpUrl::SetProtocol(const std::string & protocol)
 {
@@ -142,30 +161,34 @@ void CHttpUrl::SetProtocol(const std::string & protocol)
 	}
 	else
 	{
-		// TODO : exception
-		//throw CUrlParsingError();
+		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
 	}
 }
+
 
 std::string CHttpUrl::GetDomain() const
 {
 	return m_domain;
 }
 
+
 std::string CHttpUrl::GetDocument() const
 {
 	return m_document;
 }
+
 
 CHttpUrl::Protocol CHttpUrl::GetProtocol() const
 {
 	return m_protocol;
 }
 
+
 unsigned short CHttpUrl::GetPort() const
 {
 	return m_port;
 }
+
 
 void CHttpUrl::SetData(const string & protocol
 					, string const& domain
