@@ -22,12 +22,12 @@ public:
 
 
 
-	void RecordProtocol(const boost::cmatch & recogniteUrl);
-	void RecordDomain(const boost::cmatch & recogniteUrl);
-	void RecordPort(const boost::cmatch & recogniteUrl);
-	void RecordDocument(const boost::cmatch & recogniteUrl);
+	void ExtractAndRecordProtocol(const boost::cmatch & recogniteUrl);
+	void ExtractAndRecordDomain(const boost::cmatch & recogniteUrl);
+	void ExtractAndRecordPort(const boost::cmatch & recogniteUrl);
+	void ExtractAndRecordDocument(const boost::cmatch & recogniteUrl);
 
-	void JoinSlashToDomain();
+	void JoinSlashToDocument();
 
 
 	/* инициализирует URL на основе переданных параметров.
@@ -35,18 +35,17 @@ public:
 	std::invalid_argument
 	Если имя документа не начинается с символа /, то добавляет / к имени документа
 	*/
-	CHttpUrl(std::string const& domain
+	CHttpUrl(Protocol protocol
 			, std::string const& document
-			, Protocol protocol = Protocol::HTTP
+			, std::string const& domain
 			, unsigned short port = 0);
 
 	// возвращает строковое представление URL-а. Порт, являющийся стандартным для
 	// выбранного протокола (80 для http и 443 для https) в URL не должен включаться
 	std::string					GetURL() const;
 
-
-	void						SetProtocol(const std::string & url);
 	// возвращает доменное имя
+	void						SetDomain(const std::string & domain);
 	std::string					GetDomain() const;
 
 	/*
@@ -55,12 +54,17 @@ public:
 	/index.html
 	/images/photo.jpg
 	*/
+	void						SetDocument(const std::string & document);
 	std::string					GetDocument() const;
 
 	// возвращает тип протокола
+	void						SetProtocol(const std::string & proctocol);
+	void						SetProtocol(Protocol proctocol);
 	Protocol					GetProtocol() const;
 
 	// возвращает номер порта
+	void						SetPort(const std::string & port);
+	void						SetPort(unsigned int port);
 	unsigned short				GetPort() const;
 private:
 	const std::string			HTTP_STRING_PRSENTATION = "http";
