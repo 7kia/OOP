@@ -3,9 +3,18 @@
 
 using namespace std;
 
+vector<string> SplitWords(string const& text)
+{
+	std::string trimmed = boost::trim_copy(text);
+
+	vector<string> words;
+	boost::split(words, trimmed, !boost::is_alnum(), boost::token_compress_on);
+	return words;
+}
+
 CHttpUrl::CHttpUrl(Protocol protocol
-	, std::string const& document
 	, std::string const& domain
+	, std::string const& document
 	, unsigned short port)
 {
 	SetProtocol(protocol);
@@ -88,7 +97,19 @@ std::string CHttpUrl::GetURL() const
 
 void CHttpUrl::SetDomain(const std::string & domain)
 {
-	m_domain = domain;
+	//boost::regex rules(DOMAIN_RULE);
+	//boost::cmatch result;
+
+	vector<string> words = SplitWords(domain);
+
+	if (words.size() == 2)//regex_match(domain.c_str(), result, rules)
+	{
+		m_domain = domain;
+	}
+	else
+	{
+		throw invalid_argument(MESSAGE_INCORRECT_DOMAIN);
+	}
 }
 
 std::string CHttpUrl::GetDomain() const
@@ -112,6 +133,9 @@ void CHttpUrl::SetDocument(const std::string & document)
 	{
 		JoinSlashToDocument();
 	}
+
+	vector<string> words = SplitWords(m_document);
+
 }
 
 std::string CHttpUrl::GetDocument() const
@@ -145,7 +169,7 @@ void CHttpUrl::SetProtocol(Protocol proctocol)
 		m_protocol = proctocol;
 		break;
 	default:
-		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
+		throw invalid_argument(MESSAGE_INCORRECT_PROTOCOL);
 		break;
 	}
 }
