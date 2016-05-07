@@ -36,6 +36,9 @@
     <ClInclude Include="..\UrlParsingError.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\UrlRecognizer.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +51,9 @@
       <Filter>TestClasses</Filter>
     </ClCompile>
     <ClCompile Include="..\UrlParsingError.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UrlRecognizer.cpp">
       <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>

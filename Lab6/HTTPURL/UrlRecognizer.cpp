@@ -4,13 +4,13 @@
 using namespace std;
 using boost::string_ref;
 
-vector<string> UrlRecognizer::RecognizeUrl(const string & url)
+vector<string> CUrlRecognizer::RecognizeUrl(const string & url)
 {
 	vector<string> result;
 	string_ref urlRef(url);
 
 	result.push_back(RecognizeProtocol(urlRef));
-	urlRef = urlRef.substr(result.back().size());
+	urlRef = urlRef.substr(result.back().size() + PROTOCOL_DIVIDER.size());
 
 	result.push_back(RecognizeDomain(urlRef));
 	urlRef = urlRef.substr(result.back().size());
@@ -20,7 +20,7 @@ vector<string> UrlRecognizer::RecognizeUrl(const string & url)
 	return result;
 }
 
-std::string UrlRecognizer::RecognizeProtocol(boost::string_ref & url)
+std::string CUrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 {
 	size_t positionDivider = CheckEndProtocol(url);
 
@@ -36,7 +36,7 @@ std::string UrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 	}
 }
 
-size_t UrlRecognizer::CheckEndProtocol(boost::string_ref & url)
+size_t CUrlRecognizer::CheckEndProtocol(boost::string_ref & url)
 {
 	size_t positionDivider = url.find(PROTOCOL_DIVIDER);
 
@@ -48,26 +48,28 @@ size_t UrlRecognizer::CheckEndProtocol(boost::string_ref & url)
 }
 
 
-std::string UrlRecognizer::RecognizeDomain(boost::string_ref & url)
+std::string CUrlRecognizer::RecognizeDomain(boost::string_ref & url)
 {
 	CheckContainsDotInDomain(url);
 	size_t positionDivider = CheckEndDomain(url);
-	CheckCorrectnessDomainSymbols(url);
+
+	string result = url.substr(0, positionDivider).to_string();
+	CheckCorrectnessDomainSymbols(result);
 
 	return url.substr(0, positionDivider).to_string();
 }
 
-void UrlRecognizer::CheckContainsDotInDomain(boost::string_ref & url)
+void CUrlRecognizer::CheckContainsDotInDomain(const boost::string_ref & url)
 {
 	size_t positionDivider = url.find('.');
 
 	if (positionDivider == string_ref::npos)
 	{
-		throw CUrlParsingError(MESSAGE_INCORRECT_DOMAIN);
+		throw invalid_argument(MESSAGE_INCORRECT_DOMAIN);
 	}
 }
 
-size_t UrlRecognizer::CheckEndDomain(boost::string_ref & url)
+size_t CUrlRecognizer::CheckEndDomain(boost::string_ref & url)
 {
 	size_t positionDivider = url.find(DOMAIN_DIVIDER);
 
@@ -78,43 +80,74 @@ size_t UrlRecognizer::CheckEndDomain(boost::string_ref & url)
 	return positionDivider;
 }
 
-void UrlRecognizer::CheckCorrectnessDomainSymbols(boost::string_ref & url)
+void CUrlRecognizer::CheckCorrectnessDomainSymbols(const boost::string_ref & domain)
 {
 	auto haveInvalideSymbols = [&](char ch)
 	{
 		return (isspace(ch) || (ch == '/') || (ch == '\''));
 	};
 
-	if (find_if(url.begin(), url.end(), haveInvalideSymbols) != url.end())
+	if (find_if(domain.begin(), domain.end(), haveInvalideSymbols) != domain.end())
 	{
 		throw invalid_argument("Domain name must not contains any spaces, tabulations or slashes.");
 	}
 }
 
 
-std::string UrlRecognizer::RecognizeDocument(boost::string_ref & url)
+std::string CUrlRecognizer::RecognizeDocument(boost::string_ref & url)
 {
-	CheckCorrectnessDocumentSymbols(url);
-
 	string result = url.substr(0, url.size()).to_string();
-	if (result[0] != '/')
-	{
-		return '/' + result;
-	}
+	CheckDividersInDocumnet(result);
+	CheckCorrectnessDocumentSymbols(result);
+	AddSlashToStartDocument(result);
 
 	return result;
 }
 
+void CUrlRecognizer::CheckDividersInDocumnet(const boost::string_ref & document)
+{
+	size_t position = 1;
+	size_t positionDivider = 0;
 
-void UrlRecognizer::CheckCorrectnessDocumentSymbols(boost::string_ref & url)
+	string_ref referenceOnDocument = document.substr(position);
+
+	while ((position < referenceOnDocument.size()) && (positionDivider <= referenceOnDocument.size()))
+	{
+		positionDivider = referenceOnDocument.find(DOMAIN_DIVIDER);
+
+		if ((position + 1) >= positionDivider)
+		{
+			throw invalid_argument(MESSAGE_INCORRECT_DOCUMENT);
+		}
+		position = positionDivider + 1;
+		referenceOnDocument = referenceOnDocument.substr(position);
+	}
+}
+
+void CUrlRecognizer::CheckCorrectnessDocumentSymbols(const boost::string_ref & document)
 {
 	auto notHaveSpace = [&](char ch)
 	{
 		return (isspace(ch));
 	};
 
-	if (find_if(url.begin(), url.end(), notHaveSpace) != url.end())
+	if (find_if(document.begin(), document.end(), notHaveSpace) != document.end())
 	{
 		throw invalid_argument(MESSAGE_INCORRECT_DOCUMENT);
+	}
+}
+
+void CUrlRecognizer::AddSlashToStartDocument(string & document)
+{
+	if (document.size() > 0)
+	{
+		if (document[0] != '/')
+		{
+			document.insert(document.begin(), '/');
+		}
+	}
+	else
+	{
+		document = '/';
 	}
 }

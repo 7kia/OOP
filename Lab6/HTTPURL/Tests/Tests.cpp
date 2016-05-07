@@ -77,11 +77,6 @@ BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document)
 	BOOST_CHECK_THROW(TestStandartConstuctorUrl("htFtps://githubcom/7kia/OOP///"), CUrlParsingError);
 };
 
-BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_port)
-{
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://github.com:fd/7kia/OOP/"), CUrlParsingError);
-};
-
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -168,7 +163,7 @@ BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document)
 	data.document = "//7kia/index.html";
 	data.port = expectedPort;
 
-	//BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
+	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
 };
 
 /*

@@ -5,26 +5,28 @@
 
 #include "UrlParsingError.h"
 
-class UrlRecognizer
+class CUrlRecognizer
 {
 public:
 	std::vector<std::string>	RecognizeUrl(const std::string & url);
 
-private:
+protected:
 	std::string			RecognizeProtocol(boost::string_ref & url);
 	std::string			RecognizeDomain(boost::string_ref & url);
 	std::string			RecognizeDocument(boost::string_ref & url);
+
+	void				CheckDividersInDocumnet(const boost::string_ref & document);
 	
 
 	size_t				CheckEndProtocol(boost::string_ref & url);
 
-	void				CheckContainsDotInDomain(boost::string_ref & url);
+	void				CheckContainsDotInDomain(const boost::string_ref & url);
 	size_t				CheckEndDomain(boost::string_ref & url);
-	void				CheckCorrectnessDomainSymbols(boost::string_ref & url);
+	void				CheckCorrectnessDomainSymbols(const boost::string_ref & url);
 
-	void				CheckCorrectnessDocumentSymbols(boost::string_ref & url);
-	void				AddSlashToStartDocument(boost::string_ref & document);
-private:
+	void				CheckCorrectnessDocumentSymbols(const boost::string_ref & document);
+	void				AddSlashToStartDocument(std::string & document);
+protected:
 	const std::string			HTTP_STRING_PRSENTATION = "http";
 	const std::string			HTTPS_STRING_PRSENTATION = "https";
 

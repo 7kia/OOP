@@ -5,6 +5,7 @@
 #include "UrlRecognizer.h"
 
 class CHttpUrl
+	: public CUrlRecognizer
 {
 public:
 	enum  Protocol//class
@@ -18,16 +19,6 @@ public:
 	// выбрасыват исключение CUrlParsingError, содержащее текстовое описание ошибки
 	CHttpUrl(const std::string & url);
 
-
-
-	void ExtractAndRecordProtocol(const boost::cmatch & recogniteUrl);
-	void ExtractAndRecordDomain(const boost::cmatch & recogniteUrl);
-	void ExtractAndRecordPort(const boost::cmatch & recogniteUrl);
-	void ExtractAndRecordDocument(const boost::cmatch & recogniteUrl);
-
-	void JoinSlashToDocument();
-
-
 	/* инициализирует URL на основе переданных параметров.
 	При недопустимости входных параметров выбрасывает исключение
 	std::invalid_argument
@@ -36,7 +27,7 @@ public:
 	CHttpUrl(Protocol protocol
 			, std::string const& domain
 			, std::string const& document
-			, unsigned short port = 0);
+			, unsigned short port = 80);
 
 	// возвращает строковое представление URL-а. Порт, являющийся стандартным для
 	// выбранного протокола (80 для http и 443 для https) в URL не должен включаться
@@ -59,30 +50,23 @@ public:
 	void						SetProtocol(const std::string & proctocol);
 	void						SetProtocol(Protocol proctocol);
 	Protocol					GetProtocol() const;
+	std::string					GetStringPresentationProtocol() const;
 
 	// возвращает номер порта
 	void						SetPort(const std::string & port);
 	void						SetPort(unsigned int port);
 	unsigned short				GetPort() const;
 private:
-
-	const std::string			PROTOCOL_RULE = "(http|https|ftp)";
-
-	const std::string			DOMAIN_RULE = "([^/:]+)";//"([^/:]+)";
-	const std::string			PORT_RULE = ":?([\d/ ]*)";
-
-	const std::string			DOCUMENT_RULE = "(/[^ ]+)";
-
 	const size_t				AMOUNT_PARTS_URL = 3;
 private:
 	void						SetData(const std::string & protocol
 										, std::string const& domain
 										, std::string const& document
-										, unsigned short port = 0);
+										, unsigned short port = 80);
 private:
 	std::string					m_domain;
 	std::string					m_document;
-	//string						m_host;// TODO : might excess
+
 	Protocol					m_protocol = Protocol::HTTP;
-	unsigned short				m_port = 0;
+	unsigned short				m_port = 80;
 };
