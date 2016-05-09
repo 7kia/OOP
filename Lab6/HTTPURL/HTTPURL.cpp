@@ -10,18 +10,14 @@ CHttpUrl::CHttpUrl(Protocol protocol
 	, unsigned short port)
 {
 	SetProtocol(protocol);
-
-	CheckContainsDotInDomain(domain);
-	CheckCorrectnessDomainSymbols(domain);
 	SetDomain(domain);
-
-	SetDocument(RecognizeDocument(string_ref(document)));
+	SetDocument(document);
 	SetPort(port);
 }
 
 CHttpUrl::CHttpUrl(const std::string  & url)
 {
-	vector<string> partsUrl = RecognizeUrl(url);
+	array<string, 3> partsUrl = RecognizeUrl(url);
 
 	SetData(partsUrl[0]
 			, partsUrl[1]
@@ -48,6 +44,7 @@ std::string CHttpUrl::GetURL() const
 
 void CHttpUrl::SetDomain(const std::string & domain)
 {
+	CheckDomainCorrectness(domain);
 	m_domain = domain;
 }
 
@@ -59,6 +56,7 @@ std::string CHttpUrl::GetDomain() const
 
 void CHttpUrl::SetDocument(const std::string & document)
 {
+	CheckDocumentCorrectness(document);
 	m_document = document;
 }
 

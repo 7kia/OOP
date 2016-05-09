@@ -4,18 +4,18 @@
 using namespace std;
 using boost::string_ref;
 
-vector<string> CUrlRecognizer::RecognizeUrl(const string & url)
+array<string, 3> CUrlRecognizer::RecognizeUrl(const string & url)
 {
-	vector<string> result;
+	array<string, 3> result;
 	string_ref urlRef(url);
 
-	result.push_back(RecognizeProtocol(urlRef));
-	urlRef = urlRef.substr(result.back().size() + PROTOCOL_DIVIDER.size());
+	result[0] = RecognizeProtocol(urlRef);
+	urlRef = urlRef.substr(result[0].size() + PROTOCOL_DIVIDER.size());
 
-	result.push_back(RecognizeDomain(urlRef));
-	urlRef = urlRef.substr(result.back().size());
+	result[1] = RecognizeDomain(urlRef);
+	urlRef = urlRef.substr(result[1].size());
 
-	result.push_back(RecognizeDocument(urlRef));
+	result[2] = RecognizeDocument(urlRef);
 
 	return result;
 }
@@ -50,13 +50,19 @@ size_t CUrlRecognizer::CheckEndProtocol(boost::string_ref & url)
 
 std::string CUrlRecognizer::RecognizeDomain(boost::string_ref & url)
 {
-	CheckContainsDotInDomain(url);
 	size_t positionDivider = CheckEndDomain(url);
-
 	string result = url.substr(0, positionDivider).to_string();
-	CheckCorrectnessDomainSymbols(result);
+
+	CheckDomainCorrectness(result);
 
 	return result;
+}
+
+
+void CUrlRecognizer::CheckDomainCorrectness(const std::string & domain)
+{
+	CheckCorrectnessDomainSymbols(domain);
+	CheckContainsDotInDomain(domain);
 }
 
 void CUrlRecognizer::CheckContainsDotInDomain(const boost::string_ref & url)
@@ -95,15 +101,11 @@ void CUrlRecognizer::CheckCorrectnessDomainSymbols(const boost::string_ref & dom
 }
 
 
-std::string CUrlRecognizer::RecognizeDocument(boost::string_ref & url)
+std::string CUrlRecognizer::RecognizeDocument(const boost::string_ref & url)
 {
+	CheckDocumentCorrectness(url);
+
 	string result = url.substr(0, url.size()).to_string();
-	if (result.size() > 0)
-	{
-		CheckDividersInDocumnet(result);
-		CheckCorrectnessDocumentSymbols(result);
-		
-	}
 	AddSlashToStartDocument(result);
 
 	return result;
@@ -126,6 +128,15 @@ void CUrlRecognizer::CheckDividersInDocumnet(const boost::string_ref & document)
 		}
 		position = positionDivider + 1;
 		referenceOnDocument = referenceOnDocument.substr(position);
+	}
+}
+
+void CUrlRecognizer::CheckDocumentCorrectness(const boost::string_ref & document)
+{
+	if (document.size() > 0)
+	{
+		CheckDividersInDocumnet(document);
+		CheckCorrectnessDocumentSymbols(document);
 	}
 }
 

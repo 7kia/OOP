@@ -57,8 +57,6 @@ public:
 	void						SetPort(unsigned int port);
 	unsigned short				GetPort() const;
 private:
-	const size_t				AMOUNT_PARTS_URL = 3;
-private:
 	void						SetData(const std::string & protocol
 										, std::string const& domain
 										, std::string const& document
