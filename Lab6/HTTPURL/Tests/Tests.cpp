@@ -69,13 +69,24 @@ BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_protocol)
 
 BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_domain)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("htFtps://githubcom/7kia/OOP/"), CUrlParsingError);
+	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://githubcom/7kia/OOP/"), invalid_argument);
 };
 
-BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document)
+BOOST_AUTO_TEST_CASE(document_must_not_consist_excess_slashs)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("htFtps://githubcom/7kia/OOP///"), CUrlParsingError);
+	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://github.com/7kia/OOP///"), invalid_argument);
 };
+
+BOOST_AUTO_TEST_CASE(document_must_not_consist_spece_symbols)
+{
+	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://github.com/7kia/OO  P/"), invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE(no_throw_exeption_for_empty_document)
+{
+	BOOST_REQUIRE_NO_THROW(TestStandartConstuctorUrl("https://github.com/"));
+	BOOST_REQUIRE_NO_THROW(TestStandartConstuctorUrl("https://github.com"));
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
@@ -91,8 +102,17 @@ struct componets_url_
 	string expectedDocument = "/7kia/index.html";
 	unsigned short expectedPort = 80;
 
+	SDataForCheck data;
+
 	const string urlString = "http://" + expectedDomain + expectedDocument;
 
+	componets_url_()
+	{
+		data.protocol = CHttpUrl::Protocol::HTTP;
+		data.domain = expectedDomain;
+		data.document = expectedDocument;
+		data.port = expectedPort;
+	}
 };
 
 BOOST_FIXTURE_TEST_SUITE(componets_url, componets_url_)
@@ -111,75 +131,55 @@ BOOST_AUTO_TEST_CASE(check_correctness_alternative_constructor)
 	BOOST_CHECK_EQUAL(url.GetPort(), expectedPort);
 }
 
-// TODO : boost require << operator for CHttpUrl::Protocol
-///*
 BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_protocol)
 {
-	SDataForCheck data;
-
 	data.protocol = static_cast<CHttpUrl::Protocol>(10);
-	data.domain = expectedDomain;
-	data.document = expectedDocument;
-	data.port = expectedPort;
-
-	
-	/*
-		boost::regex rules("([[:alpha:]|[:digit:]]+\.[[:alpha:]|[:digit:]]+)");//"([[:word:]]+)"
-	boost::cmatch result;
-
-	string checkingUrl = "gitc";
-	boost::algorithm::to_lower(checkingUrl);
-	BOOST_CHECK(regex_match(checkingUrl.c_str(), result, rules));
-	if (regex_match(checkingUrl.c_str(), result, rules))
-	{
-		string checkingUrl2 = "git";
-	}
-	*/
-
 
 	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
 };
-//*/
 
-
-BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_domain)
+BOOST_AUTO_TEST_CASE(throw_exeption_if_domain_not_consist_dot)
 {
-	SDataForCheck data;
-
-	data.protocol = CHttpUrl::Protocol::HTTP;
 	data.domain = "githubcom";
-	data.document = expectedDocument;
-	data.port = expectedPort;
 
 	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
 };
 
-BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document)
+BOOST_AUTO_TEST_CASE(throw_exeption_if_domain_consist_space_symbols)
 {
-	SDataForCheck data;
+	data.domain = "github. com";
 
-	data.protocol = CHttpUrl::Protocol::HTTP;
-	data.domain = expectedDomain;
+	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
+};
+
+
+BOOST_AUTO_TEST_CASE(throw_exeption_if_domain_consist_slashs)
+{
+	data.domain = "gi/thub.com";
+
+	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
+};
+
+BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document_which_consist_excess_slashs)
+{
 	data.document = "//7kia/index.html";
-	data.port = expectedPort;
 
 	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
 };
 
-/*
-BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_port)
+BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_document_which_consist_spaces_symbols)
 {
-	SDataForCheck data;
-
-	data.protocol = CHttpUrl::Protocol::HTTP;
-	data.domain = expectedDomain;
-	data.document = expectedDocument;
-	data.port = expectedPort;
+	data.document = "/7k i  a/index.html";
 
 	BOOST_CHECK_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
 };
-*/
 
+BOOST_AUTO_TEST_CASE(no_throw_exeption_for_empty_document)
+{
+	data.document = "";
+
+	BOOST_REQUIRE_NO_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
+};
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

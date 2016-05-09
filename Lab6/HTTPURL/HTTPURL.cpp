@@ -42,21 +42,7 @@ void CHttpUrl::SetData(const string & protocol// TODO : correctness
 
 std::string CHttpUrl::GetURL() const
 {
-	string presentationProctocol;
-	switch (m_protocol)
-	{
-	case Protocol::HTTP:
-		presentationProctocol = HTTP_STRING_PRSENTATION;
-		break;
-	case Protocol::HTTPS:
-		presentationProctocol = HTTPS_STRING_PRSENTATION;
-		break;
-	default:
-		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
-		break;
-	}
-
-	return presentationProctocol + m_domain + m_document;// TODO delete
+	return GetStringPresentationProtocol() + m_domain + m_document;// TODO delete
 }
 
 
@@ -94,7 +80,7 @@ void CHttpUrl::SetProtocol(const std::string & protocol)
 	}
 	else
 	{
-		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
+		throw invalid_argument(MESSAGE_INCORRECT_PROTOCOL);
 	}
 }
 
