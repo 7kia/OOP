@@ -124,25 +124,22 @@ void CHttpUrl::SetPort(const std::string & port)
 	{
 		if (port.size() > 0)
 		{
-			m_port = stoi(port);
-		}
-
-		if (m_port == 0)
-		{
-			m_port = static_cast<int>(m_protocol);
+			m_port = static_cast<short>(stoi(port));
 		}
 	}
 	catch (const std::invalid_argument & exception)
 	{
+		cout << exception.what() << endl;
 		cout << MESSAGE_INCORRECT_PORT << endl;
 	}
 	catch (const std::out_of_range & exception)
 	{
+		cout << exception.what() << endl;
 		cout << MESSAGE_INCORRECT_RANGE_VALUE_PORT << endl;
 	}
 }
 
-void CHttpUrl::SetPort(unsigned int port)
+void CHttpUrl::SetPort(unsigned short port)
 {
 	m_port = port;
 }

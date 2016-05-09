@@ -54,7 +54,7 @@ public:
 
 	// возвращает номер порта
 	void						SetPort(const std::string & port);
-	void						SetPort(unsigned int port);
+	void						SetPort(unsigned short port);
 	unsigned short				GetPort() const;
 private:
 	void						SetData(const std::string & protocol

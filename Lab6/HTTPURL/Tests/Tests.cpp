@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(no_throw_exeption_for_empty_document)
 {
 	data.document = "";
 
-	BOOST_REQUIRE_NO_THROW(TestAlternativeConstuctorUrl(data), invalid_argument);
+	BOOST_REQUIRE_NO_THROW(TestAlternativeConstuctorUrl(data));
 };
 
 BOOST_AUTO_TEST_SUITE_END()
