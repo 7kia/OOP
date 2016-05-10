@@ -10,7 +10,7 @@ array<string, 3> CUrlRecognizer::RecognizeUrl(const string & url)
 	string_ref urlRef(url);
 
 	result[0] = RecognizeProtocol(urlRef);
-	urlRef = urlRef.substr(result[0].size() + PROTOCOL_DIVIDER.size());
+	urlRef = urlRef.substr(result[0].size() + RecognizableStrings::PROTOCOL_DIVIDER.size());
 
 	result[1] = RecognizeDomain(urlRef);
 	urlRef = urlRef.substr(result[1].size());
@@ -25,8 +25,8 @@ std::string CUrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 	size_t positionDivider = CheckEndProtocol(url);
 
 	string result = url.substr(0, positionDivider).to_string();
-	if ((result == HTTP_STRING_PRSENTATION) 
-		|| (result == HTTPS_STRING_PRSENTATION))
+	if ((result == RecognizableStrings::HTTP_STRING_PRSENTATION)
+		|| (result == RecognizableStrings::HTTPS_STRING_PRSENTATION))
 	{
 		return result;
 	}
@@ -38,7 +38,7 @@ std::string CUrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 
 size_t CUrlRecognizer::CheckEndProtocol(boost::string_ref & url)
 {
-	size_t positionDivider = url.find(PROTOCOL_DIVIDER);
+	size_t positionDivider = url.find(RecognizableStrings::PROTOCOL_DIVIDER);
 
 	if (positionDivider == string_ref::npos)
 	{
@@ -77,7 +77,7 @@ void CUrlRecognizer::CheckContainsDotInDomain(const boost::string_ref & url)
 
 size_t CUrlRecognizer::CheckEndDomain(boost::string_ref & url)
 {
-	size_t positionDivider = url.find(DOMAIN_DIVIDER);
+	size_t positionDivider = url.find(RecognizableStrings::DOMAIN_DIVIDER);
 
 	if (positionDivider == string_ref::npos)
 	{
@@ -120,7 +120,7 @@ void CUrlRecognizer::CheckDividersInDocumnet(const boost::string_ref & document)
 
 	while ((position < referenceOnDocument.size()) && (positionDivider <= referenceOnDocument.size()))
 	{
-		positionDivider = referenceOnDocument.find(DOMAIN_DIVIDER);
+		positionDivider = referenceOnDocument.find(RecognizableStrings::DOMAIN_DIVIDER);
 
 		if ((position + 1) >= positionDivider)
 		{

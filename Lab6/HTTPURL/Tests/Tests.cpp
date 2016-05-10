@@ -104,7 +104,11 @@ struct componets_url_
 
 	SDataForCheck data;
 
-	const string urlString = "http://" + expectedDomain + expectedDocument;
+	const string urlString = "http://" 
+							+ expectedDomain
+							+ RecognizableStrings::PORT_DIVIDER 
+							+ to_string(expectedPort)
+							+ expectedDocument;
 
 	componets_url_()
 	{
@@ -129,6 +133,8 @@ BOOST_AUTO_TEST_CASE(check_correctness_alternative_constructor)
 	BOOST_CHECK_EQUAL(url.GetDomain(), expectedDomain);
 	BOOST_CHECK_EQUAL(url.GetDocument(), expectedDocument);
 	BOOST_CHECK_EQUAL(url.GetPort(), expectedPort);
+
+	BOOST_CHECK_EQUAL(url.GetURL(), urlString);
 }
 
 BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_protocol)

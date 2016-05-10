@@ -38,7 +38,12 @@ void CHttpUrl::SetData(const string & protocol// TODO : correctness
 
 std::string CHttpUrl::GetURL() const
 {
-	return GetStringPresentationProtocol() + m_domain + m_document;// TODO delete
+	return GetStringPresentationProtocol() 
+			+ RecognizableStrings::PROTOCOL_DIVIDER
+			+ m_domain 
+			+ RecognizableStrings::PORT_DIVIDER
+			+ to_string(GetPort()) 
+			+ m_document;
 }
 
 
@@ -68,11 +73,11 @@ std::string CHttpUrl::GetDocument() const
 
 void CHttpUrl::SetProtocol(const std::string & protocol)
 {
-	if (protocol == HTTP_STRING_PRSENTATION)
+	if (protocol == RecognizableStrings::HTTP_STRING_PRSENTATION)
 	{
 		m_protocol = Protocol::HTTP;
 	}
-	else if (protocol == HTTPS_STRING_PRSENTATION)
+	else if (protocol == RecognizableStrings::HTTPS_STRING_PRSENTATION)
 	{
 		m_protocol = Protocol::HTTPS;
 	}
@@ -106,10 +111,10 @@ string CHttpUrl::GetStringPresentationProtocol() const
 	switch (m_protocol)
 	{
 	case Protocol::HTTP:
-		return HTTP_STRING_PRSENTATION;
+		return RecognizableStrings::HTTP_STRING_PRSENTATION;
 		break;
 	case Protocol::HTTPS:
-		return HTTPS_STRING_PRSENTATION;
+		return RecognizableStrings::HTTPS_STRING_PRSENTATION;
 		break;
 	default:
 		throw invalid_argument(MESSAGE_INCORRECT_PROTOCOL);

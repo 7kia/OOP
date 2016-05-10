@@ -5,11 +5,21 @@
 #include <array>
 #include "UrlParsingError.h"
 
+namespace RecognizableStrings
+{
+	static const std::string			HTTP_STRING_PRSENTATION = "http";
+	static const std::string			HTTPS_STRING_PRSENTATION = "https";
+
+	static const std::string			PROTOCOL_DIVIDER = "://";
+	static const std::string			PORT_DIVIDER = ":";
+
+	static const std::string			DOMAIN_DIVIDER = "/";
+}
+
 class CUrlRecognizer
 {
 public:
 	std::array<std::string, 3>	RecognizeUrl(const std::string & url);
-
 protected:
 	std::string			RecognizeProtocol(boost::string_ref & url);
 	std::string			RecognizeDomain(boost::string_ref & url);
@@ -28,10 +38,4 @@ protected:
 	void				CheckDocumentCorrectness(const boost::string_ref & domain);
 	void				CheckCorrectnessDocumentSymbols(const boost::string_ref & document);
 	void				AddSlashToStartDocument(std::string & document);
-protected:
-	const std::string			HTTP_STRING_PRSENTATION = "http";
-	const std::string			HTTPS_STRING_PRSENTATION = "https";
-
-	const std::string			PROTOCOL_DIVIDER = "://";
-	const std::string			DOMAIN_DIVIDER = "/";
 };
