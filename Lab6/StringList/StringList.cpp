@@ -7,10 +7,29 @@ CStringList::CStringList()
 {
 }
 
+CStringList::~CStringList()
+{
+	/*
+		Node *deleteNode = m_begin.get();
+
+	if (deleteNode != nullptr)
+	{
+		while (deleteNode->next != nullptr)
+		{
+			deleteNode->next->previous = nullptr;
+
+			deleteNode = deleteNode->next.get();
+		}
+	}
+	*/
+	// TODO : rewrite with using iterators
+
+	
+}
+
 void CStringList::Append(const std::string & addString)
 {
 	m_size++;
-
 
 	std::shared_ptr<Node> newNode = make_shared<Node>();
 	if (m_begin.get() == nullptr)
@@ -23,8 +42,13 @@ void CStringList::Append(const std::string & addString)
 	}
 	else
 	{
-		newNode->previous = m_end.get();
-		newNode->data;
+		// last->next = newNode
+		newNode->previous = m_end;
+		newNode->data = addString;
+
+
+		m_end.lock()->next = newNode;
+
 
 		m_end = newNode;
 	}
@@ -37,7 +61,7 @@ std::string CStringList::GetStartElement()
 
 std::string CStringList::back() const
 {
-	return m_end->data;
+	return m_end.lock()->data;
 }
 
 size_t CStringList::GetSize() const

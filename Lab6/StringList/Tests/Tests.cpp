@@ -7,6 +7,15 @@
 using namespace std;
 
 
+std::vector<std::string> ConvertToVector(const CStringList & list)
+{
+	std::vector<std::string> result;
+
+	// TODO : rewrite with using iterators
+
+	return result;
+}
+
 
 BOOST_AUTO_TEST_SUITE(EmptyStringList)
 
@@ -41,6 +50,20 @@ BOOST_AUTO_TEST_CASE(start_and_end_list_from_one_element_refer_to_only)
 	BOOST_CHECK_EQUAL(list.back(), addElelment);
 }
 
+BOOST_AUTO_TEST_CASE(list_can_have_several_elemets)
+{
+	std::string firstElelment = "OOP";
+	std::string secondElelment = "PPO";
+	std::string thirdElelment = "MLaTA";
+
+	list.Append(firstElelment);
+	list.Append(secondElelment);
+	list.Append(thirdElelment);
+
+	BOOST_CHECK_EQUAL(list.GetStartElement(), firstElelment);
+	BOOST_CHECK_EQUAL(list.back(), thirdElelment);
+}
+
 /*
 BOOST_AUTO_TEST_CASE(_)
 {
@@ -55,13 +78,29 @@ BOOST_AUTO_TEST_SUITE_END()
 
 
 
-BOOST_AUTO_TEST_SUITE(StringList)
+BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 
-struct StringList_
+struct StringListWithSeveralElement_
 {
+	std::string firstElelment = "OOP";
+	std::string secondElelment = "PPO";
+	std::string thirdElelment = "MLaTA";
+
+	CStringList list;
+
+	/*
+		StringListWithSeveralElement_()
+	{
+		list.Append(firstElelment);
+		list.Append(secondElelment);
+		list.Append(thirdElelment);
+
+	}
+
+	*/
 };
 
-BOOST_FIXTURE_TEST_SUITE(StringList, StringList_)
+BOOST_FIXTURE_TEST_SUITE(StringListWithSeveralElement, StringListWithSeveralElement_)
 
 
 

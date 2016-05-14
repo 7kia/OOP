@@ -6,19 +6,25 @@
 #include <boost/algorithm/string.hpp>
 
 
+class CIterator
+{
+
+};
 
 class CStringList
 {
 public:
 	CStringList();
+	~CStringList();
 
 	struct Node
 	{
-		Node* previous;
-		std::unique_ptr<Node> next;
+		std::weak_ptr<Node> previous;
+		std::shared_ptr<Node> next;
 
 		std::string data;
 	};
+
 public:
 	void						Append(const std::string & addString);// TODO : first letter in low case
 
@@ -31,6 +37,6 @@ private:
 	size_t						m_size = 0;
 
 	std::shared_ptr<Node>		m_begin;
-	std::shared_ptr<Node>		m_end;
+	std::weak_ptr<Node>			m_end;
 
 };
