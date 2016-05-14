@@ -31,10 +31,23 @@ BOOST_AUTO_TEST_CASE(append_increase_one_to_size)
 	BOOST_CHECK_EQUAL(list.GetSize(), 2);
 }
 
+
+BOOST_AUTO_TEST_CASE(start_and_end_list_from_one_element_refer_to_only)
+{
+	std::string addElelment = "OOP";
+	list.Append(addElelment);
+
+	BOOST_CHECK_EQUAL(list.GetStartElement(), addElelment);
+	BOOST_CHECK_EQUAL(list.back(), addElelment);
+}
+
+/*
 BOOST_AUTO_TEST_CASE(_)
 {
 	BOOST_CHECK(false);
 }
+*/
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
@@ -51,10 +64,7 @@ struct StringList_
 BOOST_FIXTURE_TEST_SUITE(StringList, StringList_)
 
 
-BOOST_AUTO_TEST_CASE(is_empty)
-{
-	BOOST_CHECK(false);
-}
+
 
 
 BOOST_AUTO_TEST_SUITE_END()
