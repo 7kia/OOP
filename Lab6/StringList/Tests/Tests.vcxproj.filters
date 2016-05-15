@@ -33,6 +33,9 @@
     <ClInclude Include="..\StringList.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\StringListIterator.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="..\StringList.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StringListIterator.cpp">
       <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>

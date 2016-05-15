@@ -7,11 +7,28 @@
 using namespace std;
 
 
-std::vector<std::string> ConvertToVector(const CStringList & list)
+bool VerifyVectors(const vector<string> &first
+				, const vector<string> &second)
 {
-	std::vector<std::string> result;
+	if (first.size() != second.size())
+	{
+		return false;
+	}
 
-	// TODO : rewrite with using iterators
+	for (size_t index = 0; index < first.size(); index++)
+	{
+		BOOST_CHECK_EQUAL(first[index], second[index]);
+	}
+}
+
+vector<string> ConvertToVector(CStringList & list)
+{
+	vector<string> result;
+
+	for (auto &str : list)
+	{
+		result.push_back(str);
+	}
 
 	return result;
 }
@@ -43,6 +60,10 @@ BOOST_AUTO_TEST_CASE(append_increase_one_to_size)
 	BOOST_CHECK_EQUAL(list.GetSize(), 1);
 	list.PushToEnd("xcc");
 	BOOST_CHECK_EQUAL(list.GetSize(), 2);
+
+	//std::list<std::string> l;
+	//l.push_back("s");
+	//l.
 }
 
 
@@ -67,6 +88,9 @@ BOOST_AUTO_TEST_CASE(list_can_have_several_elemets)
 
 	BOOST_CHECK_EQUAL(list.front(), firstElelment);
 	BOOST_CHECK_EQUAL(list.back(), thirdElelment);
+
+	vector<string> expectedVector = { firstElelment, secondElelment, thirdElelment };
+	VerifyVectors(ConvertToVector(list), expectedVector);
 }
 
 /*
@@ -121,6 +145,27 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 
 	list.PushToEnd(addString);
 	BOOST_CHECK_EQUAL(list.back(), addString);
+}
+
+BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
+{
+	CStringList::CIterator iter = list.begin();
+	
+	BOOST_CHECK_EQUAL(*iter, list.front());
+}
+
+BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
+{
+	CStringList::CIterator iter = list.begin();
+
+	BOOST_CHECK_EQUAL(*(++iter), secondElelment);
+}
+
+BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
+{
+	CStringList::CIterator iter = list.end();
+
+	BOOST_CHECK_EQUAL(*(--iter), list.back());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

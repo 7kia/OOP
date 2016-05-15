@@ -27,6 +27,13 @@ CStringList::~CStringList()
 	
 }
 
+std::shared_ptr<CStringList::Node> CStringList::GetUnlockCopy(const std::weak_ptr<Node>& pointer)
+{
+	assert(!pointer.expired());
+	return move(pointer.lock());
+
+}
+
 void CStringList::PushToEnd(const std::string & addString)
 {
 	m_size++;
@@ -76,7 +83,7 @@ void CStringList::PushToStart(const std::string & addString)
 	}
 }
 
-std::string CStringList::front()
+std::string CStringList::front() const
 {
 	return m_begin->data;
 }
@@ -96,6 +103,11 @@ bool CStringList::IsEmpty() const
 	return GetSize() == 0;
 }
 
+void CStringList::Clear()
+{
+	// TODO
+}
+
 void CStringList::CreateFirstNode(const std::string & data)
 {
 	std::shared_ptr<Node> newNode = make_shared<Node>();
@@ -110,3 +122,4 @@ void CStringList::CreateFirstNode(const std::string & data)
 CStringList::Node::~Node()
 {
 }
+

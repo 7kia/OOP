@@ -13,7 +13,7 @@ public:
 
 	struct Node
 	{
-		~Node();
+		~Node();// For debug
 		std::weak_ptr<Node>		previous;
 		std::shared_ptr<Node>	next;
 
@@ -22,16 +22,21 @@ public:
 	class CIterator;
 
 public:
+	static std::shared_ptr<Node> GetUnlockCopy(const std::weak_ptr<Node> & pointer);
+
 	void						PushToEnd(const std::string & addString);// TODO : first letter in low case
 	void						PushToStart(const std::string & addString);// TODO : first letter in low case
 
-
-	std::string					front();// TODO : rename
+	std::string					front() const;
 	std::string					back() const;
 
+	CIterator					begin();
+	CIterator					end();
 
 	size_t						GetSize() const;
 	bool						IsEmpty() const;
+
+	void						Clear();
 
 private:
 	void						CreateFirstNode(const std::string & data);
@@ -40,15 +45,5 @@ private:
 
 	std::shared_ptr<Node>		m_begin;
 	std::weak_ptr<Node>			m_end;
-
-};
-
-class CStringList::CIterator
-	: public std::iterator<std::bidirectional_iterator_tag, std::string>
-{
-public:
-private:
-	std::weak_ptr<Node>			m_node;
-	CStringList*				m_target;
 
 };
