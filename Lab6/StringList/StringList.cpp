@@ -27,21 +27,18 @@ CStringList::~CStringList()
 	
 }
 
-void CStringList::Append(const std::string & addString)
+void CStringList::PushToEnd(const std::string & addString)
 {
 	m_size++;
 
-	std::shared_ptr<Node> newNode = make_shared<Node>();
 	if (m_begin.get() == nullptr)
 	{
-		m_begin = newNode;
-
-		m_begin->data = addString;
-
-		m_end = m_begin;
+		CreateFirstNode(addString);
 	}
 	else
 	{
+		std::shared_ptr<Node> newNode = make_shared<Node>();
+
 		// last->next = newNode
 		newNode->previous = m_end;
 		newNode->data = addString;
@@ -54,7 +51,32 @@ void CStringList::Append(const std::string & addString)
 	}
 }
 
-std::string CStringList::GetStartElement()
+void CStringList::PushToStart(const std::string & addString)
+{
+	m_size++;
+
+	std::shared_ptr<Node> newNode = make_shared<Node>();
+	if (m_begin.get() == nullptr)
+	{
+		CreateFirstNode(addString);
+	}
+	else
+	{
+		std::shared_ptr<Node> newNode = make_shared<Node>();
+
+		// last->next = newNode
+		newNode->next = m_begin;
+		newNode->data = addString;
+
+
+		m_begin->previous = newNode;
+
+
+		m_begin = newNode;
+	}
+}
+
+std::string CStringList::front()
 {
 	return m_begin->data;
 }
@@ -67,4 +89,24 @@ std::string CStringList::back() const
 size_t CStringList::GetSize() const
 {
 	return m_size;
+}
+
+bool CStringList::IsEmpty() const
+{
+	return GetSize() == 0;
+}
+
+void CStringList::CreateFirstNode(const std::string & data)
+{
+	std::shared_ptr<Node> newNode = make_shared<Node>();
+
+	m_begin = newNode;
+
+	m_begin->data = data;
+
+	m_end = m_begin;
+}
+
+CStringList::Node::~Node()
+{
 }
