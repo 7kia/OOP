@@ -13,6 +13,7 @@ public:
 		, std::weak_ptr<Node> const& node// TODO refers
 		, CStringList* list);
 
+	//~CReverseIterator();
 public:
 	bool const							operator==(CReverseIterator const& other) const;// TODO : NOT TESTS
 	bool const							operator!=(CReverseIterator const& other) const;// TODO : NOT TESTS

@@ -31,6 +31,7 @@ public:
 	CIterator(bool isEnd
 			, std::weak_ptr<Node> const& node// TODO refers
 			, CStringList* list);
+
 public:
 	bool const							operator==(CIterator const& other) const;// TODO : NOT TESTS
 	bool const							operator!=(CIterator const& other) const;// TODO : NOT TESTS

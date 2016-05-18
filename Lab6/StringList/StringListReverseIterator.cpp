@@ -18,6 +18,13 @@ CStringList::CReverseIterator::CReverseIterator(bool isEnd
 	m_target = list;
 }
 
+/*
+CStringList::CReverseIterator::~CReverseIterator()
+{
+}
+*/
+
+
 bool const CStringList::CReverseIterator::operator==(CStringList::CReverseIterator const & other) const
 {
 	// TODO : delete copy code

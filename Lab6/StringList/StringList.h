@@ -25,8 +25,8 @@ public:
 public:
 	static std::shared_ptr<Node> GetUnlockCopy(const std::weak_ptr<Node> & pointer);
 
-	void						PushToEnd(const std::string & addString);// TODO : first letter in low case
-	void						PushToStart(const std::string & addString);// TODO : first letter in low case
+	void						PushToEnd(const std::string & addString);// TODO : rename
+	void						PushToStart(const std::string & addString);// TODO : rename
 
 	std::string					front() const;
 	std::string					back() const;
@@ -36,10 +36,14 @@ public:
 	const CIterator				begin() const;
 	const CIterator				end() const;
 
+	void						Insert(const CIterator & iter
+										, const std::string & data);
+
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
 	const CReverseIterator		rbegin() const;
 	const CReverseIterator		rend() const;
+
 
 	size_t						GetSize() const;
 	bool						IsEmpty() const;

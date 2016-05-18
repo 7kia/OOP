@@ -169,82 +169,146 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 
 }
 
-BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
-{
-	CStringList::CIterator iter = list.begin();
+	BOOST_AUTO_TEST_SUITE(TestIterator)
+		BOOST_AUTO_TEST_SUITE(TestInsert)
+			BOOST_AUTO_TEST_CASE(can_insert_in_start)
+			{
+				CStringList::CIterator iter = list.begin();
+				std::string addString = "ethic";
+
+				list.Insert(iter, addString);
+				BOOST_CHECK_EQUAL(*(--iter), addString);
+
+				/*
+								CStringList::CIterator iter1;
+				{
+					CStringList L2;
+					L2.PushToStart("1");
+
+					CStringList::CIterator iter2 = L2.begin();
+					iter1 = iter2;
+				}
+
+				*/
+
+				////////////////////////////////////////////
+				// pattern
+				auto patternIter = pattern.begin();
+				pattern.insert(patternIter, addString);
+				BOOST_CHECK_EQUAL(*(--patternIter), addString);
+
+			}
+			BOOST_AUTO_TEST_CASE(can_insert_in_middle)
+			{
+				CStringList::CIterator iter = list.begin();
+				std::string addString = "Fire";
+
+				++iter;
+				++iter;
+
+				list.Insert(iter, addString);
+				BOOST_CHECK_EQUAL(*(--iter), addString);
+				////////////////////////////////////////////
+				// pattern
+				auto patternIter = pattern.begin();
+
+				++patternIter;
+				++patternIter;
+
+				pattern.insert(patternIter, addString);
+				BOOST_CHECK_EQUAL(*(--patternIter), addString);
+
+			}
+			BOOST_AUTO_TEST_CASE(can_insert_in_end)
+			{
+				CStringList::CIterator iter = list.end();
+				std::string addString = "Memory";
+
+				list.Insert(--iter, addString);
+				BOOST_CHECK_EQUAL(*(--iter), addString);
+				////////////////////////////////////////////
+				// pattern
+				auto patternIter = pattern.end();
+				pattern.insert(--patternIter, addString);
+				BOOST_CHECK_EQUAL(*(--patternIter), addString);
+			}
+		BOOST_AUTO_TEST_SUITE_END()
+
+		BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
+		{
+			CStringList::CIterator iter = list.begin();
 	
-	BOOST_CHECK_EQUAL(*iter, list.front());
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.begin();
-	BOOST_CHECK_EQUAL(*patternIter, list.front());
+			BOOST_CHECK_EQUAL(*iter, list.front());
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.begin();
+			BOOST_CHECK_EQUAL(*patternIter, list.front());
 
-}
+		}
 
-BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
-{
-	CStringList::CIterator iter = list.begin();
+		BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
+		{
+			CStringList::CIterator iter = list.begin();
 
-	BOOST_CHECK_EQUAL(*(++iter), secondElelment);
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.begin();
-	BOOST_CHECK_EQUAL(*(++patternIter), secondElelment);
+			BOOST_CHECK_EQUAL(*(++iter), secondElelment);
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.begin();
+			BOOST_CHECK_EQUAL(*(++patternIter), secondElelment);
 
-}
+		}
 
-BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
-{
-	CStringList::CIterator iter = list.end();
+		BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
+		{
+			CStringList::CIterator iter = list.end();
 
-	BOOST_CHECK_EQUAL(*(--iter), list.back());
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.end();
-	BOOST_CHECK_EQUAL(*(--patternIter), list.back());
+			BOOST_CHECK_EQUAL(*(--iter), list.back());
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.end();
+			BOOST_CHECK_EQUAL(*(--patternIter), list.back());
 
-}
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 
 
 
-BOOST_AUTO_TEST_SUITE(TestReverseIterator)
+	BOOST_AUTO_TEST_SUITE(TestReverseIterator)
+		BOOST_AUTO_TEST_CASE(use_decrement_reverse_iterator_can_get_first_element)
+		{
+			CStringList::CReverseIterator iter = list.rend();
 
-BOOST_AUTO_TEST_CASE(use_decrement_reverse_iterator_can_get_first_element)
-{
-	CStringList::CReverseIterator iter = list.rend();
+			BOOST_CHECK_EQUAL(*(--iter), list.front());
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.rend();
+			BOOST_CHECK_EQUAL(*(--patternIter), list.front());
 
-	BOOST_CHECK_EQUAL(*(--iter), list.front());
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.rend();
-	BOOST_CHECK_EQUAL(*(--patternIter), list.front());
+		}
 
-}
+		BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
+		{
+			CStringList::CReverseIterator iter = list.rbegin();
 
-BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
-{
-	CStringList::CReverseIterator iter = list.rbegin();
+			BOOST_CHECK_EQUAL(*(++iter), fourthElelment);
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.rbegin();
+			BOOST_CHECK_EQUAL(*(++patternIter), fourthElelment);
 
-	BOOST_CHECK_EQUAL(*(++iter), fourthElelment);
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.rbegin();
-	BOOST_CHECK_EQUAL(*(++patternIter), fourthElelment);
+		}
 
-}
+		BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
+		{
+			CStringList::CReverseIterator iter = list.rbegin();
 
-BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
-{
-	CStringList::CReverseIterator iter = list.rbegin();
-
-	BOOST_CHECK_EQUAL(*iter, list.back());
-	////////////////////////////////////////////
-	// pattern
-	auto patternIter = pattern.rbegin();
-	BOOST_CHECK_EQUAL(*(patternIter), list.back());
-}
-
-BOOST_AUTO_TEST_SUITE_END()
+			BOOST_CHECK_EQUAL(*iter, list.back());
+			////////////////////////////////////////////
+			// pattern
+			auto patternIter = pattern.rbegin();
+			BOOST_CHECK_EQUAL(*(patternIter), list.back());
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 
 
 

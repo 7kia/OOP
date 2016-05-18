@@ -19,6 +19,14 @@ CStringList::CIterator::CIterator(bool isEnd
 	m_target = list;
 }
 
+/*
+CStringList::CIterator::~CIterator()
+{
+	m_node.reset();
+}
+*/
+
+
 bool const  CStringList::CIterator::operator==(CIterator const & other) const
 {
 	if (m_isEnd != other.m_isEnd)
@@ -128,6 +136,28 @@ const CStringList::CIterator CStringList::begin() const
 const  CStringList::CIterator CStringList::end() const
 {
 	return end();
+}
+
+void CStringList::Insert(const CIterator & iter, const string & data)
+{
+	weak_ptr<Node> node = GetUnlockCopy(iter.GetNode());
+
+	std::shared_ptr<Node> newNode = make_shared<Node>();
+
+	newNode->data = data;
+	newNode->next = GetUnlockCopy(node);
+
+	//if (node.get() != nullptr)
+	//{
+	GetUnlockCopy(node)->previous = newNode;
+	//}
+
+	if (!GetUnlockCopy(node)->previous.expired())//== nullptr
+	{
+		GetUnlockCopy(GetUnlockCopy(node)->previous)->next = newNode;
+		newNode->previous = GetUnlockCopy(node)->previous;
+	}
+
 }
 
 
