@@ -19,6 +19,16 @@ CStringList::CIterator::CIterator(bool isEnd
 	m_target = list;
 }
 
+void CStringList::DeleteItems()
+{
+	CStringList::CIterator iter = begin();
+	while(iter != end())
+	{
+		Remove(iter);
+		iter = begin();
+	}
+}
+
 /*
 CStringList::CIterator::~CIterator()
 {
