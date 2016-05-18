@@ -8,31 +8,13 @@ CStringList::CStringList()
 }
 
 CStringList::~CStringList()
-{
-	/*
-		Node *deleteNode = m_begin.get();
-
-	if (deleteNode != nullptr)
-	{
-		while (deleteNode->next != nullptr)
-		{
-			deleteNode->next->previous = nullptr;
-
-			deleteNode = deleteNode->next.get();
-		}
-	}
-	*/
-	// TODO : rewrite with using iterators
-	
-	DeleteItems();
-	
+{	
+	Clear();	
 }
 
 std::shared_ptr<CStringList::Node> CStringList::GetUnlockCopy(const std::weak_ptr<Node>& pointer)
 {
-	//assert(!pointer.expired());
 	return move(pointer.lock());
-
 }
 
 void CStringList::PushToEnd(const std::string & addString)
@@ -46,15 +28,10 @@ void CStringList::PushToEnd(const std::string & addString)
 	else
 	{
 		std::shared_ptr<Node> newNode = make_shared<Node>();
-
-		// last->next = newNode
 		newNode->previous = m_end;
 		newNode->data = addString;
 
-
-		m_end.lock()->next = newNode;
-
-
+		GetUnlockCopy(m_end)->next = newNode;
 		m_end = newNode;
 	}
 }
@@ -72,13 +49,10 @@ void CStringList::PushToStart(const std::string & addString)
 	{
 		std::shared_ptr<Node> newNode = make_shared<Node>();
 
-		// last->next = newNode
 		newNode->next = m_begin;
 		newNode->data = addString;
 
-
 		m_begin->previous = newNode;
-
 
 		m_begin = newNode;
 	}
@@ -102,11 +76,6 @@ size_t CStringList::GetSize() const
 bool CStringList::IsEmpty() const
 {
 	return GetSize() == 0;
-}
-
-void CStringList::Clear()
-{
-	// TODO
 }
 
 void CStringList::CreateFirstNode(const std::string & data)

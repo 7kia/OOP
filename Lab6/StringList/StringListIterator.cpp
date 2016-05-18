@@ -11,7 +11,7 @@ CStringList::CIterator::CIterator()
 }
 
 CStringList::CIterator::CIterator(bool isEnd
-								, const std::weak_ptr<Node> & node
+								, const weak_ptr<Node> & node
 								, CStringList * list)
 {
 	m_isEnd = isEnd;
@@ -19,7 +19,7 @@ CStringList::CIterator::CIterator(bool isEnd
 	m_target = list;
 }
 
-void CStringList::DeleteItems()
+void CStringList::Clear()
 {
 	CStringList::CIterator iter = begin();
 	while(iter != end())
@@ -28,14 +28,6 @@ void CStringList::DeleteItems()
 		iter = begin();
 	}
 }
-
-/*
-CStringList::CIterator::~CIterator()
-{
-	m_node.reset();
-}
-*/
-
 
 bool const  CStringList::CIterator::operator==(CIterator const & other) const
 {

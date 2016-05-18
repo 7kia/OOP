@@ -49,11 +49,10 @@ public:
 	size_t						GetSize() const;
 	bool						IsEmpty() const;
 
-	void						Clear();// TODO
+	void						Clear();
 
 private:
 	void						CreateFirstNode(const std::string & data);
-	void						DeleteItems();
 private:
 	size_t						m_size = 0;
 
