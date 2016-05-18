@@ -114,8 +114,11 @@ struct StringListWithSeveralElement_
 	std::string firstElelment = "OOP";
 	std::string secondElelment = "PPO";
 	std::string thirdElelment = "MLaTA";
+	std::string fourthElelment = "CV";
+	std::string fifthElelment = "TM";
 
 	CStringList list;
+	std::list<std::string> pattern;
 
 	///*
 	StringListWithSeveralElement_()
@@ -123,6 +126,15 @@ struct StringListWithSeveralElement_
 		list.PushToEnd(firstElelment);
 		list.PushToEnd(secondElelment);
 		list.PushToEnd(thirdElelment);
+		list.PushToEnd(fourthElelment);
+		list.PushToEnd(fifthElelment);
+
+
+		pattern.push_back(firstElelment);
+		pattern.push_back(secondElelment);
+		pattern.push_back(thirdElelment);
+		pattern.push_back(fourthElelment);
+		pattern.push_back(fifthElelment);
 
 	}
 
@@ -137,6 +149,11 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_start)
 
 	list.PushToStart(addString);
 	BOOST_CHECK_EQUAL(list.front(), addString);
+	////////////////////////////////////////////
+	// pattern
+	pattern.push_front(addString);
+	BOOST_CHECK_EQUAL(pattern.front(), addString);
+
 }
 
 BOOST_AUTO_TEST_CASE(can_add_element_to_end)
@@ -145,6 +162,10 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 
 	list.PushToEnd(addString);
 	BOOST_CHECK_EQUAL(list.back(), addString);
+	////////////////////////////////////////////
+	// pattern
+	pattern.push_back(addString);
+	BOOST_CHECK_EQUAL(pattern.back(), addString);
 
 }
 
@@ -153,6 +174,11 @@ BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
 	CStringList::CIterator iter = list.begin();
 	
 	BOOST_CHECK_EQUAL(*iter, list.front());
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.begin();
+	BOOST_CHECK_EQUAL(*patternIter, list.front());
+
 }
 
 BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
@@ -160,6 +186,11 @@ BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
 	CStringList::CIterator iter = list.begin();
 
 	BOOST_CHECK_EQUAL(*(++iter), secondElelment);
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.begin();
+	BOOST_CHECK_EQUAL(*(++patternIter), secondElelment);
+
 }
 
 BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
@@ -167,6 +198,11 @@ BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
 	CStringList::CIterator iter = list.end();
 
 	BOOST_CHECK_EQUAL(*(--iter), list.back());
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.end();
+	BOOST_CHECK_EQUAL(*(--patternIter), list.back());
+
 }
 
 
@@ -175,23 +211,37 @@ BOOST_AUTO_TEST_SUITE(TestReverseIterator)
 
 BOOST_AUTO_TEST_CASE(use_decrement_reverse_iterator_can_get_first_element)
 {
-	CStringList::CReverseIterator iter = list.cend();
+	CStringList::CReverseIterator iter = list.rend();
 
 	BOOST_CHECK_EQUAL(*(--iter), list.front());
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.rend();
+	BOOST_CHECK_EQUAL(*(--patternIter), list.front());
+
 }
 
 BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
 {
-	CStringList::CReverseIterator iter = list.cbegin();
+	CStringList::CReverseIterator iter = list.rbegin();
 
-	BOOST_CHECK_EQUAL(*(++iter), secondElelment);
+	BOOST_CHECK_EQUAL(*(++iter), fourthElelment);
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.rbegin();
+	BOOST_CHECK_EQUAL(*(++patternIter), fourthElelment);
+
 }
 
 BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
 {
-	CStringList::CReverseIterator iter = list.cbegin();
+	CStringList::CReverseIterator iter = list.rbegin();
 
 	BOOST_CHECK_EQUAL(*iter, list.back());
+	////////////////////////////////////////////
+	// pattern
+	auto patternIter = pattern.rbegin();
+	BOOST_CHECK_EQUAL(*(patternIter), list.back());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

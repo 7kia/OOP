@@ -36,10 +36,10 @@ public:
 	const CIterator				begin() const;
 	const CIterator				end() const;
 
-	CReverseIterator			cbegin();
-	CReverseIterator			cend();
-	const CReverseIterator		cbegin() const;
-	const CReverseIterator		cend() const;
+	CReverseIterator			rbegin();
+	CReverseIterator			rend();
+	const CReverseIterator		rbegin() const;
+	const CReverseIterator		rend() const;
 
 	size_t						GetSize() const;
 	bool						IsEmpty() const;

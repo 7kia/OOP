@@ -75,7 +75,7 @@ CStringList::CReverseIterator & CStringList::CReverseIterator::operator--()
 	return *this;
 }
 
-CStringList::CReverseIterator CStringList::cbegin()
+CStringList::CReverseIterator CStringList::rbegin()
 {
 	if (m_begin)
 	{
@@ -85,24 +85,24 @@ CStringList::CReverseIterator CStringList::cbegin()
 	}
 	else
 	{
-		return cend();
+		return rend();
 
 	}
 }
 
-CStringList::CReverseIterator CStringList::cend()
+CStringList::CReverseIterator CStringList::rend()
 {
 	return CStringList::CReverseIterator(true
 		, weak_ptr<Node>()
 		, this);
 }
 
-const CStringList::CReverseIterator CStringList::cbegin() const
+const CStringList::CReverseIterator CStringList::rbegin() const
 {
-	return cbegin();
+	return rbegin();
 }
 
-const CStringList::CReverseIterator CStringList::cend() const
+const CStringList::CReverseIterator CStringList::rend() const
 {
-	return cend();
+	return rend();
 }
