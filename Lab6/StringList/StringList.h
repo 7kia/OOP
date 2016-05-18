@@ -38,6 +38,7 @@ public:
 
 	void						Insert(const CIterator & iter
 										, const std::string & data);
+	void						Remove(const CIterator & iter);
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
@@ -48,7 +49,7 @@ public:
 	size_t						GetSize() const;
 	bool						IsEmpty() const;
 
-	void						Clear();
+	void						Clear();// TODO
 
 private:
 	void						CreateFirstNode(const std::string & data);

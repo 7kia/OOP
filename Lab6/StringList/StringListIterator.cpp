@@ -140,24 +140,61 @@ const  CStringList::CIterator CStringList::end() const
 
 void CStringList::Insert(const CIterator & iter, const string & data)
 {
-	weak_ptr<Node> node = GetUnlockCopy(iter.GetNode());
+	shared_ptr<Node> node = GetUnlockCopy(iter.GetNode());
 
-	std::shared_ptr<Node> newNode = make_shared<Node>();
+	shared_ptr<Node> newNode = make_shared<Node>();
 
 	newNode->data = data;
-	newNode->next = GetUnlockCopy(node);
+	newNode->next = node;
 
 	//if (node.get() != nullptr)
 	//{
-	GetUnlockCopy(node)->previous = newNode;
+	node->previous = newNode;
 	//}
 
-	if (!GetUnlockCopy(node)->previous.expired())//== nullptr
+	if (!node->previous.expired())//== nullptr
 	{
-		GetUnlockCopy(GetUnlockCopy(node)->previous)->next = newNode;
-		newNode->previous = GetUnlockCopy(node)->previous;
+		GetUnlockCopy(node->previous)->next = newNode;
+		newNode->previous = node->previous;
 	}
 
+	m_size++;
+}
+
+void CStringList::Remove(const CIterator & iter)
+{
+	shared_ptr<Node> deleteNode = GetUnlockCopy(iter.GetNode());
+	shared_ptr<Node> prevNode = GetUnlockCopy(deleteNode->previous);
+	shared_ptr<Node> nextNode = deleteNode->next;
+
+	if (prevNode)
+	{
+		if (nextNode)
+		{
+			prevNode->next = nextNode;
+			nextNode->previous = prevNode;
+		}
+		else
+		{
+			prevNode->next.reset();
+			m_end = prevNode;
+		}
+	}
+	else
+	{
+		if (nextNode)
+		{
+			nextNode->previous.reset();
+			m_begin = nextNode;
+		}
+		else
+		{
+			m_begin.reset();
+			m_end.reset();
+		}
+	}
+
+	m_size--;
 }
 
 

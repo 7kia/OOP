@@ -29,7 +29,7 @@ CStringList::~CStringList()
 
 std::shared_ptr<CStringList::Node> CStringList::GetUnlockCopy(const std::weak_ptr<Node>& pointer)
 {
-	assert(!pointer.expired());
+	//assert(!pointer.expired());
 	return move(pointer.lock());
 
 }
