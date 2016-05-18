@@ -140,22 +140,42 @@ const  CStringList::CIterator CStringList::end() const
 
 void CStringList::Insert(const CIterator & iter, const string & data)
 {
-	shared_ptr<Node> node = GetUnlockCopy(iter.GetNode());
-
-	shared_ptr<Node> newNode = make_shared<Node>();
-
+	shared_ptr<Node> newNode(new Node);
 	newNode->data = data;
-	newNode->next = node;
 
-	//if (node.get() != nullptr)
-	//{
-	node->previous = newNode;
-	//}
-
-	if (!node->previous.expired())//== nullptr
+	if (iter.ReferToEnd())
 	{
-		GetUnlockCopy(node->previous)->next = newNode;
-		newNode->previous = node->previous;
+		if (m_begin)
+		{
+			newNode->previous = m_end;
+			GetUnlockCopy(m_end)->next = newNode;
+			m_end = newNode;
+		}
+		else
+		{
+			m_begin = newNode;
+			m_end = newNode;
+		}
+	}
+	else
+	{
+		if (GetUnlockCopy(iter.GetNode()).get() == m_begin.get())
+		{
+			newNode->next = m_begin;
+			m_begin->previous = newNode;
+			m_begin = newNode;
+		}
+		else
+		{
+			shared_ptr<Node> nextNode(GetUnlockCopy(iter.GetNode()));
+			shared_ptr<Node> prevNode(GetUnlockCopy(nextNode->previous));
+
+			newNode->previous = prevNode;
+			newNode->next = nextNode;
+
+			prevNode->next = newNode;
+			nextNode->previous = newNode;
+		}
 	}
 
 	m_size++;

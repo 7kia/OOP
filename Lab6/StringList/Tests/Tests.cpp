@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 
 	BOOST_AUTO_TEST_SUITE(TestIterator)
 		// TODO leak memory
-		/*
+		///*
 		BOOST_AUTO_TEST_SUITE(TestInsert)
 			BOOST_AUTO_TEST_CASE(can_insert_in_start)
 			{
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 				list.Insert(iter, addString);
 				BOOST_CHECK_EQUAL(*(--iter), addString);
 
-				/.*
+				/*
 				CStringList::CIterator iter1;
 				{
 					CStringList L2;
@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 					iter1 = iter2;
 				}
 
-				*./
+				*/
 
 				////////////////////////////////////////////
 				// pattern
