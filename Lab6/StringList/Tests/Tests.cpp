@@ -145,6 +145,7 @@ BOOST_AUTO_TEST_CASE(can_add_element_to_end)
 
 	list.PushToEnd(addString);
 	BOOST_CHECK_EQUAL(list.back(), addString);
+
 }
 
 BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
@@ -167,6 +168,35 @@ BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
 
 	BOOST_CHECK_EQUAL(*(--iter), list.back());
 }
+
+
+
+BOOST_AUTO_TEST_SUITE(TestReverseIterator)
+
+BOOST_AUTO_TEST_CASE(use_decrement_reverse_iterator_can_get_first_element)
+{
+	CStringList::CReverseIterator iter = list.cend();
+
+	BOOST_CHECK_EQUAL(*(--iter), list.front());
+}
+
+BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
+{
+	CStringList::CReverseIterator iter = list.cbegin();
+
+	BOOST_CHECK_EQUAL(*(++iter), secondElelment);
+}
+
+BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
+{
+	CStringList::CReverseIterator iter = list.cbegin();
+
+	BOOST_CHECK_EQUAL(*iter, list.back());
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

@@ -36,6 +36,9 @@
     <ClInclude Include="..\StringListIterator.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\StringListReverseIterator.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +51,9 @@
       <Filter>TestClasses</Filter>
     </ClCompile>
     <ClCompile Include="..\StringListIterator.cpp">
+      <Filter>TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StringListReverseIterator.cpp">
       <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>

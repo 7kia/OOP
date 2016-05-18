@@ -23,7 +23,7 @@ CStringList::~CStringList()
 	}
 	*/
 	// TODO : rewrite with using iterators
-
+	
 	
 }
 

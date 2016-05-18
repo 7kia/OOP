@@ -20,6 +20,7 @@ public:
 		std::string				data;
 	};
 	class CIterator;
+	class CReverseIterator;
 
 public:
 	static std::shared_ptr<Node> GetUnlockCopy(const std::weak_ptr<Node> & pointer);
@@ -32,6 +33,13 @@ public:
 
 	CIterator					begin();
 	CIterator					end();
+	const CIterator				begin() const;
+	const CIterator				end() const;
+
+	CReverseIterator			cbegin();
+	CReverseIterator			cend();
+	const CReverseIterator		cbegin() const;
+	const CReverseIterator		cend() const;
 
 	size_t						GetSize() const;
 	bool						IsEmpty() const;

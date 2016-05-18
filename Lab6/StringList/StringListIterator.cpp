@@ -5,18 +5,18 @@
 using namespace std;
 
 CStringList::CIterator::CIterator()
-	: m_isEnd(true)
-	, m_target(nullptr)
 {
+	m_isEnd = true;
+	m_target = nullptr;
 }
 
 CStringList::CIterator::CIterator(bool isEnd
 								, const std::weak_ptr<Node> & node
 								, CStringList * list)
-	: m_isEnd(isEnd)
-	, m_node(node)
-	, m_target(list)
 {
+	m_isEnd = isEnd;
+	m_node = node;
+	m_target = list;
 }
 
 bool const  CStringList::CIterator::operator==(CIterator const & other) const
@@ -40,13 +40,13 @@ bool const CStringList::CIterator::operator!=(CIterator const& other) const
 	return !(*this == other);
 }
 
-string& CStringList::CIterator::operator*() const
+string& CIteratorData::operator*() const
 {
 	assert(!m_isEnd);
-	return GetUnlockCopy(m_node)->data;
+	return CStringList::GetUnlockCopy(m_node)->data;
 }
 
-string* CStringList::CIterator::operator->() const
+string* CIteratorData::operator->() const
 {
 	return &(*(*this));
 }
@@ -84,12 +84,16 @@ CStringList::CIterator& CStringList::CIterator::operator--()
 	return *this;
 }
 
-weak_ptr<CStringList::Node> CStringList::CIterator::GetNode() const
+CIteratorData::~CIteratorData()
+{
+}
+
+weak_ptr<CStringList::Node> CIteratorData::GetNode() const
 {
 	return m_node;
 }
 
-bool const CStringList::CIterator::ReferToEnd() const
+bool const CIteratorData::ReferToEnd() const
 {
 	return m_isEnd;
 }
@@ -115,3 +119,15 @@ CStringList::CIterator CStringList::end()
 								, weak_ptr<Node>()
 								, this);
 }
+
+const CStringList::CIterator CStringList::begin() const
+{
+	return begin();
+}
+
+const  CStringList::CIterator CStringList::end() const
+{
+	return end();
+}
+
+
