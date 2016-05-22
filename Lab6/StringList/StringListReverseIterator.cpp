@@ -87,8 +87,8 @@ CStringList::CReverseIterator CStringList::rbegin()
 	if (m_begin)
 	{
 		return CStringList::CReverseIterator(false
-			, m_end
-			, this);
+											, m_end
+											, this);
 	}
 	else
 	{

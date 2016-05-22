@@ -5,6 +5,8 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 
+static const std::string MESSAGE_EMPTY_LIST = "List is empty.";
+
 class CStringList
 {
 public:
@@ -33,7 +35,7 @@ public:
 
 	CIterator					begin();
 	CIterator					end();
-	const CIterator				begin() const;
+	const CIterator				begin() const;// TODO : const iterator
 	const CIterator				end() const;
 
 	void						Insert(const CIterator & iter
@@ -53,6 +55,7 @@ public:
 
 private:
 	void						CreateFirstNode(const std::string & data);
+	void						CheckListForNotEmpty() const;
 private:
 	size_t						m_size = 0;
 

@@ -132,91 +132,129 @@ CStringList::CIterator CStringList::end()
 
 const CStringList::CIterator CStringList::begin() const
 {
+	/*
+	if (m_begin)
+	{
+		return CStringList::CIterator(false
+								, m_begin
+								, this);
+	}
+	else
+	{
+		return end();
+	}
+	*/
 	return begin();
 }
 
 const  CStringList::CIterator CStringList::end() const
 {
+	/*
+		return CStringList::CIterator(true
+								, weak_ptr<Node>()
+								, this);
+
+	*/
 	return end();
 }
 
 void CStringList::Insert(const CIterator & iter, const string & data)
 {
-	shared_ptr<Node> newNode(new Node);
-	newNode->data = data;
-
-	if (iter.ReferToEnd())
+	try
 	{
-		if (m_begin)
+		shared_ptr<Node> newNode(new Node);
+		newNode->data = data;
+
+		if (iter.ReferToEnd())
 		{
-			newNode->previous = m_end;
-			GetUnlockCopy(m_end)->next = newNode;
-			m_end = newNode;
+			if (m_begin)
+			{
+				newNode->previous = m_end;
+				GetUnlockCopy(m_end)->next = newNode;
+				m_end = newNode;
+			}
+			else
+			{
+				m_begin = newNode;
+				m_end = newNode;
+			}
 		}
 		else
 		{
-			m_begin = newNode;
-			m_end = newNode;
+			if (GetUnlockCopy(iter.GetNode()).get() == m_begin.get())
+			{
+				newNode->next = m_begin;
+				m_begin->previous = newNode;
+				m_begin = newNode;
+			}
+			else
+			{
+				shared_ptr<Node> nextNode(GetUnlockCopy(iter.GetNode()));
+				shared_ptr<Node> prevNode(GetUnlockCopy(nextNode->previous));
+
+				newNode->previous = prevNode;
+				newNode->next = nextNode;
+
+				prevNode->next = newNode;
+				nextNode->previous = newNode;
+			}
 		}
+
+		m_size++;
 	}
-	else
+	catch (const std::bad_alloc & exception)
 	{
-		if (GetUnlockCopy(iter.GetNode()).get() == m_begin.get())
-		{
-			newNode->next = m_begin;
-			m_begin->previous = newNode;
-			m_begin = newNode;
-		}
-		else
-		{
-			shared_ptr<Node> nextNode(GetUnlockCopy(iter.GetNode()));
-			shared_ptr<Node> prevNode(GetUnlockCopy(nextNode->previous));
-
-			newNode->previous = prevNode;
-			newNode->next = nextNode;
-
-			prevNode->next = newNode;
-			nextNode->previous = newNode;
-		}
+		throw;
 	}
-
-	m_size++;
 }
 
 void CStringList::Remove(const CIterator & iter)
 {
-	shared_ptr<Node> deleteNode = GetUnlockCopy(iter.GetNode());
-	shared_ptr<Node> prevNode = GetUnlockCopy(deleteNode->previous);
-	shared_ptr<Node> nextNode = deleteNode->next;
-
-	if (prevNode)
+	try
 	{
-		if (nextNode)
+		CheckListForNotEmpty();
+
+		shared_ptr<Node> deleteNode = GetUnlockCopy(iter.GetNode());
+		shared_ptr<Node> prevNode = GetUnlockCopy(deleteNode->previous);
+		shared_ptr<Node> nextNode = deleteNode->next;
+
+		if (prevNode)
 		{
-			prevNode->next = nextNode;
-			nextNode->previous = prevNode;
+			if (nextNode)
+			{
+				prevNode->next = nextNode;
+				nextNode->previous = prevNode;
+			}
+			else
+			{
+				prevNode->next.reset();
+				m_end = prevNode;
+			}
 		}
 		else
 		{
-			prevNode->next.reset();
-			m_end = prevNode;
+			if (nextNode)
+			{
+				nextNode->previous.reset();
+				m_begin = nextNode;
+			}
+			else
+			{
+				m_begin.reset();
+				m_end.reset();
+			}
 		}
-	}
-	else
-	{
-		if (nextNode)
-		{
-			nextNode->previous.reset();
-			m_begin = nextNode;
-		}
-		else
-		{
-			m_begin.reset();
-			m_end.reset();
-		}
-	}
 
-	m_size--;
+		m_size--;
+	}
+	catch (const std::bad_alloc & exception)
+	{
+		throw;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 

@@ -19,6 +19,8 @@ bool VerifyVectors(const vector<string> &first
 	{
 		BOOST_CHECK_EQUAL(first[index], second[index]);
 	}
+
+	return true;
 }
 
 vector<string> ConvertToVector(CStringList & list)
@@ -82,7 +84,7 @@ BOOST_AUTO_TEST_SUITE(EmptyStringList)
 			BOOST_CHECK_EQUAL(list.back(), thirdElelment);
 
 			vector<string> expectedVector = { firstElelment, secondElelment, thirdElelment };
-			VerifyVectors(ConvertToVector(list), expectedVector);
+			BOOST_CHECK(VerifyVectors(ConvertToVector(list), expectedVector));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
@@ -107,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 
 		CStringList list;
 		std::list<std::string> pattern;
-
+		size_t expectedSize = 0;
 		///*
 		StringListWithSeveralElement_()
 		{
@@ -117,6 +119,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			list.PushToEnd(fourthElelment);
 			list.PushToEnd(fifthElelment);
 
+			expectedSize = list.GetSize();
 
 			pattern.push_back(firstElelment);
 			pattern.push_back(secondElelment);
@@ -153,7 +156,27 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 		}
 
 		BOOST_AUTO_TEST_SUITE(TestIterator)
+			BOOST_AUTO_TEST_CASE(can_get_value_list_to_help_operator_star)
+			{
+				CStringList::CIterator iter = list.begin();
+				
+				BOOST_CHECK_EQUAL(*iter, firstElelment);
+			}
+			BOOST_AUTO_TEST_CASE(can_get_value_list_to_help_operator_arrow)
+			{
+				CStringList::CIterator iter = list.begin();
+
+				BOOST_CHECK_EQUAL(iter->c_str(), firstElelment);
+			}
 			BOOST_AUTO_TEST_SUITE(TestInsert)
+				BOOST_AUTO_TEST_CASE(after_insert_increase_size)
+				{
+					CStringList::CIterator iter = list.begin();
+					std::string addString = "ethic";
+
+					list.Insert(iter, addString);
+					BOOST_CHECK_EQUAL(list.GetSize(), expectedSize + 1);
+				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_start)
 				{
 					CStringList::CIterator iter = list.begin();
@@ -204,6 +227,13 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			BOOST_AUTO_TEST_SUITE_END()// TestInsert
 
 			BOOST_AUTO_TEST_SUITE(TestRemove)
+				BOOST_AUTO_TEST_CASE(after_remove_decrease_size)
+				{
+					CStringList::CIterator iter = list.begin();
+
+					list.Remove(iter);
+					BOOST_CHECK_EQUAL(list.GetSize(), expectedSize - 1);
+				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_start)
 				{
 					CStringList::CIterator iter = list.begin();
