@@ -19,6 +19,10 @@ CStringList::CIterator::CIterator(bool isEnd
 	m_target = list;
 }
 
+CStringList::CIterator::~CIterator()
+{
+}
+
 void CStringList::Clear()
 {
 	CStringList::CIterator iter = begin();
@@ -36,9 +40,9 @@ CStringList & CStringList::operator=(const CStringList & other)
 	{
 		Clear();
 
-		for (auto iter = other.begin(); iter != other.end(); ++iter)
+		for (auto iter = other.cbegin(); iter != other.cend(); ++iter)
 		{
-			PushToStart(*iter);
+			PushToEnd(*iter);
 		}
 	}
 
@@ -204,32 +208,26 @@ CStringList::CIterator CStringList::end()
 								, this);
 }
 
-const CStringList::CIterator CStringList::begin() const
+const CStringList::CIterator CStringList::cbegin() const
 {
-	///*
 	if (m_begin)
 	{
-		return CStringList::CIterator(false
+		return CStringList::CConstIterator(false
 								, m_begin
 								, this);
 	}
 	else
 	{
-		return end();
+		return cend();
 	}
-	//*/
-	//return begin();
 }
 
-const  CStringList::CIterator CStringList::end() const
+const  CStringList::CIterator CStringList::cend() const
 {
-	/*
-		return CStringList::CIterator(true
-								, weak_ptr<Node>()
-								, this);
+	return CStringList::CConstIterator(true
+									, weak_ptr<Node>()
+									, this);
 
-	*/
-	return end();
 }
 
 CStringList::CIterator& CStringList::Insert(CIterator & iter, const string & data)
@@ -331,4 +329,13 @@ void CStringList::Erase(CIterator & iter)
 	{
 		throw;
 	}
+}
+
+CStringList::CConstIterator::CConstIterator(bool isEnd
+											, std::weak_ptr<Node> const & node
+											, const CStringList * list)
+{
+	m_isEnd = isEnd;
+	m_node = node;
+	m_target = list;
 }

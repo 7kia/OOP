@@ -30,7 +30,9 @@ public:
 		std::string				data;
 	};
 	class CIterator;
+	class CConstIterator;
 	class CReverseIterator;
+	class CConstReverseIterator;
 
 public:
 	static std::shared_ptr<Node> GetLockCopy(const std::weak_ptr<Node> & pointer);
@@ -43,8 +45,8 @@ public:
 
 	CIterator					begin();
 	CIterator					end();
-	const CIterator				begin() const;// TODO : const iterator
-	const CIterator				end() const;
+	const CIterator				cbegin() const ;// TODO : const iterator
+	const CIterator				cend() const;
 
 	CStringList::CIterator&		Insert(CIterator & iter
 										, const std::string & data);

@@ -40,6 +40,7 @@ public:
 			, std::weak_ptr<Node> const& node// TODO refers
 			, CStringList* list);
 
+	virtual ~CIterator();
 public:
 	friend bool const									operator==(const CIterator& first
 																, const CIterator & second);// TODO : NOT TESTS
@@ -48,4 +49,15 @@ public:
 
 	CIterator&							operator++();
 	CIterator&							operator--();
+};
+
+class CStringList::CConstIterator
+	: public CStringList::CIterator
+{
+public:
+	CConstIterator(bool isEnd
+				, std::weak_ptr<Node> const& node// TODO refers
+				, const CStringList* list);
+private:
+	const CStringList* m_target;
 };
