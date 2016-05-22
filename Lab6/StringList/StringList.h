@@ -19,6 +19,8 @@ public:
 	CStringList();
 	~CStringList();
 
+	CStringList& operator=(const CStringList &other);
+
 	struct Node
 	{
 		~Node();// For debug
@@ -31,7 +33,7 @@ public:
 	class CReverseIterator;
 
 public:
-	static std::shared_ptr<Node> GetUnlockCopy(const std::weak_ptr<Node> & pointer);
+	static std::shared_ptr<Node> GetLockCopy(const std::weak_ptr<Node> & pointer);
 
 	void						PushToEnd(const std::string & addString);// TODO : rename
 	void						PushToStart(const std::string & addString);// TODO : rename
@@ -44,9 +46,9 @@ public:
 	const CIterator				begin() const;// TODO : const iterator
 	const CIterator				end() const;
 
-	void						Insert(const CIterator & iter
+	CStringList::CIterator&		Insert(CIterator & iter
 										, const std::string & data);
-	void						Remove(const CIterator & iter);
+	void	Erase(CIterator & iter);
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();

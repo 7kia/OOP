@@ -13,6 +13,12 @@ public:
 	std::weak_ptr<CStringList::Node>					GetNode() const;
 
 	bool const											ReferToEnd() const;
+
+	friend bool const									operator==(const CIteratorData& first
+																, const CIteratorData & second);// TODO : NOT TESTS
+	friend bool const									operator!=(const CIteratorData& first
+																, const CIteratorData & second);// TODO : NOT TESTS
+
 protected:
 	void												CheckIteratorForNotExpired() const;
 protected:
@@ -35,9 +41,11 @@ public:
 			, CStringList* list);
 
 public:
-	bool const							operator==(CIterator const& other) const;// TODO : NOT TESTS
-	bool const							operator!=(CIterator const& other) const;// TODO : NOT TESTS
+	friend bool const									operator==(const CIterator& first
+																, const CIterator & second);// TODO : NOT TESTS
+	friend bool const									operator!=(const CIterator& first
+																, const CIterator & second);// TODO : NOT TESTS
 
-	CIterator&				operator++();
-	CIterator&				operator--();
+	CIterator&							operator++();
+	CIterator&							operator--();
 };

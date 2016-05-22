@@ -12,8 +12,9 @@ CStringList::~CStringList()
 	Clear();	
 }
 
+
 // TODO rename on lock
-std::shared_ptr<CStringList::Node> CStringList::GetUnlockCopy(const std::weak_ptr<Node>& pointer)
+std::shared_ptr<CStringList::Node> CStringList::GetLockCopy(const std::weak_ptr<Node>& pointer)
 {
 	return move(pointer.lock());
 }
@@ -32,7 +33,7 @@ void CStringList::PushToEnd(const std::string & addString)
 			newNode->previous = m_end;
 			newNode->data = addString;
 
-			GetUnlockCopy(m_end)->next = newNode;
+			GetLockCopy(m_end)->next = newNode;
 			m_end = newNode;
 		}
 

@@ -25,81 +25,45 @@ CStringList::CReverseIterator::~CReverseIterator()
 */
 
 
-bool const CStringList::CReverseIterator::operator==(CStringList::CReverseIterator const & other) const
+CStringList::CReverseIterator & CStringList::CReverseIterator::operator++()
 {
-	// TODO : delete copy code
-	if (m_isEnd != other.m_isEnd)
+
+	if (m_isEnd)
 	{
-		return false;
+		throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE);
 	}
-	else if (m_isEnd)
+
+	if (!GetLockCopy(m_node)->previous.expired())
 	{
-		return (m_target == other.m_target);
+		m_node = GetLockCopy(m_node)->previous;
 	}
 	else
 	{
-		return (GetUnlockCopy(m_node).get() == GetUnlockCopy(other.m_node).get());
+		m_isEnd = true;
+		m_node.reset();
 	}
 
-}
-
-bool const CStringList::CReverseIterator::operator!=(CReverseIterator const & other) const
-{
-	return !(*this == other);
-}
-
-CStringList::CReverseIterator & CStringList::CReverseIterator::operator++()
-{
-	try
-	{
-		if (m_isEnd)
-		{
-			throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE);
-		}
-
-		if (!GetUnlockCopy(m_node)->previous.expired())
-		{
-			m_node = GetUnlockCopy(m_node)->previous;
-		}
-		else
-		{
-			m_isEnd = true;
-			m_node.reset();
-		}
-
-		return *this;
-	}
-	catch (const std::runtime_error & exception)
-	{
-		throw;
-	}
+	return *this;
 }
 
 CStringList::CReverseIterator & CStringList::CReverseIterator::operator--()
 {
-	try
+	if (!m_isEnd)
 	{
-		if (!m_isEnd)
+		if (!GetLockCopy(GetLockCopy(m_node)->next))
 		{
-			if (!GetUnlockCopy(GetUnlockCopy(m_node)->next))
-			{
-				throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE);
-			}
-
-			m_node = GetUnlockCopy(m_node)->next;
-		}
-		else
-		{
-			m_isEnd = false;
-			m_node = m_target->m_begin;
+			throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE);
 		}
 
-		return *this;
+		m_node = GetLockCopy(m_node)->next;
 	}
-	catch (const std::runtime_error & exception)
+	else
 	{
-		throw;
+		m_isEnd = false;
+		m_node = m_target->m_begin;
 	}
+
+	return *this;
 }
 
 CStringList::CReverseIterator CStringList::rbegin()
@@ -132,4 +96,16 @@ const CStringList::CReverseIterator CStringList::rbegin() const
 const CStringList::CReverseIterator CStringList::rend() const
 {
 	return rend();
+}
+
+bool const operator==(const CStringList::CReverseIterator & first
+					, const CStringList::CReverseIterator & second)
+{
+	return dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second);
+}
+
+bool const operator!=(const CStringList::CReverseIterator & first
+					, const CStringList::CReverseIterator & second)
+{
+	return dynamic_cast<const CIteratorData*>(&first) != dynamic_cast<const CIteratorData*>(&second);
 }

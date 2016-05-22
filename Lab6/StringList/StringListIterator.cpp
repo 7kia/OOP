@@ -24,40 +24,71 @@ void CStringList::Clear()
 	CStringList::CIterator iter = begin();
 	while(iter != end())
 	{
-		Remove(iter);
+		Erase(iter);
 		iter = begin();
 	}
 }
 
-bool const  CStringList::CIterator::operator==(CIterator const & other) const
+
+CStringList & CStringList::operator=(const CStringList & other)
 {
-	if (m_isEnd != other.m_isEnd)
+	if (this != &other)
+	{
+		Clear();
+
+		for (auto iter = other.begin(); iter != other.end(); ++iter)
+		{
+			PushToStart(*iter);
+		}
+	}
+
+	return *this;
+}
+
+bool const operator==(const CIteratorData & first, const CIteratorData & second)
+{
+	if (first.m_isEnd != second.m_isEnd)
 	{
 		return false;
 	}
-	else if (m_isEnd)
+	else if (first.m_isEnd)
 	{
-		return (m_target == other.m_target);
+		return (first.m_target == second.m_target);
 	}
 	else
 	{
-		return (GetUnlockCopy(m_node).get() == GetUnlockCopy(other.m_node).get());
+		return (CStringList::GetLockCopy(first.m_node).get()
+			== CStringList::GetLockCopy(second.m_node).get());
 	}
 }
 
-bool const CStringList::CIterator::operator!=(CIterator const& other) const
+bool const operator!=(const CIteratorData & first
+					, const CIteratorData & second)
 {
-	return !(*this == other);
+	return !(first == second);
 }
+
+bool const operator==(const CStringList::CIterator & first
+					, const CStringList::CIterator & second)
+{
+	return dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second);
+}
+
+bool const operator!=(const CStringList::CIterator & first
+					, const CStringList::CIterator & second)
+{
+	return *dynamic_cast<const CIteratorData*>(&first) != *dynamic_cast<const CIteratorData*>(&second);
+}
+//	return !(dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second));
+
 
 string& CIteratorData::operator*() const
 {
 	try
 	{
-		assert(!m_isEnd);
 		CheckIteratorForNotExpired();
 
-		return CStringList::GetUnlockCopy(m_node)->data;
+		return CStringList::GetLockCopy(m_node)->data;
 	}
 	catch (const std::runtime_error & exception)
 	{
@@ -89,9 +120,9 @@ CStringList::CIterator& CStringList::CIterator::operator++()
 			throw runtime_error(MESSAGE_ITERATOR_HAS_NOT_INCREMENTABLE);
 		}
 
-		if (GetUnlockCopy(m_node)->next)
+		if (GetLockCopy(m_node)->next)
 		{
-			m_node = GetUnlockCopy(m_node)->next;
+			m_node = GetLockCopy(m_node)->next;
 		}
 		else
 		{
@@ -110,29 +141,23 @@ CStringList::CIterator& CStringList::CIterator::operator++()
 
 CStringList::CIterator& CStringList::CIterator::operator--()
 {
-	try
-	{
-		if (!m_isEnd)
-		{
-			if (!GetUnlockCopy(GetUnlockCopy(m_node)->previous))
-			{
-				throw runtime_error(MESSAGE_ITERATOR_HAS_NOT_DECREMENTABLE);
-			}
 
-			m_node = GetUnlockCopy(GetUnlockCopy(m_node)->previous);
-		}
-		else
+	if (!m_isEnd)
+	{
+		if (!GetLockCopy(GetLockCopy(m_node)->previous))
 		{
-			m_isEnd = false;
-			m_node = m_target->m_end;
+			throw runtime_error(MESSAGE_ITERATOR_HAS_NOT_DECREMENTABLE);
 		}
 
-		return *this;
+		m_node = GetLockCopy(GetLockCopy(m_node)->previous);
 	}
-	catch (const std::runtime_error & exception)
+	else
 	{
-		throw;
+		m_isEnd = false;
+		m_node = m_target->m_end;
 	}
+
+	return *this;
 }
 
 CIteratorData::~CIteratorData()
@@ -181,7 +206,7 @@ CStringList::CIterator CStringList::end()
 
 const CStringList::CIterator CStringList::begin() const
 {
-	/*
+	///*
 	if (m_begin)
 	{
 		return CStringList::CIterator(false
@@ -192,8 +217,8 @@ const CStringList::CIterator CStringList::begin() const
 	{
 		return end();
 	}
-	*/
-	return begin();
+	//*/
+	//return begin();
 }
 
 const  CStringList::CIterator CStringList::end() const
@@ -207,7 +232,7 @@ const  CStringList::CIterator CStringList::end() const
 	return end();
 }
 
-void CStringList::Insert(const CIterator & iter, const string & data)
+CStringList::CIterator& CStringList::Insert(CIterator & iter, const string & data)
 {
 	try
 	{
@@ -219,7 +244,7 @@ void CStringList::Insert(const CIterator & iter, const string & data)
 			if (m_begin)
 			{
 				newNode->previous = m_end;
-				GetUnlockCopy(m_end)->next = newNode;
+				GetLockCopy(m_end)->next = newNode;
 				m_end = newNode;
 			}
 			else
@@ -230,16 +255,15 @@ void CStringList::Insert(const CIterator & iter, const string & data)
 		}
 		else
 		{
-			if (GetUnlockCopy(iter.GetNode()).get() == m_begin.get())
+			if (GetLockCopy(iter.GetNode()).get() == m_begin.get())
 			{
-				newNode->next = m_begin;
-				m_begin->previous = newNode;
-				m_begin = newNode;
+				PushToStart(data);
+				return iter;
 			}
 			else
 			{
-				shared_ptr<Node> nextNode(GetUnlockCopy(iter.GetNode()));
-				shared_ptr<Node> prevNode(GetUnlockCopy(nextNode->previous));
+				shared_ptr<Node> nextNode(GetLockCopy(iter.GetNode()));
+				shared_ptr<Node> prevNode(GetLockCopy(nextNode->previous));
 
 				newNode->previous = prevNode;
 				newNode->next = nextNode;
@@ -250,6 +274,7 @@ void CStringList::Insert(const CIterator & iter, const string & data)
 		}
 
 		m_size++;
+		return iter;
 	}
 	catch (const std::bad_alloc & exception)
 	{
@@ -257,14 +282,14 @@ void CStringList::Insert(const CIterator & iter, const string & data)
 	}
 }
 
-void CStringList::Remove(const CIterator & iter)
+void CStringList::Erase(CIterator & iter)
 {
 	try
 	{
 		CheckListForNotEmpty();
 
-		shared_ptr<Node> deleteNode = GetUnlockCopy(iter.GetNode());
-		shared_ptr<Node> prevNode = GetUnlockCopy(deleteNode->previous);
+		shared_ptr<Node> deleteNode = GetLockCopy(iter.GetNode());
+		shared_ptr<Node> prevNode = GetLockCopy(deleteNode->previous);
 		shared_ptr<Node> nextNode = deleteNode->next;
 
 		if (prevNode)
@@ -291,10 +316,12 @@ void CStringList::Remove(const CIterator & iter)
 			{
 				m_begin.reset();
 				m_end.reset();
+			
 			}
 		}
 
 		m_size--;
+		//return iter;
 	}
 	catch (const std::bad_alloc & exception)
 	{
@@ -305,5 +332,3 @@ void CStringList::Remove(const CIterator & iter)
 		throw;
 	}
 }
-
-

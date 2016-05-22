@@ -231,14 +231,14 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				{
 					CStringList::CIterator iter = list.begin();
 
-					list.Remove(iter);
+					list.Erase(iter);
 					BOOST_CHECK_EQUAL(list.GetSize(), expectedSize - 1);
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_start)
 				{
 					CStringList::CIterator iter = list.begin();
 
-					list.Remove(iter);
+					list.Erase(iter);
 					BOOST_CHECK_EQUAL(*(list.begin()), secondElelment);			
 					////////////////////////////////////////////
 					// pattern
@@ -252,7 +252,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 
 					++iter;
 					++iter;
-					list.Remove(iter);
+					list.Erase(iter);
 
 					iter = list.begin();
 					++iter;
@@ -276,14 +276,14 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				BOOST_AUTO_TEST_CASE(can_insert_in_end)
 				{
 					CStringList::CIterator iter = list.end();
-					list.Remove(--iter);
+					list.Erase(--iter);
 
 					iter = list.end();
 					BOOST_CHECK_EQUAL(*(--iter), fourthElelment);
 					////////////////////////////////////////////
 					// pattern
 					auto patternIter = pattern.end();
-					pattern.remove(*(--patternIter));
+					pattern.erase(--patternIter);
 
 					patternIter = pattern.end();
 					BOOST_CHECK_EQUAL(*(--patternIter), fourthElelment);
@@ -348,6 +348,26 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 
 				BOOST_CHECK_THROW(--iter, std::runtime_error);
 			}
+
+			BOOST_AUTO_TEST_SUITE(TestOperatorAssigned)
+				BOOST_AUTO_TEST_CASE(can_assigned_empty_list)
+				{
+					list = CStringList();
+				}
+				BOOST_AUTO_TEST_CASE(can_assigned_not_empty_list)
+				{
+					CStringList secondList;
+					secondList.PushToEnd("sda");
+					secondList.PushToEnd("dfg");
+					secondList.PushToEnd("qwesdf");
+
+					list = secondList;
+				}
+				BOOST_AUTO_TEST_CASE(can_assigned_ownself_list)
+				{
+					list = list;
+				}
+			BOOST_AUTO_TEST_SUITE_END()// TestOperatorAssigned
 		BOOST_AUTO_TEST_SUITE_END()// TestIterator
 
 		BOOST_AUTO_TEST_SUITE(TestReverseIterator)
