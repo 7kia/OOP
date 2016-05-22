@@ -50,36 +50,56 @@ bool const CStringList::CReverseIterator::operator!=(CReverseIterator const & ot
 
 CStringList::CReverseIterator & CStringList::CReverseIterator::operator++()
 {
-	// TODO : delete copy code
-	assert(!m_isEnd);
-
-	if (GetUnlockCopy(GetUnlockCopy(m_node)->previous))
+	try
 	{
-		m_node = GetUnlockCopy(m_node)->previous;
-	}
-	else
-	{
-		m_isEnd = true;
-		m_node.reset();
-	}
+		if (m_isEnd)
+		{
+			throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE);
+		}
 
-	return *this;
+		if (!GetUnlockCopy(m_node)->previous.expired())
+		{
+			m_node = GetUnlockCopy(m_node)->previous;
+		}
+		else
+		{
+			m_isEnd = true;
+			m_node.reset();
+		}
+
+		return *this;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 CStringList::CReverseIterator & CStringList::CReverseIterator::operator--()
 {
-	if (!m_isEnd)
+	try
 	{
-		assert(GetUnlockCopy(m_node)->next);
-		m_node = GetUnlockCopy(m_node)->next;
-	}
-	else
-	{
-		m_isEnd = false;
-		m_node = m_target->m_begin;
-	}
+		if (!m_isEnd)
+		{
+			if (!GetUnlockCopy(GetUnlockCopy(m_node)->next))
+			{
+				throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE);
+			}
 
-	return *this;
+			m_node = GetUnlockCopy(m_node)->next;
+		}
+		else
+		{
+			m_isEnd = false;
+			m_node = m_target->m_begin;
+		}
+
+		return *this;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 CStringList::CReverseIterator CStringList::rbegin()

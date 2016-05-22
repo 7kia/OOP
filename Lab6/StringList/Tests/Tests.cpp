@@ -324,6 +324,13 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				auto patternIter = pattern.begin();
 				BOOST_CHECK_EQUAL(*(++patternIter), secondElelment);
 			}
+			BOOST_AUTO_TEST_CASE(throw_exception_for_try_increment_iterator_have_reference_to_end)
+			{
+				CStringList::CIterator iter = list.end();
+
+				BOOST_CHECK_THROW(++iter, std::runtime_error);
+			}
+
 			BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
 			{
 				CStringList::CIterator iter = list.end();
@@ -334,6 +341,12 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				auto patternIter = pattern.end();
 				BOOST_CHECK_EQUAL(*(--patternIter), list.back());
 
+			}
+			BOOST_AUTO_TEST_CASE(throw_exception_for_try_decrement_iterator_have_reference_to_start)
+			{
+				CStringList::CIterator iter = list.begin();
+
+				BOOST_CHECK_THROW(--iter, std::runtime_error);
 			}
 		BOOST_AUTO_TEST_SUITE_END()// TestIterator
 
@@ -348,6 +361,12 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				auto patternIter = pattern.rend();
 				BOOST_CHECK_EQUAL(*(--patternIter), list.front());
 			}
+			BOOST_AUTO_TEST_CASE(throw_exception_for_try_decrement_reverse_iterator_have_reference_to_end)
+			{
+				CStringList::CReverseIterator iter = list.rbegin();
+
+				BOOST_CHECK_THROW(--iter, std::runtime_error);
+			}
 			BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
 			{
 				CStringList::CReverseIterator iter = list.rbegin();
@@ -357,6 +376,12 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				// pattern
 				auto patternIter = pattern.rbegin();
 				BOOST_CHECK_EQUAL(*(++patternIter), fourthElelment);
+			}
+			BOOST_AUTO_TEST_CASE(throw_exception_for_try_increment_reverse_iterator_have_reference_to_begin)
+			{
+				CStringList::CReverseIterator iter = list.rend();
+
+				BOOST_CHECK_THROW(++iter, std::runtime_error);
 			}
 			BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
 			{

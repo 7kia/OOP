@@ -6,6 +6,12 @@
 #include <boost/algorithm/string.hpp>
 
 static const std::string MESSAGE_EMPTY_LIST = "List is empty.";
+static const std::string MESSAGE_EXPIRED_ITERATOR = "Iterator is expired.";
+static const std::string MESSAGE_ITERATOR_HAS_NOT_INCREMENTABLE = "Iterator has not incrementable.";
+static const std::string MESSAGE_ITERATOR_HAS_NOT_DECREMENTABLE = "Iterator has not decrementable.";
+static const std::string MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE = "Reverse iterator has not incrementable.";
+static const std::string MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE = "Reverse iterator has not decrementable.";
+
 
 class CStringList
 {
@@ -44,7 +50,7 @@ public:
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
-	const CReverseIterator		rbegin() const;
+	const CReverseIterator		rbegin() const;// TODO : reverse const iterator
 	const CReverseIterator		rend() const;
 
 

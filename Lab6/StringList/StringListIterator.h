@@ -14,6 +14,8 @@ public:
 
 	bool const											ReferToEnd() const;
 protected:
+	void												CheckIteratorForNotExpired() const;
+protected:
 	std::weak_ptr<CStringList::Node>					m_node;
 	CStringList*										m_target;
 

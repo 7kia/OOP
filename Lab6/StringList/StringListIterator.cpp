@@ -52,46 +52,87 @@ bool const CStringList::CIterator::operator!=(CIterator const& other) const
 
 string& CIteratorData::operator*() const
 {
-	assert(!m_isEnd);
-	return CStringList::GetUnlockCopy(m_node)->data;
+	try
+	{
+		assert(!m_isEnd);
+		CheckIteratorForNotExpired();
+
+		return CStringList::GetUnlockCopy(m_node)->data;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 string* CIteratorData::operator->() const
 {
-	return &(*(*this));
+	try
+	{
+		assert(!m_isEnd);
+		CheckIteratorForNotExpired();
+
+		return &(*(*this));
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 CStringList::CIterator& CStringList::CIterator::operator++()
 {
-	assert(!m_isEnd);
-
-	if (GetUnlockCopy(m_node)->next)
+	try
 	{
-		m_node = GetUnlockCopy(m_node)->next;
-	}
-	else
-	{
-		m_isEnd = true;
-		m_node.reset();
-	}
+		if (m_isEnd)
+		{
+			throw runtime_error(MESSAGE_ITERATOR_HAS_NOT_INCREMENTABLE);
+		}
 
-	return *this;
+		if (GetUnlockCopy(m_node)->next)
+		{
+			m_node = GetUnlockCopy(m_node)->next;
+		}
+		else
+		{
+			m_isEnd = true;
+			m_node.reset();
+		}
+
+
+		return *this;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 CStringList::CIterator& CStringList::CIterator::operator--()
 {
-	if (!m_isEnd)
+	try
 	{
-		assert(GetUnlockCopy(GetUnlockCopy(m_node)->previous));
-		m_node = GetUnlockCopy(GetUnlockCopy(m_node)->previous);
-	}
-	else
-	{
-		m_isEnd = false;
-		m_node = m_target->m_end;
-	}
+		if (!m_isEnd)
+		{
+			if (!GetUnlockCopy(GetUnlockCopy(m_node)->previous))
+			{
+				throw runtime_error(MESSAGE_ITERATOR_HAS_NOT_DECREMENTABLE);
+			}
 
-	return *this;
+			m_node = GetUnlockCopy(GetUnlockCopy(m_node)->previous);
+		}
+		else
+		{
+			m_isEnd = false;
+			m_node = m_target->m_end;
+		}
+
+		return *this;
+	}
+	catch (const std::runtime_error & exception)
+	{
+		throw;
+	}
 }
 
 CIteratorData::~CIteratorData()
@@ -106,6 +147,14 @@ weak_ptr<CStringList::Node> CIteratorData::GetNode() const
 bool const CIteratorData::ReferToEnd() const
 {
 	return m_isEnd;
+}
+
+void CIteratorData::CheckIteratorForNotExpired() const
+{
+	if (m_node.expired())
+	{
+		throw(std::runtime_error(MESSAGE_EXPIRED_ITERATOR));
+	}
 }
 
 
