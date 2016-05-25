@@ -1,26 +1,110 @@
 #pragma once
 
-#include "StringListIterator.h"
+#include "stdafx.h"
+#include "StringListReverseIteratorInit.h"
 
+using namespace std;
 
-class CStringList::CReverseIterator
-	: public CChangeItaratorData
-	, public std::iterator<std::bidirectional_iterator_tag, std::string>
+template<typename T>
+CStringList<T>::CReverseIterator::CReverseIterator()
 {
-public:
-	CReverseIterator();
-	CReverseIterator(bool isEnd
-		, std::weak_ptr<Node> const& node// TODO refers
-		, CStringList* list);
+	m_isEnd = true;
+	m_target = nullptr;
+};
 
+template<typename T>
+CStringList<T>::CReverseIterator::CReverseIterator(bool isEnd
+	, const std::weak_ptr<Node> & node
+	, CStringList<T> * list)
+{
+	m_isEnd = isEnd;
+	m_node = node;
+	m_target = list;
+};
 
-	friend bool const					operator==(const CReverseIterator& first
-													, const CReverseIterator & second);// TODO : NOT TESTS
-	friend bool const					operator!=(const CReverseIterator& first
-													, const CReverseIterator & second);// TODO : NOT TESTS
+/*
+CStringList<T>::CReverseIterator::~CReverseIterator()
+{
+}
+*/
 
-	//~CReverseIterator();
-public:
-	CReverseIterator&					operator++();
-	CReverseIterator&					operator--();
+template<typename T>
+CStringList<T>::CReverseIterator & CStringList<T>::CReverseIterator::operator++()
+{
+
+	if (m_isEnd)
+	{
+		throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE);
+	}
+
+	if (!GetLockCopy(m_node)->previous.expired())
+	{
+		m_node = GetLockCopy(m_node)->previous;
+	}
+	else
+	{
+		m_isEnd = true;
+		m_node.reset();
+	}
+
+	return *this;
+};
+
+template<typename T>
+CStringList<T>::CReverseIterator & CStringList<T>::CReverseIterator::operator--()
+{
+	if (!m_isEnd)
+	{
+		if (!GetLockCopy(GetLockCopy(m_node)->next))
+		{
+			throw runtime_error(MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE);
+		}
+
+		m_node = GetLockCopy(m_node)->next;
+	}
+	else
+	{
+		m_isEnd = false;
+		m_node = m_target->m_begin;
+	}
+
+	return *this;
+};
+
+template<typename T>
+CStringList<T>::CReverseIterator CStringList<T>::rbegin()
+{
+	if (m_begin)
+	{
+		return CStringList<T>::CReverseIterator(false
+											, m_end
+											, this);
+	}
+	else
+	{
+		return rend();
+
+	}
+};
+
+template<typename T>
+CStringList<T>::CReverseIterator CStringList<T>::rend()
+{
+	return CStringList<T>::CReverseIterator(true
+		, weak_ptr<Node>()
+		, this);
+};
+
+template<typename T>
+bool const operator==(const CStringList<T>::CReverseIterator & first
+					, const CStringList<T>::CReverseIterator & second)
+{
+	return dynamic_cast<const CIteratorData<T>*>(&first) == dynamic_cast<const CIteratorData<T>*>(&second);
+};
+
+template<typename T>
+bool const operator!=(const CStringList<T>::CReverseIterator & first
+					, const CStringList<T>::CReverseIterator & second)
+{
+	return dynamic_cast<const CIteratorData<T>*>(&first) != dynamic_cast<const CIteratorData<T>*>(&second);
 };

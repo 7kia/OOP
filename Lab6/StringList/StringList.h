@@ -1,75 +1,152 @@
 ﻿#pragma once
 
-#include <list>
+#include "stdafx.h"
+#include "StringListInit.h"
+#include "StringListIterator.h"
+#include "ConstStringListIterator.h"
+#include "ConstStringListReverseIterator.h"
+using namespace std;
 
-#include <string>
-#include <boost/algorithm/string.hpp>
-
-static const std::string MESSAGE_EMPTY_LIST = "List is empty.";
-static const std::string MESSAGE_EXPIRED_ITERATOR = "Iterator is expired.";
-static const std::string MESSAGE_ITERATOR_HAS_NOT_INCREMENTABLE = "Iterator has not incrementable.";
-static const std::string MESSAGE_ITERATOR_HAS_NOT_DECREMENTABLE = "Iterator has not decrementable.";
-static const std::string MESSAGE_REVERSE_ITERATOR_HAS_NOT_INCREMENTABLE = "Reverse iterator has not incrementable.";
-static const std::string MESSAGE_REVERSE_ITERATOR_HAS_NOT_DECREMENTABLE = "Reverse iterator has not decrementable.";
-
-
-class CStringList
+template<typename T>
+CStringList<T>::CStringList<T>()
 {
-public:
-	CStringList();
-	~CStringList();
-
-	CStringList& operator=(const CStringList &other);
-
-	struct Node
-	{
-		~Node();// For debug
-		std::weak_ptr<Node>		previous;
-		std::shared_ptr<Node>	next;
-
-		std::string				data;
-	};
-	class CIterator;
-	class CConstIterator;
-	class CReverseIterator;
-	class CConstReverseIterator;
-
-public:
-	static std::shared_ptr<Node> GetLockCopy(const std::weak_ptr<Node> & pointer);
-
-	void						PushToEnd(const std::string & addString);// TODO : rename
-	void						PushToStart(const std::string & addString);// TODO : rename
-
-	std::string					front() const;
-	std::string					back() const;
-
-	CIterator					begin();
-	CIterator					end();
-	CConstIterator				cbegin() const ;// TODO : const iterator
-	CConstIterator				cend() const;
-
-	CStringList::CIterator&		Insert(CIterator & iter
-										, const std::string & data);
-	void						Erase(CIterator & iter);
-
-	CReverseIterator			rbegin();
-	CReverseIterator			rend();
-	CConstReverseIterator		crbegin() const;// TODO : reverse const iterator
-	CConstReverseIterator		crend() const;
-
-
-	size_t						GetSize() const;
-	bool						IsEmpty() const;
-
-	void						Clear();
-
-private:
-	void						CreateFirstNode(const std::string & data);
-	void						CheckListForNotEmpty() const;
-private:
-	size_t						m_size = 0;
-
-	std::shared_ptr<Node>		m_begin;
-	std::weak_ptr<Node>			m_end;
-
 };
+
+template<typename T>
+CStringList<T>::~CStringList()
+{	
+	Clear();	
+};
+
+
+// TODO rename on lock
+template<typename T>
+std::shared_ptr<CStringList<T>::Node> CStringList<T>::GetLockCopy(const std::weak_ptr<CStringList<T>::Node>& pointer)
+{
+	return move(pointer.lock());
+};
+
+template<typename T>
+void CStringList<T>::PushToEnd(const std::string & addString)
+{
+	try
+	{
+		if (m_begin.get() == nullptr)
+		{
+			CreateFirstNode(addString);
+		}
+		else
+		{
+			std::shared_ptr<Node> newNode = make_shared<Node>();
+			newNode->previous = m_end;
+			newNode->data = addString;
+
+			GetLockCopy(m_end)->next = newNode;
+			m_end = newNode;
+		}
+
+		m_size++;
+	}
+	catch (...)//(const std::bad_alloc & exception)
+	{
+		throw;
+	}
+};
+
+template<typename T>
+void CStringList<T>::PushToStart(const std::string & addString)
+{
+	try
+	{
+		if (m_begin.get() == nullptr)
+		{
+			CreateFirstNode(addString);
+		}
+		else
+		{
+			std::shared_ptr<Node> newNode = make_shared<Node>();
+
+			newNode->next = m_begin;
+			newNode->data = addString;
+
+			m_begin->previous = newNode;
+
+			m_begin = newNode;
+		}
+
+		m_size++;
+	}
+	catch (...)//(const std::bad_alloc & exception)
+	{
+		throw;
+	}
+};
+
+template<typename T>
+std::string CStringList<T>::front() const
+{
+	try
+	{
+		CheckListForNotEmpty();
+
+		return m_begin->data;
+	}
+	catch (...)//(const std::runtime_error & exception)
+	{
+		throw;
+	}
+};
+
+template<typename T>
+std::string CStringList<T>::back() const
+{
+	try
+	{
+		CheckListForNotEmpty();
+
+		return m_end.lock()->data;
+	}
+	catch (...)//(const std::runtime_error & exception)
+	{
+		throw;
+	}
+};
+
+template<typename T>
+size_t CStringList<T>::GetSize() const
+{
+	return m_size;
+};
+
+template<typename T>
+bool CStringList<T>::IsEmpty() const
+{
+	return GetSize() == 0;
+};
+
+template<typename T>
+void CStringList<T>::CreateFirstNode(const std::string & data)
+{
+	std::shared_ptr<Node> newNode = make_shared<Node>();
+
+	newNode->data = data;
+
+	m_begin = newNode;
+
+	m_end = m_begin;
+};
+
+template<typename T>
+void CStringList<T>::CheckListForNotEmpty() const
+{
+	if (IsEmpty())
+	{
+		throw runtime_error(MESSAGE_EMPTY_LIST);
+	}
+};
+
+template<typename T>
+CStringList<T>::Node::~Node()
+{
+};
+

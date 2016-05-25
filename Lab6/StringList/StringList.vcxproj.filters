@@ -24,19 +24,19 @@
     <ClInclude Include="targetver.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="StringList.h">
+    <ClInclude Include="StringListReverseIteratorInit.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="StringListIterator.h">
+    <ClInclude Include="StringListIteratorInit.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="StringListReverseIterator.h">
+    <ClInclude Include="StringListInit.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="ConstStringListIterator.h">
+    <ClInclude Include="ConstStringListReverseIteratorInit.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="ConstStringListReverseIterator.h">
+    <ClInclude Include="ConstStringListIteratorInit.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,19 +47,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="StringList.cpp">
+    <ClCompile Include="StringListReverseIterator.h">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="StringListIterator.cpp">
+    <ClCompile Include="StringListIterator.h">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="StringListReverseIterator.cpp">
+    <ClCompile Include="StringList.h">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ConstStringListIterator.cpp">
+    <ClCompile Include="ConstStringListReverseIterator.h">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ConstStringListReverseIterator.cpp">
+    <ClCompile Include="ConstStringListIterator.h">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

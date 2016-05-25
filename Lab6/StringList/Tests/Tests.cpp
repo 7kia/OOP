@@ -23,7 +23,7 @@ bool VerifyVectors(const vector<string> &first
 	return true;
 }
 
-vector<string> ConvertToVector(CStringList & list)
+vector<string> ConvertToVector(CStringList<string> & list)
 {
 	vector<string> result;
 
@@ -39,7 +39,7 @@ vector<string> ConvertToVector(CStringList & list)
 BOOST_AUTO_TEST_SUITE(EmptyStringList)
 	struct EmptyStringList_
 	{
-		CStringList list;
+		CStringList<string> list;
 	};
 
 	BOOST_FIXTURE_TEST_SUITE(EmptyStringList, EmptyStringList_)
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 		std::string fourthElelment = "CV";
 		std::string fifthElelment = "TM";
 
-		CStringList list;
+		CStringList<string> list;
 		std::list<std::string> pattern;
 		size_t expectedSize = 0;
 		///*
@@ -158,20 +158,20 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 		BOOST_AUTO_TEST_SUITE(TestIterator)
 			BOOST_AUTO_TEST_CASE(can_get_value_list_to_help_operator_star)
 			{
-				CStringList::CIterator iter = list.begin();
+				CStringList<string>::CIterator iter = list.begin();
 				
 				BOOST_CHECK_EQUAL(*iter, firstElelment);
 			}
 			BOOST_AUTO_TEST_CASE(can_get_value_list_to_help_operator_arrow)
 			{
-				CStringList::CIterator iter = list.begin();
+				CStringList<string>::CIterator iter = list.begin();
 
 				BOOST_CHECK_EQUAL(iter->c_str(), firstElelment);
 			}
 			BOOST_AUTO_TEST_SUITE(TestInsert)
 				BOOST_AUTO_TEST_CASE(after_insert_increase_size)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 					std::string addString = "ethic";
 
 					list.Insert(iter, addString);
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_start)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 					std::string addString = "ethic";
 
 					list.Insert(iter, addString);
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_middle)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 					std::string addString = "Fire";
 
 					++iter;
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_end)
 				{
-					CStringList::CIterator iter = list.end();
+					CStringList<string>::CIterator iter = list.end();
 					std::string addString = "Memory";
 
 					list.Insert(--iter, addString);
@@ -229,14 +229,14 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			BOOST_AUTO_TEST_SUITE(TestRemove)
 				BOOST_AUTO_TEST_CASE(after_remove_decrease_size)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 
 					list.Erase(iter);
 					BOOST_CHECK_EQUAL(list.GetSize(), expectedSize - 1);
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_start)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 
 					list.Erase(iter);
 					BOOST_CHECK_EQUAL(*(list.begin()), secondElelment);			
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_middle)
 				{
-					CStringList::CIterator iter = list.begin();
+					CStringList<string>::CIterator iter = list.begin();
 
 					++iter;
 					++iter;
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				}
 				BOOST_AUTO_TEST_CASE(can_insert_in_end)
 				{
-					CStringList::CIterator iter = list.end();
+					CStringList<string>::CIterator iter = list.end();
 					list.Erase(--iter);
 
 					iter = list.end();
@@ -293,19 +293,19 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			BOOST_AUTO_TEST_CASE(iterator_not_must_delete_element_on_which_have_refer_after_destroy)
 			{
 				BOOST_CHECK_NO_THROW(
-					CStringList::CIterator iter1;
+					CStringList<string>::CIterator iter1;
 					{
-						CStringList L2;
+						CStringList<string> L2;
 						L2.PushToStart("1");
 
-						CStringList::CIterator iter2 = L2.begin();
+						CStringList<string>::CIterator iter2 = L2.begin();
 						iter1 = iter2;
 					}
 				);
 			}
 			BOOST_AUTO_TEST_CASE(list_can_get_iterator_for_first_element)
 			{
-				CStringList::CIterator iter = list.begin();
+				CStringList<string>::CIterator iter = list.begin();
 	
 				BOOST_CHECK_EQUAL(*iter, list.front());
 				////////////////////////////////////////////
@@ -316,7 +316,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			}
 			BOOST_AUTO_TEST_CASE(use_increment_iterator_can_get_reference_for_next)
 			{
-				CStringList::CIterator iter = list.begin();
+				CStringList<string>::CIterator iter = list.begin();
 
 				BOOST_CHECK_EQUAL(*(++iter), secondElelment);
 				////////////////////////////////////////////
@@ -326,14 +326,14 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			}
 			BOOST_AUTO_TEST_CASE(throw_exception_for_try_increment_iterator_have_reference_to_end)
 			{
-				CStringList::CIterator iter = list.end();
+				CStringList<string>::CIterator iter = list.end();
 
 				BOOST_CHECK_THROW(++iter, std::runtime_error);
 			}
 
 			BOOST_AUTO_TEST_CASE(use_decrement_end_iterator_can_get_reference_for_last)
 			{
-				CStringList::CIterator iter = list.end();
+				CStringList<string>::CIterator iter = list.end();
 
 				BOOST_CHECK_EQUAL(*(--iter), list.back());
 				////////////////////////////////////////////
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			}
 			BOOST_AUTO_TEST_CASE(throw_exception_for_try_decrement_iterator_have_reference_to_start)
 			{
-				CStringList::CIterator iter = list.begin();
+				CStringList<string>::CIterator iter = list.begin();
 
 				BOOST_CHECK_THROW(--iter, std::runtime_error);
 			}
@@ -352,13 +352,13 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			BOOST_AUTO_TEST_SUITE(TestOperatorAssigned)
 				BOOST_AUTO_TEST_CASE(can_assigned_empty_list)
 				{
-					list = CStringList();
+					list = CStringList<string>();
 
-					VerifyVectors(ConvertToVector(list), ConvertToVector(CStringList()));
+					VerifyVectors(ConvertToVector(list), ConvertToVector(CStringList<string>()));
 				}
 				BOOST_AUTO_TEST_CASE(can_assigned_not_empty_list)
 				{
-					CStringList secondList;
+					CStringList<string> secondList;
 					secondList.PushToEnd("sda");
 					secondList.PushToEnd("dfg");
 					secondList.PushToEnd("qwesdf");
@@ -377,7 +377,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 		BOOST_AUTO_TEST_SUITE(TestReverseIterator)
 			BOOST_AUTO_TEST_CASE(use_decrement_reverse_iterator_can_get_first_element)
 			{
-				CStringList::CReverseIterator iter = list.rend();
+				CStringList<string>::CReverseIterator iter = list.rend();
 
 				BOOST_CHECK_EQUAL(*(--iter), list.front());
 				////////////////////////////////////////////
@@ -387,13 +387,13 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			}
 			BOOST_AUTO_TEST_CASE(throw_exception_for_try_decrement_reverse_iterator_have_reference_to_end)
 			{
-				CStringList::CReverseIterator iter = list.rbegin();
+				CStringList<string>::CReverseIterator iter = list.rbegin();
 
 				BOOST_CHECK_THROW(--iter, std::runtime_error);
 			}
 			BOOST_AUTO_TEST_CASE(use_increment_reverse_iterator_can_get_previous_element)
 			{
-				CStringList::CReverseIterator iter = list.rbegin();
+				CStringList<string>::CReverseIterator iter = list.rbegin();
 
 				BOOST_CHECK_EQUAL(*(++iter), fourthElelment);
 				////////////////////////////////////////////
@@ -403,13 +403,13 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			}
 			BOOST_AUTO_TEST_CASE(throw_exception_for_try_increment_reverse_iterator_have_reference_to_begin)
 			{
-				CStringList::CReverseIterator iter = list.rend();
+				CStringList<string>::CReverseIterator iter = list.rend();
 
 				BOOST_CHECK_THROW(++iter, std::runtime_error);
 			}
 			BOOST_AUTO_TEST_CASE(use_reverse_iterator_can_get_reference_for_last)
 			{
-				CStringList::CReverseIterator iter = list.rbegin();
+				CStringList<string>::CReverseIterator iter = list.rbegin();
 
 				BOOST_CHECK_EQUAL(*iter, list.back());
 				////////////////////////////////////////////
@@ -422,7 +422,7 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 			BOOST_AUTO_TEST_SUITE(ConstructCopy)
 				BOOST_AUTO_TEST_CASE(can_assigned_not_empty_list)
 				{
-					CStringList secondList;
+					CStringList<string> secondList;
 				
 					secondList = list;
 
