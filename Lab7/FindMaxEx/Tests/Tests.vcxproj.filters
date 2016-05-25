@@ -30,6 +30,12 @@
     <ClInclude Include="..\FindMaxEx.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\FindMaxExDeclaration.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FindMaxExInitialization.h">
+      <Filter>TestClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -37,9 +43,6 @@
     </ClCompile>
     <ClCompile Include="Tests.cpp">
       <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="..\FindMaxEx.cpp">
-      <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
