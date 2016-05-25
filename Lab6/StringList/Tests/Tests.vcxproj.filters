@@ -30,19 +30,19 @@
     <ClInclude Include="Tests.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="..\StringList.h">
+    <ClInclude Include="..\StringListReverseIteratorInit.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
-    <ClInclude Include="..\StringListIterator.h">
+    <ClInclude Include="..\StringListIteratorInit.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
-    <ClInclude Include="..\StringListReverseIterator.h">
+    <ClInclude Include="..\StringListInit.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
-    <ClInclude Include="..\ConstStringListIterator.h">
+    <ClInclude Include="..\ConstStringListReverseIteratorInit.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
-    <ClInclude Include="..\ConstStringListReverseIterator.h">
+    <ClInclude Include="..\ConstStringListIteratorInit.h">
       <Filter>TestClasses</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,19 +53,19 @@
     <ClCompile Include="Tests.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="..\StringList.cpp">
+    <ClCompile Include="..\StringListReverseIterator.h">
       <Filter>TestClasses</Filter>
     </ClCompile>
-    <ClCompile Include="..\StringListIterator.cpp">
+    <ClCompile Include="..\StringListIterator.h">
       <Filter>TestClasses</Filter>
     </ClCompile>
-    <ClCompile Include="..\StringListReverseIterator.cpp">
+    <ClCompile Include="..\StringList.h">
       <Filter>TestClasses</Filter>
     </ClCompile>
-    <ClCompile Include="..\ConstStringListIterator.cpp">
+    <ClCompile Include="..\ConstStringListReverseIterator.h">
       <Filter>TestClasses</Filter>
     </ClCompile>
-    <ClCompile Include="..\ConstStringListReverseIterator.cpp">
+    <ClCompile Include="..\ConstStringListIterator.h">
       <Filter>TestClasses</Filter>
     </ClCompile>
   </ItemGroup>

@@ -149,21 +149,21 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ConstStringListIterator.h" />
-    <ClInclude Include="..\ConstStringListReverseIterator.h" />
-    <ClInclude Include="..\StringList.h" />
-    <ClInclude Include="..\StringListIterator.h" />
-    <ClInclude Include="..\StringListReverseIterator.h" />
+    <ClInclude Include="..\ConstStringListIteratorInit.h" />
+    <ClInclude Include="..\ConstStringListReverseIteratorInit.h" />
+    <ClInclude Include="..\StringListInit.h" />
+    <ClInclude Include="..\StringListIteratorInit.h" />
+    <ClInclude Include="..\StringListReverseIteratorInit.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\ConstStringListIterator.cpp" />
-    <ClCompile Include="..\ConstStringListReverseIterator.cpp" />
-    <ClCompile Include="..\StringList.cpp" />
-    <ClCompile Include="..\StringListIterator.cpp" />
-    <ClCompile Include="..\StringListReverseIterator.cpp" />
+    <ClCompile Include="..\ConstStringListIterator.h" />
+    <ClCompile Include="..\ConstStringListReverseIterator.h" />
+    <ClCompile Include="..\StringList.h" />
+    <ClCompile Include="..\StringListIterator.h" />
+    <ClCompile Include="..\StringListReverseIterator.h" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
