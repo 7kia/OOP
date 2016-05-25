@@ -353,6 +353,8 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				BOOST_AUTO_TEST_CASE(can_assigned_empty_list)
 				{
 					list = CStringList();
+
+					VerifyVectors(ConvertToVector(list), ConvertToVector(CStringList()));
 				}
 				BOOST_AUTO_TEST_CASE(can_assigned_not_empty_list)
 				{
@@ -362,6 +364,8 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 					secondList.PushToEnd("qwesdf");
 
 					list = secondList;
+
+					VerifyVectors(ConvertToVector(list), ConvertToVector(secondList));
 				}
 				BOOST_AUTO_TEST_CASE(can_assigned_ownself_list)
 				{
@@ -414,6 +418,20 @@ BOOST_AUTO_TEST_SUITE(StringListWithSeveralElement)
 				BOOST_CHECK_EQUAL(*(patternIter), list.back());
 			}
 		BOOST_AUTO_TEST_SUITE_END()// TestReverseIterator
+
+			BOOST_AUTO_TEST_SUITE(ConstructCopy)
+				BOOST_AUTO_TEST_CASE(can_assigned_not_empty_list)
+				{
+					CStringList secondList;
+				
+					secondList = list;
+
+					list.Erase(secondList.begin());
+
+					BOOST_CHECK(list.front() != secondList.front());
+				}
+
+			BOOST_AUTO_TEST_SUITE_END()// TestReverseIterator
 	BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()

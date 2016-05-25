@@ -19,23 +19,24 @@ namespace RecognizableStrings
 class CUrlRecognizer
 {
 public:
-	std::array<std::string, 3>	RecognizeUrl(const std::string & url);
+	static std::array<std::string, 3>	RecognizeUrl(const std::string & url);// TODO replace `recoginze` with `parse`
 protected:
-	std::string			RecognizeProtocol(boost::string_ref & url);
-	std::string			RecognizeDomain(boost::string_ref & url);
-	std::string			RecognizeDocument(const boost::string_ref & url);
+	static std::string					RecognizeProtocol(boost::string_ref & url);
+	static std::string					RecognizeDomain(boost::string_ref & url);
+	// return string because change input string
+	static std::string					RecognizeDocument(const boost::string_ref & url);
 
-	void				CheckDividersInDocumnet(const boost::string_ref & document);
+	static void							CheckDividersInDocumnet(const boost::string_ref & document);
 	
 
-	size_t				CheckEndProtocol(boost::string_ref & url);
+	static size_t						CheckEndProtocol(boost::string_ref & url);
 
-	void				CheckDomainCorrectness(const std::string & domain);
-	void				CheckContainsDotInDomain(const boost::string_ref & url);
-	size_t				CheckEndDomain(boost::string_ref & url);
-	void				CheckCorrectnessDomainSymbols(const boost::string_ref & url);
+	static void							CheckDomainCorrectness(const std::string & domain);
+	static void							CheckContainsDotInDomain(const boost::string_ref & url);
+	static size_t						CheckEndDomain(boost::string_ref & url);
+	static void							CheckCorrectnessDomainSymbols(const boost::string_ref & url);
 
-	void				CheckDocumentCorrectness(const boost::string_ref & domain);
-	void				CheckCorrectnessDocumentSymbols(const boost::string_ref & document);
-	void				AddSlashToStartDocument(std::string & document);
+	static void							CheckDocumentCorrectness(const boost::string_ref & domain);
+	static void							CheckCorrectnessDocumentSymbols(const boost::string_ref & document);
+	static void							AddSlashToStartDocument(std::string & document);
 };

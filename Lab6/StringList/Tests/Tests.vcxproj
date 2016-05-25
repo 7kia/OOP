@@ -149,6 +149,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ConstStringListIterator.h" />
+    <ClInclude Include="..\ConstStringListReverseIterator.h" />
     <ClInclude Include="..\StringList.h" />
     <ClInclude Include="..\StringListIterator.h" />
     <ClInclude Include="..\StringListReverseIterator.h" />
@@ -157,6 +159,8 @@
     <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ConstStringListIterator.cpp" />
+    <ClCompile Include="..\ConstStringListReverseIterator.cpp" />
     <ClCompile Include="..\StringList.cpp" />
     <ClCompile Include="..\StringListIterator.cpp" />
     <ClCompile Include="..\StringListReverseIterator.cpp" />

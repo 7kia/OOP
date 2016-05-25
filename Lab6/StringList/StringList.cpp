@@ -39,7 +39,7 @@ void CStringList::PushToEnd(const std::string & addString)
 
 		m_size++;
 	}
-	catch (const std::bad_alloc & exception)
+	catch (...)//(const std::bad_alloc & exception)
 	{
 		throw;
 	}
@@ -67,7 +67,7 @@ void CStringList::PushToStart(const std::string & addString)
 
 		m_size++;
 	}
-	catch (const std::bad_alloc & exception)
+	catch (...)//(const std::bad_alloc & exception)
 	{
 		throw;
 	}
@@ -81,7 +81,7 @@ std::string CStringList::front() const
 
 		return m_begin->data;
 	}
-	catch (const std::runtime_error & exception)
+	catch (...)//(const std::runtime_error & exception)
 	{
 		throw;
 	}
@@ -95,7 +95,7 @@ std::string CStringList::back() const
 
 		return m_end.lock()->data;
 	}
-	catch (const std::runtime_error & exception)
+	catch (...)//(const std::runtime_error & exception)
 	{
 		throw;
 	}

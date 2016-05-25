@@ -17,6 +17,7 @@ CHttpUrl::CHttpUrl(Protocol protocol
 
 CHttpUrl::CHttpUrl(const std::string  & url)
 {
+	// TODO: recognize port.
 	array<string, 3> partsUrl = RecognizeUrl(url);
 
 	SetData(partsUrl[0]
@@ -38,11 +39,29 @@ void CHttpUrl::SetData(const string & protocol// TODO : correctness
 
 std::string CHttpUrl::GetURL() const
 {
+	// FIXME: don't add standard port
+	//string port = to_string(GetPort());
+	string port;
+	switch (GetPort())
+	{
+	case static_cast<int>(HTTP) :
+		if (GetProtocol() != HTTP)
+		{
+			port = to_string(static_cast<int>(HTTP));
+		}
+		break;
+	case static_cast<int>(HTTPS) :
+		if (GetProtocol() != HTTPS)
+		{
+			port = to_string(static_cast<int>(HTTPS));
+		}
+		break;
+	}
 	return GetStringPresentationProtocol() 
 			+ RecognizableStrings::PROTOCOL_DIVIDER
 			+ m_domain 
 			+ RecognizableStrings::PORT_DIVIDER
-			+ to_string(GetPort()) 
+			+ port
 			+ m_document;
 }
 
@@ -112,13 +131,11 @@ string CHttpUrl::GetStringPresentationProtocol() const
 	{
 	case Protocol::HTTP:
 		return RecognizableStrings::HTTP_STRING_PRSENTATION;
-		break;
 	case Protocol::HTTPS:
 		return RecognizableStrings::HTTPS_STRING_PRSENTATION;
-		break;
 	default:
-		throw invalid_argument(MESSAGE_INCORRECT_PROTOCOL);
-		break;
+		assert(!"Unknown protocol");
+		return RecognizableStrings::HTTP_STRING_PRSENTATION;
 	}
 }
 

@@ -88,16 +88,6 @@ CStringList::CReverseIterator CStringList::rend()
 		, this);
 }
 
-const CStringList::CReverseIterator CStringList::rbegin() const
-{
-	return rbegin();
-}
-
-const CStringList::CReverseIterator CStringList::rend() const
-{
-	return rend();
-}
-
 bool const operator==(const CStringList::CReverseIterator & first
 					, const CStringList::CReverseIterator & second)
 {

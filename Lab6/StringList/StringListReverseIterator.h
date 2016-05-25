@@ -4,7 +4,7 @@
 
 
 class CStringList::CReverseIterator
-	: public CIteratorData
+	: public CChangeItaratorData
 	, public std::iterator<std::bidirectional_iterator_tag, std::string>
 {
 public:

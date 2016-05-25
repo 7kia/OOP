@@ -45,17 +45,17 @@ public:
 
 	CIterator					begin();
 	CIterator					end();
-	const CIterator				cbegin() const ;// TODO : const iterator
-	const CIterator				cend() const;
+	CConstIterator				cbegin() const ;// TODO : const iterator
+	CConstIterator				cend() const;
 
 	CStringList::CIterator&		Insert(CIterator & iter
 										, const std::string & data);
-	void	Erase(CIterator & iter);
+	void						Erase(CIterator & iter);
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
-	const CReverseIterator		rbegin() const;// TODO : reverse const iterator
-	const CReverseIterator		rend() const;
+	CConstReverseIterator		crbegin() const;// TODO : reverse const iterator
+	CConstReverseIterator		crend() const;
 
 
 	size_t						GetSize() const;

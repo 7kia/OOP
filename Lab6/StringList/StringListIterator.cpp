@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "StringList.h"
-#include "StringListIterator.h"
+#include "ConstStringListIterator.h"
+#include "ConstStringListReverseIterator.h"
 
 using namespace std;
 
@@ -33,22 +34,6 @@ void CStringList::Clear()
 	}
 }
 
-
-CStringList & CStringList::operator=(const CStringList & other)
-{
-	if (this != &other)
-	{
-		Clear();
-
-		for (auto iter = other.cbegin(); iter != other.cend(); ++iter)
-		{
-			PushToEnd(*iter);
-		}
-	}
-
-	return *this;
-}
-
 bool const operator==(const CIteratorData & first, const CIteratorData & second)
 {
 	if (first.m_isEnd != second.m_isEnd)
@@ -75,7 +60,7 @@ bool const operator!=(const CIteratorData & first
 bool const operator==(const CStringList::CIterator & first
 					, const CStringList::CIterator & second)
 {
-	return dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second);
+	return *dynamic_cast<const CIteratorData*>(&first) == *dynamic_cast<const CIteratorData*>(&second);
 }
 
 bool const operator!=(const CStringList::CIterator & first
@@ -86,7 +71,11 @@ bool const operator!=(const CStringList::CIterator & first
 //	return !(dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second));
 
 
-string& CIteratorData::operator*() const
+CChangeItaratorData::~CChangeItaratorData()
+{
+}
+
+string& CChangeItaratorData::operator*() const
 {
 	try
 	{
@@ -94,13 +83,13 @@ string& CIteratorData::operator*() const
 
 		return CStringList::GetLockCopy(m_node)->data;
 	}
-	catch (const std::runtime_error & exception)
+	catch (...)//(const std::runtime_error & exception)
 	{
 		throw;
 	}
 }
 
-string* CIteratorData::operator->() const
+string* CChangeItaratorData::operator->() const
 {
 	try
 	{
@@ -109,7 +98,7 @@ string* CIteratorData::operator->() const
 
 		return &(*(*this));
 	}
-	catch (const std::runtime_error & exception)
+	catch (...)//(const std::runtime_error & exception)
 	{
 		throw;
 	}
@@ -137,7 +126,7 @@ CStringList::CIterator& CStringList::CIterator::operator++()
 
 		return *this;
 	}
-	catch (const std::runtime_error & exception)
+	catch (...)//(const std::runtime_error & exception)
 	{
 		throw;
 	}
@@ -208,28 +197,6 @@ CStringList::CIterator CStringList::end()
 								, this);
 }
 
-const CStringList::CIterator CStringList::cbegin() const
-{
-	if (m_begin)
-	{
-		return CStringList::CConstIterator(false
-								, m_begin
-								, this);
-	}
-	else
-	{
-		return cend();
-	}
-}
-
-const  CStringList::CIterator CStringList::cend() const
-{
-	return CStringList::CConstIterator(true
-									, weak_ptr<Node>()
-									, this);
-
-}
-
 CStringList::CIterator& CStringList::Insert(CIterator & iter, const string & data)
 {
 	try
@@ -274,7 +241,7 @@ CStringList::CIterator& CStringList::Insert(CIterator & iter, const string & dat
 		m_size++;
 		return iter;
 	}
-	catch (const std::bad_alloc & exception)
+	catch (...)//(const std::bad_alloc & exception)
 	{
 		throw;
 	}
@@ -321,21 +288,10 @@ void CStringList::Erase(CIterator & iter)
 		m_size--;
 		//return iter;
 	}
-	catch (const std::bad_alloc & exception)
+	catch (...)//(const std::bad_alloc & exception)
 	{
 		throw;
 	}
-	catch (const std::runtime_error & exception)
-	{
-		throw;
-	}
-}
+	// (const std::runtime_error & exception)
 
-CStringList::CConstIterator::CConstIterator(bool isEnd
-											, std::weak_ptr<Node> const & node
-											, const CStringList * list)
-{
-	m_isEnd = isEnd;
-	m_node = node;
-	m_target = list;
 }

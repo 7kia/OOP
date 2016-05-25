@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UrlRecognizer.h"
+#include <boost/range/algorithm.hpp>
 
 using namespace std;
 using boost::string_ref;
@@ -20,15 +21,16 @@ array<string, 3> CUrlRecognizer::RecognizeUrl(const string & url)
 	return result;
 }
 
+// TODO addd const
 std::string CUrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 {
-	size_t positionDivider = CheckEndProtocol(url);
+	size_t dividerPosition = CheckEndProtocol(url);
 
-	string result = url.substr(0, positionDivider).to_string();
+	string_ref result = url.substr(0, dividerPosition);
 	if ((result == RecognizableStrings::HTTP_STRING_PRSENTATION)
 		|| (result == RecognizableStrings::HTTPS_STRING_PRSENTATION))
 	{
-		return result;
+		return result.to_string();
 	}
 	else
 	{
@@ -38,13 +40,13 @@ std::string CUrlRecognizer::RecognizeProtocol(boost::string_ref & url)
 
 size_t CUrlRecognizer::CheckEndProtocol(boost::string_ref & url)
 {
-	size_t positionDivider = url.find(RecognizableStrings::PROTOCOL_DIVIDER);
+	size_t dividerPosition = url.find(RecognizableStrings::PROTOCOL_DIVIDER);
 
-	if (positionDivider == string_ref::npos)
+	if (dividerPosition == string_ref::npos)
 	{
 		throw CUrlParsingError(MESSAGE_INCORRECT_PROTOCOL);
 	}
-	return positionDivider;
+	return dividerPosition;
 }
 
 
@@ -89,12 +91,12 @@ size_t CUrlRecognizer::CheckEndDomain(boost::string_ref & url)
 
 void CUrlRecognizer::CheckCorrectnessDomainSymbols(const boost::string_ref & domain)
 {
-	auto haveInvalideSymbols = [&](char ch)
+	auto isSymbolInvalid = [&](char ch)
 	{
-		return (isspace(ch) || (ch == '/'));//|| (ch == '\''));
+		return (iscntrl(ch) || isspace(ch) || (ch == '/'));//|| (ch == '\''));
 	};
 
-	if (find_if(domain.begin(), domain.end(), haveInvalideSymbols) != domain.end())
+	if (find_if(domain, isSymbolInvalid) != domain.end())
 	{
 		throw invalid_argument(MESSAGE_DOMAIN_CONSIST_INVALID_SYMBOLS);
 	}

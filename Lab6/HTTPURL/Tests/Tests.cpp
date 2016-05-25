@@ -6,13 +6,6 @@
 
 using namespace std;
 
-bool TestStandartConstuctorUrl(const string & input)
-{
-	CHttpUrl url = CHttpUrl(input);
-
-	return true;
-}
-
 bool TestAlternativeConstuctorUrl(SDataForCheck data)
 {
 	CHttpUrl url(data.protocol
@@ -64,29 +57,61 @@ BOOST_AUTO_TEST_CASE(have_port)
 
 BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_protocol)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("htFtps://github.com/7kia/OOP/"), CUrlParsingError);
+	BOOST_CHECK_THROW(CHttpUrl("htFtps://github.com/7kia/OOP/"), CUrlParsingError);
 };
 
 BOOST_AUTO_TEST_CASE(throw_exeption_for_incorrect_domain)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://githubcom/7kia/OOP/"), invalid_argument);
+	BOOST_CHECK_THROW(CHttpUrl("https://githubcom/7kia/OOP/"), invalid_argument);
 };
 
 BOOST_AUTO_TEST_CASE(document_must_not_consist_excess_slashs)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://github.com/7kia/OOP///"), invalid_argument);
+	BOOST_CHECK_THROW(CHttpUrl("https://github.com/7kia/OOP///"), invalid_argument);
 };
 
 BOOST_AUTO_TEST_CASE(document_must_not_consist_spece_symbols)
 {
-	BOOST_CHECK_THROW(TestStandartConstuctorUrl("https://github.com/7kia/OO  P/"), invalid_argument);
+	BOOST_CHECK_THROW(CHttpUrl("https://github.com/7kia/OO  P/"), invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(no_throw_exeption_for_empty_document)
 {
-	BOOST_REQUIRE_NO_THROW(TestStandartConstuctorUrl("https://github.com/"));
-	BOOST_REQUIRE_NO_THROW(TestStandartConstuctorUrl("https://github.com"));
+	BOOST_REQUIRE_NO_THROW(CHttpUrl("https://github.com/"));
+	BOOST_REQUIRE_NO_THROW(CHttpUrl("https://github.com"));
 }
+
+BOOST_AUTO_TEST_CASE(no_throw_exeption_for_empty_document)
+{
+	BOOST_REQUIRE_NO_THROW(CHttpUrl("https://github.com/"));
+	BOOST_REQUIRE_NO_THROW(CHttpUrl("https://github.com"));
+}
+
+BOOST_AUTO_TEST_CASE(get_url_function_not_return_standart_port)
+{
+	string stringPresentationUrl = "https://github.com/";
+	CHttpUrl url = CHttpUrl(stringPresentationUrl);
+	BOOST_CHECK_EQUAL(url.GetURL(), stringPresentationUrl);
+
+	stringPresentationUrl = "http://github.com/";
+	url = CHttpUrl(stringPresentationUrl);
+	BOOST_CHECK_EQUAL(url.GetURL(), stringPresentationUrl);
+}
+
+
+BOOST_AUTO_TEST_CASE(get_url_function_not_return_standart_port)
+{
+	string stringPresentationUrl = "https://github.com/";
+	CHttpUrl url = CHttpUrl(stringPresentationUrl);
+	BOOST_CHECK_EQUAL(url.GetURL(), stringPresentationUrl);
+
+	stringPresentationUrl = "http://github.com/";
+	url = CHttpUrl(stringPresentationUrl);
+	BOOST_CHECK_EQUAL(url.GetURL(), stringPresentationUrl);
+}
+// TODO: add `http://localhost:8080/admin.php`
+// TODO: add `https://yandex.ru/advanced/search/?q=Cats&lng=ru_RU`
+// TODO: add invalid test `http://localhost:88888/admin.php`
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
