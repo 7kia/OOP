@@ -9,7 +9,7 @@ bool FindMax(std::vector<T> const& array
 			, Less const& less = Less());
 */
 
-bool FindMax(const std::vector<std::string> & array
+bool FindMax(const std::vector<const char *> & array
 	, char &maxValue
 	, std::function<bool(const char, const char)> const& less);
 

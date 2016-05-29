@@ -3,7 +3,7 @@
 #include "FindMaxExDeclaration.h"
 
 ///*
-bool FindMax(const std::vector<std::string> & array
+bool FindMax(const std::vector<const char *> & array
 	, char &maxValue
 	, std::function<bool(const char, const char)> const& less)
 {
@@ -15,11 +15,13 @@ bool FindMax(const std::vector<std::string> & array
 	char max = '\0';
 	for (const auto & arrayElement : array)
 	{
-		for (const auto & stringElement : arrayElement)
+		//for (const auto & stringElement : arrayElement)
+		size_t sizeString = strlen(arrayElement);
+		for (size_t index = 0; index < sizeString; index++)
 		{
-			if (less(max, stringElement))
+			if (less(max, arrayElement[index]))
 			{
-				max = stringElement;
+				max = arrayElement[index];
 			}
 		}
 	}
