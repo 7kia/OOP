@@ -28,6 +28,7 @@ bool FindMax(const std::vector<const char *> & array
 	maxValue = max;
 	return true;
 }
+//*/
 
 template <typename T, typename Less = std::less<T>>
 bool FindMax(std::vector<T> const& array
