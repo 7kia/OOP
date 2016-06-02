@@ -1,3 +1,3 @@
 #pragma once
 
-#include "FindMaxExInitialization.h"
+#include "FindMaxExTemplateInit.h"
