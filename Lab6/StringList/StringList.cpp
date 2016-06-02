@@ -21,84 +21,56 @@ std::shared_ptr<CStringList::Node> CStringList::GetLockCopy(const std::weak_ptr<
 
 void CStringList::PushToEnd(const std::string & addString)
 {
-	try
+	if (m_begin.get() == nullptr)
 	{
-		if (m_begin.get() == nullptr)
-		{
-			CreateFirstNode(addString);
-		}
-		else
-		{
-			std::shared_ptr<Node> newNode = make_shared<Node>();
-			newNode->previous = m_end;
-			newNode->data = addString;
-
-			GetLockCopy(m_end)->next = newNode;
-			m_end = newNode;
-		}
-
-		m_size++;
+		CreateFirstNode(addString);
 	}
-	catch (const std::bad_alloc & exception)
+	else
 	{
-		throw;
+		std::shared_ptr<Node> newNode = make_shared<Node>();
+		newNode->previous = m_end;
+		newNode->data = addString;
+
+		GetLockCopy(m_end)->next = newNode;
+		m_end = newNode;
 	}
+
+	m_size++;
 }
 
 void CStringList::PushToStart(const std::string & addString)
 {
-	try
+	if (m_begin.get() == nullptr)
 	{
-		if (m_begin.get() == nullptr)
-		{
-			CreateFirstNode(addString);
-		}
-		else
-		{
-			std::shared_ptr<Node> newNode = make_shared<Node>();
-
-			newNode->next = m_begin;
-			newNode->data = addString;
-
-			m_begin->previous = newNode;
-
-			m_begin = newNode;
-		}
-
-		m_size++;
+		CreateFirstNode(addString);
 	}
-	catch (const std::bad_alloc & exception)
+	else
 	{
-		throw;
+		std::shared_ptr<Node> newNode = make_shared<Node>();
+
+		newNode->next = m_begin;
+		newNode->data = addString;
+
+		m_begin->previous = newNode;
+
+		m_begin = newNode;
 	}
+
+	m_size++;
 }
 
 std::string CStringList::front() const
 {
-	try
-	{
-		CheckListForNotEmpty();
+	CheckListForNotEmpty();
 
-		return m_begin->data;
-	}
-	catch (const std::runtime_error & exception)
-	{
-		throw;
-	}
+	return m_begin->data;
 }
 
 std::string CStringList::back() const
 {
-	try
-	{
-		CheckListForNotEmpty();
+	CheckListForNotEmpty();
 
-		return m_end.lock()->data;
-	}
-	catch (const std::runtime_error & exception)
-	{
-		throw;
-	}
+	return m_end.lock()->data;
 }
 
 size_t CStringList::GetSize() const

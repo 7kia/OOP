@@ -50,7 +50,7 @@ public:
 
 	CStringList::CIterator&		Insert(CIterator & iter
 										, const std::string & data);
-	void	Erase(CIterator & iter);
+	CStringList::CIterator&		Erase(CIterator & iter);
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
