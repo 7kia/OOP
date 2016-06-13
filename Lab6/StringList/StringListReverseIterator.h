@@ -4,14 +4,15 @@
 
 
 class CStringList::CReverseIterator
-	: public CIteratorData
-	, public std::iterator<std::bidirectional_iterator_tag, std::string>
+	: public CIterator
 {
 public:
 	CReverseIterator();
 	CReverseIterator(bool isEnd
-		, std::weak_ptr<Node> const& node// TODO refers
-		, CStringList* list);
+					, std::weak_ptr<Node> const& node// TODO refers
+					, const CStringList* list);
+
+	virtual ~CReverseIterator();
 
 
 	friend bool const					operator==(const CReverseIterator& first
@@ -19,7 +20,6 @@ public:
 	friend bool const					operator!=(const CReverseIterator& first
 													, const CReverseIterator & second);// TODO : NOT TESTS
 
-	//~CReverseIterator();
 public:
 	CReverseIterator&					operator++();
 	CReverseIterator&					operator--();

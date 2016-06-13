@@ -12,7 +12,7 @@ CStringList::CIterator::CIterator()
 
 CStringList::CIterator::CIterator(bool isEnd
 								, const weak_ptr<Node> & node
-								, CStringList * list)
+								, const CStringList * list)
 {
 	m_isEnd = isEnd;
 	m_node = node;
@@ -49,7 +49,7 @@ CStringList & CStringList::operator=(const CStringList & other)
 	return *this;
 }
 
-bool const operator==(const CIteratorData & first, const CIteratorData & second)
+bool const operator==(const CStringList::CIterator & first, const CStringList::CIterator & second)
 {
 	if (first.m_isEnd != second.m_isEnd)
 	{
@@ -66,34 +66,21 @@ bool const operator==(const CIteratorData & first, const CIteratorData & second)
 	}
 }
 
-bool const operator!=(const CIteratorData & first
-					, const CIteratorData & second)
+bool const operator!=(const CStringList::CIterator & first
+					, const CStringList::CIterator & second)
 {
 	return !(first == second);
 }
 
-bool const operator==(const CStringList::CIterator & first
-					, const CStringList::CIterator & second)
-{
-	return dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second);
-}
 
-bool const operator!=(const CStringList::CIterator & first
-					, const CStringList::CIterator & second)
-{
-	return *dynamic_cast<const CIteratorData*>(&first) != *dynamic_cast<const CIteratorData*>(&second);
-}
-//	return !(dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second));
-
-
-string& CIteratorData::operator*() const
+string& CStringList::CIterator::operator*() const
 {
 	CheckIteratorForNotExpired();
 
 	return CStringList::GetLockCopy(m_node)->data;
 }
 
-string* CIteratorData::operator->() const
+string* CStringList::CIterator::operator->() const
 {
 	
 	assert(!m_isEnd);
@@ -142,21 +129,17 @@ CStringList::CIterator& CStringList::CIterator::operator--()
 	return *this;
 }
 
-CIteratorData::~CIteratorData()
-{
-}
-
-weak_ptr<CStringList::Node> CIteratorData::GetNode() const
+weak_ptr<CStringList::Node> CStringList::CIterator::GetNode() const
 {
 	return m_node;
 }
 
-bool const CIteratorData::ReferToEnd() const
+bool const CStringList::CIterator::ReferToEnd() const
 {
 	return m_isEnd;
 }
 
-void CIteratorData::CheckIteratorForNotExpired() const
+void CStringList::CIterator::CheckIteratorForNotExpired() const
 {
 	if (m_node.expired())
 	{
@@ -190,7 +173,7 @@ const CStringList::CIterator CStringList::cbegin() const
 {
 	if (m_begin)
 	{
-		return CStringList::CConstIterator(false
+		return CStringList::CIterator(false
 								, m_begin
 								, this);
 	}
@@ -202,9 +185,9 @@ const CStringList::CIterator CStringList::cbegin() const
 
 const  CStringList::CIterator CStringList::cend() const
 {
-	return CStringList::CConstIterator(true
-									, weak_ptr<Node>()
-									, this);
+	return CStringList::CIterator(true
+								, weak_ptr<Node>()
+								, this);// TODO : dublicate
 
 }
 
@@ -259,7 +242,7 @@ CStringList::CIterator& CStringList::Erase(CIterator & iter)
 	shared_ptr<Node> prevNode = GetLockCopy(deleteNode->previous);
 	shared_ptr<Node> nextNode = deleteNode->next;
 
-	CIterator returnIterator;
+	m_size--;
 
 	if (prevNode)
 	{
@@ -268,14 +251,14 @@ CStringList::CIterator& CStringList::Erase(CIterator & iter)
 			prevNode->next = nextNode;
 			nextNode->previous = prevNode;
 
-			returnIterator = CStringList::CIterator(false, nextNode, this);
+			return CStringList::CIterator(false, nextNode, this);
 		}
 		else
 		{
 			prevNode->next.reset();
 			m_end = prevNode;
 
-			returnIterator = CStringList::CIterator(false, m_end, this);
+			return CStringList::CIterator(false, m_end, this);
 		}
 	}
 	else
@@ -285,27 +268,14 @@ CStringList::CIterator& CStringList::Erase(CIterator & iter)
 			nextNode->previous.reset();
 			m_begin = nextNode;
 
-			returnIterator = begin();
+			return begin();
 		}
 		else
 		{
 			m_begin.reset();
 			m_end.reset();
 			
-			returnIterator = end();
+			return end();
 		}
 	}
-
-	m_size--;
-
-	return returnIterator;
-}
-
-CStringList::CConstIterator::CConstIterator(bool isEnd
-											, std::weak_ptr<Node> const & node
-											, const CStringList * list)
-{
-	m_isEnd = isEnd;
-	m_node = node;
-	m_target = list;
 }

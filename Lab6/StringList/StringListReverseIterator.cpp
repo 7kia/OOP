@@ -4,25 +4,22 @@
 using namespace std;
 
 CStringList::CReverseIterator::CReverseIterator()
+	: CStringList::CIterator()
 {
-	m_isEnd = true;
-	m_target = nullptr;
 }
 
 CStringList::CReverseIterator::CReverseIterator(bool isEnd
-	, const std::weak_ptr<Node> & node
-	, CStringList * list)
+												, const std::weak_ptr<Node> & node
+												, const CStringList * list) 
+	: CStringList::CIterator(isEnd
+							, node
+							, list)
 {
-	m_isEnd = isEnd;
-	m_node = node;
-	m_target = list;
 }
 
-/*
 CStringList::CReverseIterator::~CReverseIterator()
 {
 }
-*/
 
 
 CStringList::CReverseIterator & CStringList::CReverseIterator::operator++()
@@ -77,7 +74,6 @@ CStringList::CReverseIterator CStringList::rbegin()
 	else
 	{
 		return rend();
-
 	}
 }
 
@@ -88,24 +84,35 @@ CStringList::CReverseIterator CStringList::rend()
 		, this);
 }
 
-const CStringList::CReverseIterator CStringList::rbegin() const
+const CStringList::CReverseIterator CStringList::crbegin() const
 {
-	return rbegin();
+	if (m_begin)
+	{
+		return CStringList::CReverseIterator(false
+			, m_end
+			, this);
+	}
+	else
+	{
+		return crend();
+	}
 }
 
-const CStringList::CReverseIterator CStringList::rend() const
+const CStringList::CReverseIterator CStringList::crend() const
 {
-	return rend();
+	return CStringList::CReverseIterator(true
+										, weak_ptr<Node>()
+										, this);
 }
 
 bool const operator==(const CStringList::CReverseIterator & first
 					, const CStringList::CReverseIterator & second)
 {
-	return dynamic_cast<const CIteratorData*>(&first) == dynamic_cast<const CIteratorData*>(&second);
+	return *dynamic_cast<const CStringList::CIterator*>(&first) == *dynamic_cast<const CStringList::CIterator*>(&second);// TODO : test
 }
 
 bool const operator!=(const CStringList::CReverseIterator & first
 					, const CStringList::CReverseIterator & second)
 {
-	return dynamic_cast<const CIteratorData*>(&first) != dynamic_cast<const CIteratorData*>(&second);
+	return !(first == second);
 }

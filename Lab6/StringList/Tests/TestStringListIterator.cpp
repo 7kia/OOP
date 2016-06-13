@@ -2,6 +2,44 @@
 #include "Tests.h"
 
 BOOST_FIXTURE_TEST_SUITE(TestIterator, StringListWithSeveralElement_)
+	BOOST_AUTO_TEST_SUITE(operator_start)
+		BOOST_AUTO_TEST_CASE(get_element)
+		{
+			CStringList::CIterator iter = list.begin();
+
+			BOOST_CHECK_EQUAL(*iter, firstElelment);
+		}
+	BOOST_AUTO_TEST_SUITE_END()// operator_start
+
+	BOOST_AUTO_TEST_SUITE(operator_arrow)
+		BOOST_AUTO_TEST_CASE(get_element)
+		{
+			CStringList::CIterator iter = list.begin();
+
+			BOOST_CHECK_EQUAL(iter->c_str(), firstElelment);
+		}
+	BOOST_AUTO_TEST_SUITE_END()// operator_arrow
+
+	BOOST_AUTO_TEST_SUITE(operators_compare)
+		BOOST_AUTO_TEST_CASE(equal)
+		{
+			CStringList::CIterator firstiIter = list.begin();
+			CStringList::CIterator secondIter = list.begin();
+			CStringList::CIterator thirdIter = list.end();
+			BOOST_CHECK(firstiIter == secondIter);
+			BOOST_CHECK(!(firstiIter == thirdIter));
+		}
+		BOOST_AUTO_TEST_CASE(not_equal)
+		{
+			CStringList::CIterator firstiIter = list.begin();
+			CStringList::CIterator secondIter = ++list.begin();
+
+			BOOST_CHECK(firstiIter != secondIter);
+			BOOST_CHECK(!(firstiIter != list.begin()));
+		}
+	BOOST_AUTO_TEST_SUITE_END()// operator_start
+
+
 	BOOST_AUTO_TEST_CASE(can_get_value_list_to_help_operator_star)
 	{
 		CStringList::CIterator iter = list.begin();

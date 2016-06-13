@@ -30,9 +30,7 @@ public:
 		std::string				data;
 	};
 	class CIterator;
-	class CConstIterator;
 	class CReverseIterator;
-	class CConstReverseIterator;
 
 public:
 	static std::shared_ptr<Node> GetLockCopy(const std::weak_ptr<Node> & pointer);
@@ -54,8 +52,8 @@ public:
 
 	CReverseIterator			rbegin();
 	CReverseIterator			rend();
-	const CReverseIterator		rbegin() const;// TODO : reverse const iterator
-	const CReverseIterator		rend() const;
+	const CReverseIterator		crbegin() const;// TODO : reverse const iterator
+	const CReverseIterator		crend() const;
 
 
 	size_t						GetSize() const;
