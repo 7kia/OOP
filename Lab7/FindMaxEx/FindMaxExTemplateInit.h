@@ -12,16 +12,16 @@ bool FindMax(std::vector<T> const& array
 		return false;
 	}
 
-	T max = array.front();
-	for (size_t index = 1; index < array.size(); index++)
+	auto max = array.begin();
+	for (auto it = max + 1; it != array.end(); ++it)
 	{
-		if (less(max, array[index]))
+		if (less(*max, *it))
 		{
-			max = array[index];
+			max = it;
 		}
 	}
 
-	maxValue = max;
+	maxValue = *max;
 	return true;
 }
 
